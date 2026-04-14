@@ -7,6 +7,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_dimensions.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../shared/widgets/app_button.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class HostCreateListingScreen extends StatefulWidget {
   const HostCreateListingScreen({super.key});
@@ -99,7 +100,7 @@ class _HostCreateListingScreenState extends State<HostCreateListingScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
+          icon: Icon(PhosphorIcons.arrowLeft()),
           onPressed: _back,
         ),
         title: Text('Step ${_step + 1} of $_totalSteps'),
@@ -153,12 +154,24 @@ class _HostCreateListingScreenState extends State<HostCreateListingScreen> {
             onPowerTypeChanged: (v) => setState(() => _powerType = v),
             onToggle: (key, val) => setState(() {
               switch (key) {
-                case 'wifi': _hasWifi = val; break;
-                case 'ac': _hasAC = val; break;
-                case 'water': _hasWater = val; break;
-                case 'parking': _hasParking = val; break;
-                case 'security': _hasSecurity = val; break;
-                case 'pool': _hasPool = val; break;
+                case 'wifi':
+                  _hasWifi = val;
+                  break;
+                case 'ac':
+                  _hasAC = val;
+                  break;
+                case 'water':
+                  _hasWater = val;
+                  break;
+                case 'parking':
+                  _hasParking = val;
+                  break;
+                case 'security':
+                  _hasSecurity = val;
+                  break;
+                case 'pool':
+                  _hasPool = val;
+                  break;
               }
             }),
             onNext: _next,
@@ -212,10 +225,10 @@ class _Step1PropertyType extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('What type of property\nare you listing?',
-                  style: AppTextStyles.h2)
-              .animate()
-              .fadeIn(duration: 400.ms),
+          Text(
+            'What type of property\nare you listing?',
+            style: AppTextStyles.h2,
+          ).animate().fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.space2XL),
           Expanded(
             child: GridView.count(
@@ -226,38 +239,45 @@ class _Step1PropertyType extends StatelessWidget {
               children: _types.asMap().entries.map((e) {
                 final isSelected = selected == e.value.label;
                 return GestureDetector(
-                  onTap: () => onSelect(e.value.label),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? AppColors.primaryLight
-                          : Theme.of(context).colorScheme.surface,
-                      borderRadius:
-                          BorderRadius.circular(AppDimensions.radiusLG),
-                      border: Border.all(
-                        color: isSelected
-                            ? AppColors.primary
-                            : AppColors.border,
-                        width: isSelected ? 2 : 1,
+                      onTap: () => onSelect(e.value.label),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? AppColors.primaryLight
+                              : Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.radiusLG,
+                          ),
+                          border: Border.all(
+                            color: isSelected
+                                ? AppColors.primary
+                                : AppColors.border,
+                            width: isSelected ? 2 : 1,
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              e.value.icon,
+                              style: const TextStyle(fontSize: 28),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              e.value.label,
+                              style: AppTextStyles.labelMD.copyWith(
+                                color: isSelected
+                                    ? AppColors.primaryDark
+                                    : AppColors.textPrimary,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(e.value.icon,
-                            style: const TextStyle(fontSize: 28)),
-                        const SizedBox(height: 6),
-                        Text(e.value.label,
-                            style: AppTextStyles.labelMD.copyWith(
-                              color: isSelected
-                                  ? AppColors.primaryDark
-                                  : AppColors.textPrimary,
-                            )),
-                      ],
-                    ),
-                  ),
-                ).animate(delay: Duration(milliseconds: e.key * 50)).fadeIn(duration: 350.ms);
+                    )
+                    .animate(delay: Duration(milliseconds: e.key * 50))
+                    .fadeIn(duration: 350.ms);
               }).toList(),
             ),
           ),
@@ -285,7 +305,9 @@ class _Step2Basics extends StatelessWidget {
 
   final TextEditingController titleCtrl;
   final int bedrooms, bathrooms, maxGuests;
-  final ValueChanged<int> onBedroomsChanged, onBathroomsChanged, onGuestsChanged;
+  final ValueChanged<int> onBedroomsChanged,
+      onBathroomsChanged,
+      onGuestsChanged;
   final VoidCallback onNext;
 
   @override
@@ -295,11 +317,15 @@ class _Step2Basics extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Basic details', style: AppTextStyles.h2)
-              .animate().fadeIn(duration: 400.ms),
+          Text(
+            'Basic details',
+            style: AppTextStyles.h2,
+          ).animate().fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.space2XL),
-          Text('Listing title', style: AppTextStyles.labelMD)
-              .animate(delay: 80.ms).fadeIn(),
+          Text(
+            'Listing title',
+            style: AppTextStyles.labelMD,
+          ).animate(delay: 80.ms).fadeIn(),
           const SizedBox(height: AppDimensions.spaceSM),
           TextFormField(
             controller: titleCtrl,
@@ -333,8 +359,10 @@ class _Step2Basics extends StatelessWidget {
             onChanged: onGuestsChanged,
           ).animate(delay: 220.ms).fadeIn(),
           const SizedBox(height: AppDimensions.space3XL),
-          AppButton(label: 'Next', onPressed: onNext)
-              .animate(delay: 260.ms).fadeIn(),
+          AppButton(
+            label: 'Next',
+            onPressed: onNext,
+          ).animate(delay: 260.ms).fadeIn(),
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
@@ -364,7 +392,7 @@ class _CounterRow extends StatelessWidget {
         Row(
           children: [
             _CircleBtn(
-              icon: Icons.remove_rounded,
+              icon: PhosphorIcons.minus(),
               enabled: value > min,
               onTap: () => onChanged(value - 1),
             ),
@@ -377,7 +405,7 @@ class _CounterRow extends StatelessWidget {
               ),
             ),
             _CircleBtn(
-              icon: Icons.add_rounded,
+              icon: PhosphorIcons.plus(),
               enabled: true,
               onTap: () => onChanged(value + 1),
             ),
@@ -412,8 +440,11 @@ class _CircleBtn extends StatelessWidget {
             color: enabled ? AppColors.textSecondary : AppColors.border,
           ),
         ),
-        child: Icon(icon, size: 18,
-            color: enabled ? AppColors.textPrimary : AppColors.border),
+        child: Icon(
+          icon,
+          size: 18,
+          color: enabled ? AppColors.textPrimary : AppColors.border,
+        ),
       ),
     );
   }
@@ -437,8 +468,27 @@ class _Step3Location extends StatelessWidget {
   final ValueChanged<String> onCityChanged, onCountryChanged;
   final VoidCallback onNext;
 
-  static const _cities = ['Accra', 'Kumasi', 'Takoradi', 'Lagos', 'Abuja', 'Port Harcourt', 'Dakar', 'Abidjan', 'Lomé', 'Cotonou'];
-  static const _countries = ['Ghana', 'Nigeria', 'Senegal', 'Ivory Coast', 'Togo', 'Benin', 'Other'];
+  static const _cities = [
+    'Accra',
+    'Kumasi',
+    'Takoradi',
+    'Lagos',
+    'Abuja',
+    'Port Harcourt',
+    'Dakar',
+    'Abidjan',
+    'Lomé',
+    'Cotonou',
+  ];
+  static const _countries = [
+    'Ghana',
+    'Nigeria',
+    'Senegal',
+    'Ivory Coast',
+    'Togo',
+    'Benin',
+    'Other',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -447,20 +497,38 @@ class _Step3Location extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Where is your property?', style: AppTextStyles.h2)
-              .animate().fadeIn(duration: 400.ms),
+          Text(
+            'Where is your property?',
+            style: AppTextStyles.h2,
+          ).animate().fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             'GPS coordinates are often inaccurate in West Africa. Landmark directions are essential.',
-            style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ).animate(delay: 80.ms).fadeIn(),
           const SizedBox(height: AppDimensions.space2XL),
-          _DropField(label: 'Country', value: country, items: _countries, onChanged: onCountryChanged, delay: 100),
+          _DropField(
+            label: 'Country',
+            value: country,
+            items: _countries,
+            onChanged: onCountryChanged,
+            delay: 100,
+          ),
           const SizedBox(height: AppDimensions.spaceLG),
-          _DropField(label: 'City', value: city, items: _cities, onChanged: onCityChanged, delay: 130),
+          _DropField(
+            label: 'City',
+            value: city,
+            items: _cities,
+            onChanged: onCityChanged,
+            delay: 130,
+          ),
           const SizedBox(height: AppDimensions.spaceLG),
-          Text('Street address', style: AppTextStyles.labelMD)
-              .animate(delay: 160.ms).fadeIn(),
+          Text(
+            'Street address',
+            style: AppTextStyles.labelMD,
+          ).animate(delay: 160.ms).fadeIn(),
           const SizedBox(height: AppDimensions.spaceSM),
           TextFormField(
             controller: addressCtrl,
@@ -482,7 +550,10 @@ class _Step3Location extends StatelessWidget {
                   color: AppColors.primary,
                   borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
                 ),
-                child: Text('Important', style: AppTextStyles.bodyXS.copyWith(color: Colors.white)),
+                child: Text(
+                  'Important',
+                  style: AppTextStyles.bodyXS.copyWith(color: Colors.white),
+                ),
               ),
             ],
           ).animate(delay: 210.ms).fadeIn(),
@@ -491,14 +562,18 @@ class _Step3Location extends StatelessWidget {
             controller: landmarkCtrl,
             maxLines: 4,
             decoration: InputDecoration(
-              hintText: 'e.g. Opposite GTBank on Adeola Odeku. Take the second left after the Total petrol station. Look for the cream building with black iron gates.',
+              hintText:
+                  'e.g. Opposite GTBank on Adeola Odeku. Take the second left after the Total petrol station. Look for the cream building with black iron gates.',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
               ),
             ),
           ).animate(delay: 230.ms).fadeIn(),
           const SizedBox(height: AppDimensions.space2XL),
-          AppButton(label: 'Next', onPressed: onNext).animate(delay: 260.ms).fadeIn(),
+          AppButton(
+            label: 'Next',
+            onPressed: onNext,
+          ).animate(delay: 260.ms).fadeIn(),
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
@@ -534,10 +609,17 @@ class _DropField extends StatelessWidget {
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
             ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 14,
+            ),
           ),
-          items: items.map((i) => DropdownMenuItem(value: i, child: Text(i))).toList(),
-          onChanged: (v) { if (v != null) onChanged(v); },
+          items: items
+              .map((i) => DropdownMenuItem(value: i, child: Text(i)))
+              .toList(),
+          onChanged: (v) {
+            if (v != null) onChanged(v);
+          },
         ),
       ],
     ).animate(delay: Duration(milliseconds: delay)).fadeIn();
@@ -549,9 +631,12 @@ class _DropField extends StatelessWidget {
 class _Step4Utilities extends StatelessWidget {
   const _Step4Utilities({
     required this.powerType,
-    required this.hasWifi, required this.hasAC,
-    required this.hasWater, required this.hasParking,
-    required this.hasSecurity, required this.hasPool,
+    required this.hasWifi,
+    required this.hasAC,
+    required this.hasWater,
+    required this.hasParking,
+    required this.hasSecurity,
+    required this.hasPool,
     required this.onPowerTypeChanged,
     required this.onToggle,
     required this.onNext,
@@ -563,17 +648,52 @@ class _Step4Utilities extends StatelessWidget {
   final void Function(String key, bool val) onToggle;
   final VoidCallback onNext;
 
-  static const _powerTypes = ['24/7 Grid', 'Solar Backup', 'Generator Backup', 'No Backup'];
+  static const _powerTypes = [
+    '24/7 Grid',
+    'Solar Backup',
+    'Generator Backup',
+    'No Backup',
+  ];
 
   @override
   Widget build(BuildContext context) {
     final amenities = [
-      (key: 'wifi',     label: 'High-Speed WiFi',    icon: Icons.wifi_rounded,           value: hasWifi),
-      (key: 'ac',       label: 'Air Conditioning',    icon: Icons.ac_unit_rounded,         value: hasAC),
-      (key: 'water',    label: '24/7 Water Supply',   icon: Icons.water_drop_rounded,      value: hasWater),
-      (key: 'parking',  label: 'Parking',             icon: Icons.local_parking_rounded,   value: hasParking),
-      (key: 'security', label: 'CCTV / Security',     icon: Icons.security_rounded,        value: hasSecurity),
-      (key: 'pool',     label: 'Swimming Pool',       icon: Icons.pool_rounded,            value: hasPool),
+      (
+        key: 'wifi',
+        label: 'High-Speed WiFi',
+        icon: PhosphorIcons.wifiHigh(),
+        value: hasWifi,
+      ),
+      (
+        key: 'ac',
+        label: 'Air Conditioning',
+        icon: PhosphorIcons.snowflake(),
+        value: hasAC,
+      ),
+      (
+        key: 'water',
+        label: '24/7 Water Supply',
+        icon: PhosphorIcons.drop(),
+        value: hasWater,
+      ),
+      (
+        key: 'parking',
+        label: 'Parking',
+        icon: PhosphorIcons.car(),
+        value: hasParking,
+      ),
+      (
+        key: 'security',
+        label: 'CCTV / Security',
+        icon: PhosphorIcons.shieldCheck(),
+        value: hasSecurity,
+      ),
+      (
+        key: 'pool',
+        label: 'Swimming Pool',
+        icon: PhosphorIcons.waves(),
+        value: hasPool,
+      ),
     ];
 
     return SingleChildScrollView(
@@ -581,16 +701,22 @@ class _Step4Utilities extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Utilities & verification', style: AppTextStyles.h2)
-              .animate().fadeIn(duration: 400.ms),
+          Text(
+            'Utilities & verification',
+            style: AppTextStyles.h2,
+          ).animate().fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             'Guests rely on these claims. Only tick what is actually available.',
-            style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ).animate(delay: 80.ms).fadeIn(),
           const SizedBox(height: AppDimensions.spaceXXL),
-          Text('Power backup type', style: AppTextStyles.labelMD)
-              .animate(delay: 100.ms).fadeIn(),
+          Text(
+            'Power backup type',
+            style: AppTextStyles.labelMD,
+          ).animate(delay: 100.ms).fadeIn(),
           const SizedBox(height: AppDimensions.spaceSM),
           Wrap(
             spacing: AppDimensions.spaceSM,
@@ -601,21 +727,34 @@ class _Step4Utilities extends StatelessWidget {
                 onTap: () => onPowerTypeChanged(t),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: sel ? AppColors.primary : Colors.transparent,
-                    borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
-                    border: Border.all(color: sel ? AppColors.primary : AppColors.border),
+                    borderRadius: BorderRadius.circular(
+                      AppDimensions.radiusFull,
+                    ),
+                    border: Border.all(
+                      color: sel ? AppColors.primary : AppColors.border,
+                    ),
                   ),
-                  child: Text(t, style: AppTextStyles.labelSM.copyWith(
-                      color: sel ? Colors.white : AppColors.textPrimary)),
+                  child: Text(
+                    t,
+                    style: AppTextStyles.labelSM.copyWith(
+                      color: sel ? Colors.white : AppColors.textPrimary,
+                    ),
+                  ),
                 ),
               );
             }).toList(),
           ).animate(delay: 120.ms).fadeIn(),
           const SizedBox(height: AppDimensions.space2XL),
-          Text('Amenities', style: AppTextStyles.labelMD)
-              .animate(delay: 150.ms).fadeIn(),
+          Text(
+            'Amenities',
+            style: AppTextStyles.labelMD,
+          ).animate(delay: 150.ms).fadeIn(),
           const SizedBox(height: AppDimensions.spaceMD),
           ...amenities.asMap().entries.map((e) {
             final item = e.value;
@@ -629,8 +768,10 @@ class _Step4Utilities extends StatelessWidget {
             ).animate(delay: Duration(milliseconds: 170 + e.key * 40)).fadeIn();
           }),
           const SizedBox(height: AppDimensions.space2XL),
-          AppButton(label: 'Next', onPressed: onNext)
-              .animate(delay: 400.ms).fadeIn(),
+          AppButton(
+            label: 'Next',
+            onPressed: onNext,
+          ).animate(delay: 400.ms).fadeIn(),
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
@@ -658,12 +799,16 @@ class _Step5Photos extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Add photos', style: AppTextStyles.h2)
-              .animate().fadeIn(duration: 400.ms),
+          Text(
+            'Add photos',
+            style: AppTextStyles.h2,
+          ).animate().fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             'Add at least 5 high-quality photos. Good photos increase bookings by 3×.',
-            style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ).animate(delay: 80.ms).fadeIn(),
           const SizedBox(height: AppDimensions.space2XL),
           Expanded(
@@ -678,17 +823,29 @@ class _Step5Photos extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: AppColors.primaryLight,
-                      borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-                      border: Border.all(color: AppColors.primary, style: BorderStyle.solid),
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusMD,
+                      ),
+                      border: Border.all(
+                        color: AppColors.primary,
+                        style: BorderStyle.solid,
+                      ),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.add_photo_alternate_rounded,
-                            size: 32, color: AppColors.primary),
+                        Icon(
+                          PhosphorIcons.image(),
+                          size: 32,
+                          color: AppColors.primary,
+                        ),
                         const SizedBox(height: 4),
-                        Text('Add', style: AppTextStyles.bodyXS
-                            .copyWith(color: AppColors.primary)),
+                        Text(
+                          'Add',
+                          style: AppTextStyles.bodyXS.copyWith(
+                            color: AppColors.primary,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -721,8 +878,12 @@ class _PhotoTile extends StatelessWidget {
   final int index;
 
   static const _colors = [
-    Color(0xFFB2DFDB), Color(0xFFB3E5FC), Color(0xFFC8E6C9),
-    Color(0xFFFFF9C4), Color(0xFFFFCCBC), Color(0xFFE1BEE7),
+    Color(0xFFB2DFDB),
+    Color(0xFFB3E5FC),
+    Color(0xFFC8E6C9),
+    Color(0xFFFFF9C4),
+    Color(0xFFFFCCBC),
+    Color(0xFFE1BEE7),
   ];
 
   @override
@@ -732,7 +893,7 @@ class _PhotoTile extends StatelessWidget {
         color: _colors[index % _colors.length],
         borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
       ),
-      child: const Icon(Icons.image_rounded, color: Colors.white54, size: 32),
+      child: Icon(PhosphorIcons.image(), color: Colors.white54, size: 32),
     );
   }
 }
@@ -767,16 +928,22 @@ class _Step6Pricing extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Set your price', style: AppTextStyles.h2)
-              .animate().fadeIn(duration: 400.ms),
+          Text(
+            'Set your price',
+            style: AppTextStyles.h2,
+          ).animate().fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             'Set a price in USD for international travellers, and optionally in local currency for local guests.',
-            style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ).animate(delay: 80.ms).fadeIn(),
           const SizedBox(height: AppDimensions.space2XL),
-          Text('Price per night (USD)', style: AppTextStyles.labelMD)
-              .animate(delay: 100.ms).fadeIn(),
+          Text(
+            'Price per night (USD)',
+            style: AppTextStyles.labelMD,
+          ).animate(delay: 100.ms).fadeIn(),
           const SizedBox(height: AppDimensions.spaceSM),
           TextFormField(
             controller: priceUSDCtrl,
@@ -790,44 +957,45 @@ class _Step6Pricing extends StatelessWidget {
             ),
           ).animate(delay: 120.ms).fadeIn(),
           const SizedBox(height: AppDimensions.spaceXXL),
-          Text('Local currency (optional)', style: AppTextStyles.labelMD)
-              .animate(delay: 150.ms).fadeIn(),
+          Text(
+            'Local currency (optional)',
+            style: AppTextStyles.labelMD,
+          ).animate(delay: 150.ms).fadeIn(),
           const SizedBox(height: AppDimensions.spaceSM),
-          Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: DropdownButtonFormField<String>(
-                  value: localCurrency,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                  ),
-                  items: _currencies.map((c) => DropdownMenuItem(
+          DropdownButtonFormField<String>(
+            value: localCurrency,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 14,
+              ),
+            ),
+            items: _currencies
+                .map(
+                  (c) => DropdownMenuItem(
                     value: c.code,
                     child: Text(c.label, style: AppTextStyles.bodyMD),
-                  )).toList(),
-                  onChanged: (v) { if (v != null) onCurrencyChanged(v); },
-                ),
-              ),
-              const SizedBox(width: AppDimensions.spaceMD),
-              Expanded(
-                flex: 3,
-                child: TextFormField(
-                  controller: priceLocalCtrl,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: 'Amount',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-                    ),
                   ),
-                ),
-              ),
-            ],
+                )
+                .toList(),
+            onChanged: (v) {
+              if (v != null) onCurrencyChanged(v);
+            },
           ).animate(delay: 170.ms).fadeIn(),
+          const SizedBox(height: AppDimensions.spaceSM),
+          TextFormField(
+            controller: priceLocalCtrl,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              hintText: 'Amount',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
+              ),
+            ),
+          ),
           const SizedBox(height: AppDimensions.space2XL),
           Container(
             padding: const EdgeInsets.all(AppDimensions.spaceLG),
@@ -837,13 +1005,19 @@ class _Step6Pricing extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const Icon(Icons.info_outline_rounded,
-                    size: 18, color: AppColors.primaryDark),
+                Icon(
+                  PhosphorIcons.info(),
+                  size: 18,
+                  color: AppColors.primaryDark,
+                ),
                 const SizedBox(width: AppDimensions.spaceSM),
                 Expanded(
                   child: Text(
                     'A 10% platform fee applies to each booking. Payouts are processed 24–48 hours after guest check-in.',
-                    style: AppTextStyles.bodyXS.copyWith(color: AppColors.primaryDark, height: 1.5),
+                    style: AppTextStyles.bodyXS.copyWith(
+                      color: AppColors.primaryDark,
+                      height: 1.5,
+                    ),
                   ),
                 ),
               ],
@@ -878,12 +1052,17 @@ class _SuccessDialog extends StatelessWidget {
           const SizedBox(height: AppDimensions.spaceLG),
           const Text('🎉', style: TextStyle(fontSize: 56)),
           const SizedBox(height: AppDimensions.spaceLG),
-          Text('Listing Submitted!', style: AppTextStyles.h2,
-              textAlign: TextAlign.center),
+          Text(
+            'Listing Submitted!',
+            style: AppTextStyles.h2,
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             'Your listing is under review. Our team will physically visit and verify the property within 48 hours.',
-            style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppDimensions.space2XL),

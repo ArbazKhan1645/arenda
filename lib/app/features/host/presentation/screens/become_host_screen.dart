@@ -8,6 +8,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_dimensions.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../shared/widgets/app_button.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class BecomeHostScreen extends StatefulWidget {
   const BecomeHostScreen({super.key});
@@ -69,17 +70,19 @@ class _BecomeHostScreenState extends State<BecomeHostScreen> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded),
+          icon: Icon(PhosphorIcons.x()),
           onPressed: () => context.pop(),
         ),
         actions: [
           if (!isLast)
             TextButton(
-              onPressed: () => context.pushReplacement(AppRoutes.hostCreateListing),
+              onPressed: () =>
+                  context.pushReplacement(AppRoutes.hostCreateListing),
               child: Text(
                 'Skip',
-                style: AppTextStyles.labelMD
-                    .copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.labelMD.copyWith(
+                  color: AppColors.textSecondary,
+                ),
               ),
             ),
         ],
@@ -167,15 +170,16 @@ class _PageContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Emoji
-          Text(page.emoji, style: const TextStyle(fontSize: 80))
-              .animate()
-              .scale(
-                begin: const Offset(0.7, 0.7),
-                duration: 500.ms,
-                curve: Curves.elasticOut,
-              ),
+          Text(
+            page.emoji,
+            style: const TextStyle(fontSize: 40),
+          ).animate().scale(
+            begin: const Offset(0.7, 0.7),
+            duration: 500.ms,
+            curve: Curves.elasticOut,
+          ),
 
-          const SizedBox(height: AppDimensions.space2XL),
+          const SizedBox(height: AppDimensions.spaceMD),
 
           // Title
           Text(
@@ -188,43 +192,46 @@ class _PageContent extends StatelessWidget {
 
           // Highlight card
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppDimensions.space2XL,
-              vertical: AppDimensions.spaceLG,
-            ),
-            decoration: BoxDecoration(
-              color: AppColors.primaryLight,
-              borderRadius: BorderRadius.circular(AppDimensions.radiusXL),
-            ),
-            child: Column(
-              children: [
-                Text(
-                  page.highlight,
-                  style: AppTextStyles.h2.copyWith(
-                    color: AppColors.primaryDark,
-                    fontSize: 28,
-                  ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimensions.space2XL,
+                  vertical: AppDimensions.spaceLG,
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  page.highlightLabel,
-                  style: AppTextStyles.bodySM
-                      .copyWith(color: AppColors.primaryDark),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryLight,
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusXL),
                 ),
-              ],
-            ),
-          ).animate(delay: 200.ms).fadeIn(duration: 400.ms).scale(
-                begin: const Offset(0.95, 0.95),
-                duration: 400.ms,
-              ),
+                child: Column(
+                  children: [
+                    Text(
+                      page.highlight,
+                      style: AppTextStyles.h2.copyWith(
+                        color: AppColors.primaryDark,
+                        fontSize: 22,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      page.highlightLabel,
+                      style: AppTextStyles.bodySM.copyWith(
+                        color: AppColors.primaryDark,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+              .animate(delay: 200.ms)
+              .fadeIn(duration: 400.ms)
+              .scale(begin: const Offset(0.95, 0.95), duration: 400.ms),
 
           const SizedBox(height: AppDimensions.space2XL),
 
           // Body
           Text(
             page.body,
-            style: AppTextStyles.bodyLG
-                .copyWith(color: AppColors.textSecondary, height: 1.65),
+            style: AppTextStyles.bodySM.copyWith(
+              color: AppColors.textSecondary,
+              height: 1.65,
+            ),
             textAlign: TextAlign.center,
           ).animate(delay: 280.ms).fadeIn(duration: 400.ms),
         ],

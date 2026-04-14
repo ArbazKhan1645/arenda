@@ -7,6 +7,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_dimensions.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../shared/widgets/app_button.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class TrustSafetyScreen extends StatelessWidget {
   const TrustSafetyScreen({super.key});
@@ -17,7 +18,7 @@ class TrustSafetyScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Trust & Safety'),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
+          icon: Icon(PhosphorIcons.arrowLeft()),
           onPressed: () => context.pop(),
         ),
       ),
@@ -34,7 +35,7 @@ class TrustSafetyScreen extends StatelessWidget {
               delegate: SliverChildListDelegate([
                 // ── Escrow Section ───────────────────────────────────
                 _SectionHeader(
-                  icon: Icons.lock_rounded,
+                  icon: PhosphorIcons.lock(),
                   title: 'Escrow-Protected Payments',
                   color: AppColors.primary,
                 ).animate(delay: 100.ms).fadeIn(duration: 400.ms),
@@ -50,7 +51,7 @@ class TrustSafetyScreen extends StatelessWidget {
 
                 // ── ID Verification Section ──────────────────────────
                 _SectionHeader(
-                  icon: Icons.verified_user_rounded,
+                  icon: PhosphorIcons.shieldCheck(PhosphorIconsStyle.fill),
                   title: 'Guest ID Verification',
                   color: AppColors.primaryDark,
                 ).animate(delay: 200.ms).fadeIn(duration: 400.ms),
@@ -67,7 +68,7 @@ class TrustSafetyScreen extends StatelessWidget {
                 AppButton(
                   label: 'Verify my ID now',
                   variant: AppButtonVariant.outline,
-                  prefixIcon: const Icon(Icons.badge_rounded, size: 18),
+                  prefixIcon: Icon(PhosphorIcons.identificationCard(), size: 18),
                   onPressed: () => context.push(AppRoutes.idVerification),
                 ).animate(delay: 380.ms).fadeIn(duration: 400.ms),
 
@@ -77,7 +78,7 @@ class TrustSafetyScreen extends StatelessWidget {
 
                 // ── Physical Vetting Section ─────────────────────────
                 _SectionHeader(
-                  icon: Icons.home_work_rounded,
+                  icon: PhosphorIcons.house(),
                   title: 'Physical Property Vetting',
                   color: AppColors.success,
                 ).animate(delay: 400.ms).fadeIn(duration: 400.ms),
@@ -102,7 +103,7 @@ class TrustSafetyScreen extends StatelessWidget {
 
                 // ── Payment Methods Section ──────────────────────────
                 _SectionHeader(
-                  icon: Icons.phone_android_rounded,
+                  icon: PhosphorIcons.deviceMobile(),
                   title: 'Mobile Money & Bank Payments',
                   color: const Color(0xFFFFC107),
                 ).animate(delay: 580.ms).fadeIn(duration: 400.ms),
@@ -118,7 +119,7 @@ class TrustSafetyScreen extends StatelessWidget {
 
                 // ── Guest Protection ─────────────────────────────────
                 _SectionHeader(
-                  icon: Icons.shield_rounded,
+                  icon: PhosphorIcons.shield(),
                   title: 'Guest Protection',
                   color: AppColors.error,
                 ).animate(delay: 680.ms).fadeIn(duration: 400.ms),
@@ -181,7 +182,7 @@ class _Hero extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Icon(Icons.security_rounded, size: 56, color: Colors.white),
+          Icon(PhosphorIcons.shieldCheck(), size: 56, color: Colors.white),
           const SizedBox(height: AppDimensions.spaceLG),
           Text(
             'Built for West Africa',

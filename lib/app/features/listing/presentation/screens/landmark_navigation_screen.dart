@@ -9,6 +9,7 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../shared/widgets/app_button.dart';
 import '../../../home/data/datasources/mock_home_datasource.dart';
 import '../../../home/domain/entities/listing_entity.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class LandmarkNavigationScreen extends StatelessWidget {
   const LandmarkNavigationScreen({super.key, required this.listingId});
@@ -30,12 +31,12 @@ class LandmarkNavigationScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('How to find us'),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
+          icon: Icon(PhosphorIcons.arrowLeft()),
           onPressed: () => context.pop(),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.share_rounded),
+            icon: Icon(PhosphorIcons.shareNetwork()),
             tooltip: 'Share directions',
             onPressed: () => _copyToClipboard(context, listing),
           ),
@@ -64,8 +65,8 @@ class LandmarkNavigationScreen extends StatelessWidget {
                         borderRadius:
                             BorderRadius.circular(AppDimensions.radiusMD),
                       ),
-                      child: const Icon(
-                        Icons.location_on_rounded,
+                      child: Icon(
+                        PhosphorIcons.mapPin(PhosphorIconsStyle.fill),
                         color: AppColors.primaryDark,
                         size: 22,
                       ),
@@ -145,7 +146,7 @@ class LandmarkNavigationScreen extends StatelessWidget {
                 AppButton(
                   label: 'Copy directions',
                   variant: AppButtonVariant.outline,
-                  prefixIcon: const Icon(Icons.copy_rounded, size: 18),
+                  prefixIcon: Icon(PhosphorIcons.copy(), size: 18),
                   onPressed: () => _copyToClipboard(context, listing),
                 ).animate(delay: 500.ms).fadeIn(duration: 400.ms),
 
@@ -203,8 +204,8 @@ class _MapPlaceholder extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.map_rounded,
+                Icon(
+                  PhosphorIcons.mapTrifold(),
                   size: 48,
                   color: Color(0xFF00897B),
                 ),
@@ -245,8 +246,8 @@ class _MapPlaceholder extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: const Icon(
-                    Icons.home_rounded,
+                  child: Icon(
+                    PhosphorIcons.house(),
                     color: Colors.white,
                     size: 20,
                   ),
@@ -317,7 +318,7 @@ class _CoordinateRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(Icons.my_location_rounded,
+          Icon(PhosphorIcons.mapPin(PhosphorIconsStyle.fill),
               color: AppColors.primary, size: 20),
           const SizedBox(width: AppDimensions.spaceMD),
           Text(
@@ -333,7 +334,7 @@ class _CoordinateRow extends StatelessWidget {
                 const SnackBar(content: Text('Coordinates copied')),
               );
             },
-            child: const Icon(Icons.copy_rounded,
+            child: Icon(PhosphorIcons.copy(),
                 size: 18, color: AppColors.textSecondary),
           ),
         ],

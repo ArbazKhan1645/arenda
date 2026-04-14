@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -60,8 +61,8 @@ class ListingCardWidget extends ConsumerWidget {
                     ),
                     child: Icon(
                       isWishlisted
-                          ? Icons.favorite_rounded
-                          : Icons.favorite_outline_rounded,
+                          ? PhosphorIcons.heart(PhosphorIconsStyle.fill)
+                          : PhosphorIcons.heart(),
                       size: 18,
                       color: isWishlisted ? AppColors.error : Colors.white,
                     ),

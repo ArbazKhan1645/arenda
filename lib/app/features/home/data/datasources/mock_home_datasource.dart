@@ -17,25 +17,23 @@ abstract final class MockHomeDataSource {
 
   // ── Categories ─────────────────────────────────────────────────────────────
   static final List<CategoryEntity> _categories = const [
-    CategoryEntity(id: 'all',        label: 'All',          icon: '🌍'),
-    CategoryEntity(id: 'shortlet',   label: 'Shortlets',    icon: '🏢'),
-    CategoryEntity(id: 'apartment',  label: 'Apartments',   icon: '🏠'),
-    CategoryEntity(id: 'villa',      label: 'Villas',       icon: '🏡'),
-    CategoryEntity(id: 'duplex',     label: 'Duplexes',     icon: '🏘️'),
-    CategoryEntity(id: 'studio',     label: 'Studios',      icon: '🛏️'),
-    CategoryEntity(id: 'penthouse',  label: 'Penthouses',   icon: '💎'),
-    CategoryEntity(id: 'beachfront', label: 'Beachfront',   icon: '🏖️'),
-    CategoryEntity(id: 'estate',     label: 'Gated Estate', icon: '🔒'),
-    CategoryEntity(id: 'luxury',     label: 'Luxury',       icon: '✨'),
-    CategoryEntity(id: 'budget',     label: 'Budget',       icon: '🪙'),
-    CategoryEntity(id: 'serviced',   label: 'Serviced',     icon: '🛎️'),
+    CategoryEntity(id: 'all', label: 'All', icon: '🌍'),
+    CategoryEntity(id: 'shortlet', label: 'Shortlets', icon: '🏢'),
+    CategoryEntity(id: 'apartment', label: 'Apartments', icon: '🏠'),
+    CategoryEntity(id: 'villa', label: 'Villas', icon: '🏡'),
+    CategoryEntity(id: 'duplex', label: 'Duplexes', icon: '🏘️'),
+    CategoryEntity(id: 'studio', label: 'Studios', icon: '🛏️'),
+    CategoryEntity(id: 'penthouse', label: 'Penthouses', icon: '💎'),
+    CategoryEntity(id: 'beachfront', label: 'Beachfront', icon: '🏖️'),
+    CategoryEntity(id: 'estate', label: 'Gated Estate', icon: '🔒'),
+    CategoryEntity(id: 'luxury', label: 'Luxury', icon: '✨'),
+    CategoryEntity(id: 'budget', label: 'Budget', icon: '🪙'),
+    CategoryEntity(id: 'serviced', label: 'Serviced', icon: '🛎️'),
   ];
 
   // ── Listings ───────────────────────────────────────────────────────────────
   static final List<ListingEntity> _listings = [
-
     // ── ACCRA, GHANA ────────────────────────────────────────────────────────
-
     ListingEntity(
       id: 'l1',
       title: 'Luxury Penthouse in East Legon with Pool',
@@ -48,14 +46,14 @@ abstract final class MockHomeDataSource {
       longitude: -0.1501,
       pricePerNight: 120,
       images: [
-        'https://images.unsplash.com/photo-1522708323590-d24dbb2b4358?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=900&q=80',
       ],
       hostId: 'h1',
       hostName: 'Kwame Asante',
-      hostAvatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      hostAvatarUrl:
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
       hostIsSuperhost: true,
       rating: 4.96,
       reviewCount: 88,
@@ -63,7 +61,16 @@ abstract final class MockHomeDataSource {
       bedrooms: 3,
       beds: 3,
       bathrooms: 3,
-      amenities: ['wifi', 'pool', 'kitchen', 'parking', 'ac', 'gym', 'security', 'generator'],
+      amenities: [
+        'wifi',
+        'pool',
+        'kitchen',
+        'parking',
+        'ac',
+        'gym',
+        'security',
+        'generator',
+      ],
       categoryId: 'penthouse',
       isFeatured: true,
       isNew: false,
@@ -76,8 +83,14 @@ abstract final class MockHomeDataSource {
       isPhysicallyVetted: true,
       powerType: 'Solar Backup',
       tourismLevyPercent: 5,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'High-Speed WiFi', 'CCTV'],
-      landmarkNote: 'Located 5 minutes from Accra Mall, turn left at the Woodin fabric shop on the main East Legon road. The compound has a green gate with a "Horizon Residences" sign.',
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'High-Speed WiFi',
+        'CCTV',
+      ],
+      landmarkNote:
+          'Located 5 minutes from Accra Mall, turn left at the Woodin fabric shop on the main East Legon road. The compound has a green gate with a "Horizon Residences" sign.',
     ),
 
     ListingEntity(
@@ -98,7 +111,8 @@ abstract final class MockHomeDataSource {
       ],
       hostId: 'h2',
       hostName: 'Abena Osei',
-      hostAvatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
+      hostAvatarUrl:
+          'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
       hostIsSuperhost: true,
       rating: 4.89,
       reviewCount: 112,
@@ -106,7 +120,15 @@ abstract final class MockHomeDataSource {
       bedrooms: 1,
       beds: 1,
       bathrooms: 1,
-      amenities: ['wifi', 'pool', 'kitchen', 'ac', 'parking', 'washer', 'security'],
+      amenities: [
+        'wifi',
+        'pool',
+        'kitchen',
+        'ac',
+        'parking',
+        'washer',
+        'security',
+      ],
       categoryId: 'studio',
       isFeatured: true,
       isNew: false,
@@ -119,8 +141,13 @@ abstract final class MockHomeDataSource {
       isPhysicallyVetted: true,
       powerType: 'Generator Backup',
       tourismLevyPercent: 5,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'High-Speed WiFi'],
-      landmarkNote: 'On the Cantonments road opposite the American Embassy. Enter through the blue metal gate — ask the security guard for "Unit 4B". There\'s a yellow Melcom shop 100m before the entrance.',
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'High-Speed WiFi',
+      ],
+      landmarkNote:
+          'On the Cantonments road opposite the American Embassy. Enter through the blue metal gate — ask the security guard for "Unit 4B". There\'s a yellow Melcom shop 100m before the entrance.',
     ),
 
     ListingEntity(
@@ -142,7 +169,8 @@ abstract final class MockHomeDataSource {
       ],
       hostId: 'h3',
       hostName: 'Emmanuel Darko',
-      hostAvatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+      hostAvatarUrl:
+          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
       hostIsSuperhost: false,
       rating: 4.83,
       reviewCount: 45,
@@ -150,7 +178,17 @@ abstract final class MockHomeDataSource {
       bedrooms: 4,
       beds: 5,
       bathrooms: 4,
-      amenities: ['wifi', 'kitchen', 'parking', 'ac', 'bbq', 'garden', 'security', 'generator', 'housekeeper'],
+      amenities: [
+        'wifi',
+        'kitchen',
+        'parking',
+        'ac',
+        'bbq',
+        'garden',
+        'security',
+        'generator',
+        'housekeeper',
+      ],
       categoryId: 'villa',
       isFeatured: true,
       isNew: false,
@@ -163,12 +201,17 @@ abstract final class MockHomeDataSource {
       isPhysicallyVetted: true,
       powerType: 'Generator Backup',
       tourismLevyPercent: 5,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'CCTV', 'Gated Estate'],
-      landmarkNote: 'Inside Airport Ridge Estate, Gate B. Take the second turning after the Shell petrol station on the Liberation Road. Tell security at the main gate you are visiting "Villa 12 — Green Valley."',
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'CCTV',
+        'Gated Estate',
+      ],
+      landmarkNote:
+          'Inside Airport Ridge Estate, Gate B. Take the second turning after the Shell petrol station on the Liberation Road. Tell security at the main gate you are visiting "Villa 12 — Green Valley."',
     ),
 
     // ── LAGOS, NIGERIA ───────────────────────────────────────────────────────
-
     ListingEntity(
       id: 'l4',
       title: 'Luxury Shortlet in Victoria Island with Ocean View',
@@ -181,13 +224,13 @@ abstract final class MockHomeDataSource {
       longitude: 3.4219,
       pricePerNight: 140,
       images: [
-        'https://images.unsplash.com/photo-1512917774899-1a3a02bab173?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1522708323590-d24dbb2b4358?auto=format&fit=crop&w=900&q=80',
       ],
       hostId: 'h4',
       hostName: 'Chidi Okonkwo',
-      hostAvatarUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
+      hostAvatarUrl:
+          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
       hostIsSuperhost: true,
       rating: 4.95,
       reviewCount: 73,
@@ -195,7 +238,17 @@ abstract final class MockHomeDataSource {
       bedrooms: 2,
       beds: 2,
       bathrooms: 2,
-      amenities: ['wifi', 'kitchen', 'ac', 'parking', 'gym', 'pool', 'security', 'generator', 'concierge'],
+      amenities: [
+        'wifi',
+        'kitchen',
+        'ac',
+        'parking',
+        'gym',
+        'pool',
+        'security',
+        'generator',
+        'concierge',
+      ],
       categoryId: 'shortlet',
       isFeatured: true,
       isNew: false,
@@ -208,8 +261,15 @@ abstract final class MockHomeDataSource {
       isPhysicallyVetted: true,
       powerType: 'Solar Backup',
       tourismLevyPercent: 7,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'High-Speed WiFi', 'CCTV', 'Concierge'],
-      landmarkNote: 'On Adeola Odeku Street, directly opposite GTBank VI branch. Look for the "Seaview Towers" signage — take the elevator to floor 14. Call the host upon arrival for seamless access.',
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'High-Speed WiFi',
+        'CCTV',
+        'Concierge',
+      ],
+      landmarkNote:
+          'On Adeola Odeku Street, directly opposite GTBank VI branch. Look for the "Seaview Towers" signage — take the elevator to floor 14. Call the host upon arrival for seamless access.',
     ),
 
     ListingEntity(
@@ -230,7 +290,8 @@ abstract final class MockHomeDataSource {
       ],
       hostId: 'h5',
       hostName: 'Funmi Adeyemi',
-      hostAvatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80',
+      hostAvatarUrl:
+          'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80',
       hostIsSuperhost: false,
       rating: 4.78,
       reviewCount: 91,
@@ -238,7 +299,15 @@ abstract final class MockHomeDataSource {
       bedrooms: 1,
       beds: 1,
       bathrooms: 1,
-      amenities: ['wifi', 'kitchen', 'ac', 'parking', 'security', 'generator', 'washer'],
+      amenities: [
+        'wifi',
+        'kitchen',
+        'ac',
+        'parking',
+        'security',
+        'generator',
+        'washer',
+      ],
       categoryId: 'apartment',
       isFeatured: false,
       isNew: false,
@@ -252,7 +321,8 @@ abstract final class MockHomeDataSource {
       powerType: 'Generator Backup',
       tourismLevyPercent: 7,
       verificationBadges: ['24/7 Power', 'Physically Vetted', 'CCTV'],
-      landmarkNote: 'Hakeem Dickson Street, off Admiralty Way. The building is painted cream and brown — look for "Sunrise Court" written above the entrance. It is 2 houses after the Access Bank ATM on that street.',
+      landmarkNote:
+          'Hakeem Dickson Street, off Admiralty Way. The building is painted cream and brown — look for "Sunrise Court" written above the entrance. It is 2 houses after the Access Bank ATM on that street.',
     ),
 
     ListingEntity(
@@ -274,7 +344,8 @@ abstract final class MockHomeDataSource {
       ],
       hostId: 'h6',
       hostName: 'Tolu Balogun',
-      hostAvatarUrl: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=200&q=80',
+      hostAvatarUrl:
+          'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=200&q=80',
       hostIsSuperhost: true,
       rating: 4.97,
       reviewCount: 58,
@@ -282,7 +353,18 @@ abstract final class MockHomeDataSource {
       bedrooms: 3,
       beds: 3,
       bathrooms: 3,
-      amenities: ['wifi', 'kitchen', 'ac', 'parking', 'gym', 'security', 'generator', 'housekeeper', 'workspace', 'breakfast'],
+      amenities: [
+        'wifi',
+        'kitchen',
+        'ac',
+        'parking',
+        'gym',
+        'security',
+        'generator',
+        'housekeeper',
+        'workspace',
+        'breakfast',
+      ],
       categoryId: 'serviced',
       isFeatured: true,
       isNew: false,
@@ -295,12 +377,18 @@ abstract final class MockHomeDataSource {
       isPhysicallyVetted: true,
       powerType: 'Solar Backup',
       tourismLevyPercent: 7,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'High-Speed WiFi', 'CCTV', 'Gated Estate'],
-      landmarkNote: 'Joseph Street, Old Ikoyi. GPS is often inaccurate here — use this instead: from Awolowo Road, turn into Glover Road, take the second left after the Total petrol station. The duplex is the cream-coloured building with black iron gates, number 14.',
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'High-Speed WiFi',
+        'CCTV',
+        'Gated Estate',
+      ],
+      landmarkNote:
+          'Joseph Street, Old Ikoyi. GPS is often inaccurate here — use this instead: from Awolowo Road, turn into Glover Road, take the second left after the Total petrol station. The duplex is the cream-coloured building with black iron gates, number 14.',
     ),
 
     // ── DAKAR, SENEGAL ───────────────────────────────────────────────────────
-
     ListingEntity(
       id: 'l7',
       title: 'Beachfront Retreat in Almadies, Dakar',
@@ -319,7 +407,8 @@ abstract final class MockHomeDataSource {
       ],
       hostId: 'h7',
       hostName: 'Mariama Diallo',
-      hostAvatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+      hostAvatarUrl:
+          'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
       hostIsSuperhost: true,
       rating: 4.92,
       reviewCount: 66,
@@ -327,7 +416,16 @@ abstract final class MockHomeDataSource {
       bedrooms: 2,
       beds: 2,
       bathrooms: 2,
-      amenities: ['wifi', 'kitchen', 'ac', 'beach_access', 'parking', 'security', 'solar', 'breakfast'],
+      amenities: [
+        'wifi',
+        'kitchen',
+        'ac',
+        'beach_access',
+        'parking',
+        'security',
+        'solar',
+        'breakfast',
+      ],
       categoryId: 'beachfront',
       isFeatured: true,
       isNew: false,
@@ -340,12 +438,17 @@ abstract final class MockHomeDataSource {
       isPhysicallyVetted: true,
       powerType: 'Solar Backup',
       tourismLevyPercent: 3,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'High-Speed WiFi', 'Beach Access'],
-      landmarkNote: 'Route de la Corniche-Ouest, Almadies. Coming from the Radisson Blu direction, pass the Club Med roundabout and continue 800m. Look for the orange building on the right, just before Plage des Almadies sign.',
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'High-Speed WiFi',
+        'Beach Access',
+      ],
+      landmarkNote:
+          'Route de la Corniche-Ouest, Almadies. Coming from the Radisson Blu direction, pass the Club Med roundabout and continue 800m. Look for the orange building on the right, just before Plage des Almadies sign.',
     ),
 
     // ── ABIDJAN, IVORY COAST ─────────────────────────────────────────────────
-
     ListingEntity(
       id: 'l8',
       title: 'Executive Apartment in Plateau, Abidjan',
@@ -364,7 +467,8 @@ abstract final class MockHomeDataSource {
       ],
       hostId: 'h8',
       hostName: 'Kouamé Yao',
-      hostAvatarUrl: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=200&q=80',
+      hostAvatarUrl:
+          'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=200&q=80',
       hostIsSuperhost: false,
       rating: 4.85,
       reviewCount: 39,
@@ -372,7 +476,16 @@ abstract final class MockHomeDataSource {
       bedrooms: 2,
       beds: 2,
       bathrooms: 2,
-      amenities: ['wifi', 'kitchen', 'ac', 'parking', 'gym', 'security', 'generator', 'concierge'],
+      amenities: [
+        'wifi',
+        'kitchen',
+        'ac',
+        'parking',
+        'gym',
+        'security',
+        'generator',
+        'concierge',
+      ],
       categoryId: 'serviced',
       isFeatured: true,
       isNew: true,
@@ -386,74 +499,107 @@ abstract final class MockHomeDataSource {
       powerType: 'Generator Backup',
       tourismLevyPercent: 4,
       verificationBadges: ['High-Speed WiFi', 'CCTV', 'Gated Estate'],
-      landmarkNote: 'Avenue Botreau-Roussel, Le Plateau. Take the blue bridge from Cocody — the building is on your right after you pass SGBCI bank. It\'s a grey tower with "Résidence Lagune" in gold lettering.',
+      landmarkNote:
+          'Avenue Botreau-Roussel, Le Plateau. Take the blue bridge from Cocody — the building is on your right after you pass SGBCI bank. It\'s a grey tower with "Résidence Lagune" in gold lettering.',
     ),
   ];
 
   // ── Reviews ────────────────────────────────────────────────────────────────
   static final List<ReviewEntity> _reviews = [
     ReviewEntity(
-      id: 'r1', listingId: 'l1',
-      userId: 'u2', userName: 'Kofi Mensah',
-      userAvatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+      id: 'r1',
+      listingId: 'l1',
+      userId: 'u2',
+      userName: 'Kofi Mensah',
+      userAvatarUrl:
+          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
       rating: 5,
-      comment: 'Kwame\'s penthouse is absolutely stunning. The city views at night are breathtaking. Power never went out the entire week — solar + generator backup worked perfectly. Highly recommended for anyone visiting Accra!',
+      comment:
+          'Kwame\'s penthouse is absolutely stunning. The city views at night are breathtaking. Power never went out the entire week — solar + generator backup worked perfectly. Highly recommended for anyone visiting Accra!',
       createdAt: DateTime(2025, 2, 14),
     ),
     ReviewEntity(
-      id: 'r2', listingId: 'l1',
-      userId: 'u3', userName: 'Ama Boateng',
-      userAvatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+      id: 'r2',
+      listingId: 'l1',
+      userId: 'u3',
+      userName: 'Ama Boateng',
+      userAvatarUrl:
+          'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
       rating: 5,
-      comment: 'Perfect for our corporate retreat. The rooftop pool was an added bonus. Kwame was responsive and gave excellent local food recommendations. The landmark navigation note made it easy to find.',
+      comment:
+          'Perfect for our corporate retreat. The rooftop pool was an added bonus. Kwame was responsive and gave excellent local food recommendations. The landmark navigation note made it easy to find.',
       createdAt: DateTime(2025, 1, 28),
     ),
     ReviewEntity(
-      id: 'r3', listingId: 'l1',
-      userId: 'u4', userName: 'James Osei',
-      userAvatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      id: 'r3',
+      listingId: 'l1',
+      userId: 'u4',
+      userName: 'James Osei',
+      userAvatarUrl:
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
       rating: 4,
-      comment: 'Great location and amenities. The flat was clean and well-maintained. MTN MoMo payment was instant and hassle-free. Would deduct one star only because check-in was 30 mins late.',
+      comment:
+          'Great location and amenities. The flat was clean and well-maintained. MTN MoMo payment was instant and hassle-free. Would deduct one star only because check-in was 30 mins late.',
       createdAt: DateTime(2024, 12, 10),
     ),
     ReviewEntity(
-      id: 'r4', listingId: 'l2',
-      userId: 'u5', userName: 'Yaw Darko',
-      userAvatarUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
+      id: 'r4',
+      listingId: 'l2',
+      userId: 'u5',
+      userName: 'Yaw Darko',
+      userAvatarUrl:
+          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
       rating: 5,
-      comment: 'Abena\'s studio is the best shortlet I\'ve stayed in Accra. Clean, modern, and the location in Cantonments is perfect. Paid via Mobile Money — very smooth process.',
+      comment:
+          'Abena\'s studio is the best shortlet I\'ve stayed in Accra. Clean, modern, and the location in Cantonments is perfect. Paid via Mobile Money — very smooth process.',
       createdAt: DateTime(2025, 3, 2),
     ),
     ReviewEntity(
-      id: 'r5', listingId: 'l2',
-      userId: 'u6', userName: 'Sophie Laurent',
-      userAvatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
+      id: 'r5',
+      listingId: 'l2',
+      userId: 'u6',
+      userName: 'Sophie Laurent',
+      userAvatarUrl:
+          'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
       rating: 5,
-      comment: 'As a French expat new to Accra, this was my first shortlet booking here. The landmark note was incredibly helpful — GPS kept pointing to the wrong building. Abena\'s instructions were spot-on.',
+      comment:
+          'As a French expat new to Accra, this was my first shortlet booking here. The landmark note was incredibly helpful — GPS kept pointing to the wrong building. Abena\'s instructions were spot-on.',
       createdAt: DateTime(2025, 2, 20),
     ),
     ReviewEntity(
-      id: 'r6', listingId: 'l4',
-      userId: 'u7', userName: 'Emeka Obi',
-      userAvatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80',
+      id: 'r6',
+      listingId: 'l4',
+      userId: 'u7',
+      userName: 'Emeka Obi',
+      userAvatarUrl:
+          'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80',
       rating: 5,
-      comment: 'Ocean views from VI don\'t get better than this. Chidi is an exceptional host — prompt, professional, and the concierge arranged everything. Paid via bank transfer, funds released smoothly after check-in.',
+      comment:
+          'Ocean views from VI don\'t get better than this. Chidi is an exceptional host — prompt, professional, and the concierge arranged everything. Paid via bank transfer, funds released smoothly after check-in.',
       createdAt: DateTime(2025, 1, 15),
     ),
     ReviewEntity(
-      id: 'r7', listingId: 'l6',
-      userId: 'u8', userName: 'Adesola Adewale',
-      userAvatarUrl: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=200&q=80',
+      id: 'r7',
+      listingId: 'l6',
+      userId: 'u8',
+      userName: 'Adesola Adewale',
+      userAvatarUrl:
+          'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=200&q=80',
       rating: 5,
-      comment: 'Stayed for 2 weeks for a corporate project. Tolu\'s duplex felt like a 5-star hotel. The dedicated workspace, fibre internet, and housekeeping made work-from-Ikoyi a joy. Will return.',
+      comment:
+          'Stayed for 2 weeks for a corporate project. Tolu\'s duplex felt like a 5-star hotel. The dedicated workspace, fibre internet, and housekeeping made work-from-Ikoyi a joy. Will return.',
       createdAt: DateTime(2025, 3, 8),
     ),
     ReviewEntity(
-      id: 'r8', listingId: 'l7',
-      userId: 'u9', userName: 'Pierre Diagne',
-      userAvatarUrl: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=200&q=80',
+      id: 'r8',
+      listingId: 'l7',
+      userId: 'u9',
+      userName: 'Pierre Diagne',
+      userAvatarUrl:
+          'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=200&q=80',
       rating: 5,
-      comment: 'Mariama\'s apartment is a hidden gem in Almadies. Falling asleep to the sound of waves was pure magic. Solar power meant zero interruptions. The Wave payment worked seamlessly too!',
+      comment:
+          'Mariama\'s apartment is a hidden gem in Almadies. Falling asleep to the sound of waves was pure magic. Solar power meant zero interruptions. The Wave payment worked seamlessly too!',
       createdAt: DateTime(2025, 2, 5),
     ),
   ];

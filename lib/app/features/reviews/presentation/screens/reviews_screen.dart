@@ -13,6 +13,7 @@ import '../../../../shared/widgets/app_rating_bar.dart';
 import '../../../../shared/widgets/app_shimmer.dart';
 import '../../../home/domain/entities/review_entity.dart';
 import '../../application/review_notifier.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ReviewsScreen extends ConsumerStatefulWidget {
   const ReviewsScreen({super.key, required this.listingId});
@@ -41,7 +42,7 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen> {
         title: const Text('Reviews'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add_rounded),
+            icon: Icon(PhosphorIcons.plus()),
             tooltip: 'Write a review',
             onPressed: () => context.push(
               AppRoutes.addReviewPath(widget.listingId),
@@ -342,8 +343,8 @@ class _EmptyView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
-              Icons.rate_review_outlined,
+            Icon(
+              PhosphorIcons.star(PhosphorIconsStyle.fill),
               size: 72,
               color: AppColors.border,
             ),
@@ -363,7 +364,7 @@ class _EmptyView extends StatelessWidget {
             const SizedBox(height: AppDimensions.space2XL),
             AppButton(
               label: 'Write a review',
-              prefixIcon: const Icon(Icons.edit_rounded, size: 18, color: Colors.white),
+              prefixIcon: Icon(PhosphorIcons.pencil(), size: 18, color: Colors.white),
               onPressed: () =>
                   context.push(AppRoutes.addReviewPath(listingId)),
             ),
@@ -390,7 +391,7 @@ class _ErrorView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.error_outline_rounded,
+            Icon(PhosphorIcons.warningCircle(PhosphorIconsStyle.fill),
                 size: 48, color: AppColors.textTertiary),
             const SizedBox(height: AppDimensions.spaceMD),
             Text(message, style: AppTextStyles.bodyMD),

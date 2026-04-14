@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_dimensions.dart';
@@ -37,7 +38,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
   Future<void> _submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-    final success = await ref.read(authProvider.notifier).signUp(
+    final success = await ref
+        .read(authProvider.notifier)
+        .signUp(
           email: _emailCtrl.text.trim(),
           name: _nameCtrl.text.trim(),
           password: _passwordCtrl.text,
@@ -56,8 +59,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded),
-          onPressed: () => context.canPop() ? context.pop() : null,
+          icon: Icon(PhosphorIcons.x()),
+          onPressed: () =>
+              context.canPop() ? context.pop() : context.go(AppRoutes.login),
         ),
       ),
       body: SafeArea(
@@ -72,17 +76,18 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               children: [
                 const SizedBox(height: AppDimensions.spaceXL),
 
-                Text('Create account', style: AppTextStyles.h1)
-                    .animate()
-                    .fadeIn(duration: 400.ms)
-                    .slideY(begin: 0.2, end: 0),
+                Text(
+                  'Create account',
+                  style: AppTextStyles.h1,
+                ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.2, end: 0),
 
                 const SizedBox(height: AppDimensions.spaceSM),
 
                 Text(
                   'Join millions of travelers worldwide',
-                  style: AppTextStyles.bodyLG
-                      .copyWith(color: AppColors.textSecondary),
+                  style: AppTextStyles.bodyLG.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
                 ).animate(delay: 100.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.space2XL),
@@ -93,10 +98,14 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   label: 'Full name',
                   hint: 'Your full name',
                   textInputAction: TextInputAction.next,
-                  prefixIcon: const Icon(Icons.person_outline_rounded,
-                      size: 18, color: AppColors.textSecondary),
+                  prefixIcon: Icon(
+                    PhosphorIcons.user(),
+                    size: 18,
+                    color: AppColors.textSecondary,
+                  ),
                   validator: (v) {
-                    if (v == null || v.trim().isEmpty) return 'Name is required';
+                    if (v == null || v.trim().isEmpty)
+                      return 'Name is required';
                     if (v.trim().length < 2) return 'Name too short';
                     return null;
                   },
@@ -111,11 +120,17 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   hint: 'you@example.com',
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
-                  prefixIcon: const Icon(Icons.email_outlined,
-                      size: 18, color: AppColors.textSecondary),
+                  prefixIcon: Icon(
+                    PhosphorIcons.envelope(),
+                    size: 18,
+                    color: AppColors.textSecondary,
+                  ),
                   validator: (v) {
-                    if (v == null || v.trim().isEmpty) return 'Email is required';
-                    if (!RegExp(r'^[\w.]+@([\w]+\.)+[\w]+$').hasMatch(v.trim())) {
+                    if (v == null || v.trim().isEmpty)
+                      return 'Email is required';
+                    if (!RegExp(
+                      r'^[\w.]+@([\w]+\.)+[\w]+$',
+                    ).hasMatch(v.trim())) {
                       return 'Enter a valid email';
                     }
                     return null;
@@ -131,8 +146,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   hint: 'At least 8 characters',
                   obscureText: true,
                   textInputAction: TextInputAction.next,
-                  prefixIcon: const Icon(Icons.lock_outline_rounded,
-                      size: 18, color: AppColors.textSecondary),
+                  prefixIcon: Icon(
+                    PhosphorIcons.lock(),
+                    size: 18,
+                    color: AppColors.textSecondary,
+                  ),
                   validator: (v) {
                     if (v == null || v.isEmpty) return 'Password is required';
                     if (v.length < 8) return 'At least 8 characters required';
@@ -150,10 +168,14 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   obscureText: true,
                   textInputAction: TextInputAction.done,
                   onSubmitted: (_) => _submit(),
-                  prefixIcon: const Icon(Icons.lock_outline_rounded,
-                      size: 18, color: AppColors.textSecondary),
+                  prefixIcon: Icon(
+                    PhosphorIcons.lock(),
+                    size: 18,
+                    color: AppColors.textSecondary,
+                  ),
                   validator: (v) {
-                    if (v != _passwordCtrl.text) return 'Passwords do not match';
+                    if (v != _passwordCtrl.text)
+                      return 'Passwords do not match';
                     return null;
                   },
                 ).animate(delay: 300.ms).fadeIn(duration: 400.ms),
@@ -165,19 +187,24 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     padding: const EdgeInsets.all(AppDimensions.spaceMD),
                     decoration: BoxDecoration(
                       color: AppColors.errorLight,
-                      borderRadius:
-                          BorderRadius.circular(AppDimensions.radiusMD),
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusMD,
+                      ),
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.error_outline_rounded,
-                            size: 16, color: AppColors.error),
+                        Icon(
+                          PhosphorIcons.warningCircle(),
+                          size: 16,
+                          color: AppColors.error,
+                        ),
                         const SizedBox(width: AppDimensions.spaceSM),
                         Expanded(
                           child: Text(
                             errorMessage,
-                            style: AppTextStyles.bodyXS
-                                .copyWith(color: AppColors.error),
+                            style: AppTextStyles.bodyXS.copyWith(
+                              color: AppColors.error,
+                            ),
                           ),
                         ),
                       ],
@@ -212,8 +239,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   children: [
                     Text(
                       'Already have an account? ',
-                      style: AppTextStyles.bodyMD
-                          .copyWith(color: AppColors.textSecondary),
+                      style: AppTextStyles.bodyMD.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                     GestureDetector(
                       onTap: () => context.go(AppRoutes.login),

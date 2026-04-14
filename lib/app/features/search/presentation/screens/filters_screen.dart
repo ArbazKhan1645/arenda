@@ -8,6 +8,7 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../shared/widgets/app_button.dart';
 import '../../application/search_notifier.dart';
 import '../../application/search_state.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FiltersScreen extends ConsumerStatefulWidget {
   const FiltersScreen({super.key});
@@ -32,7 +33,7 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
       appBar: AppBar(
         title: const Text('Filters'),
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded),
+          icon: Icon(PhosphorIcons.x()),
           onPressed: () => context.pop(),
         ),
         actions: [
@@ -178,7 +179,7 @@ class _CounterRow extends StatelessWidget {
         Row(
           children: [
             _CircleButton(
-              icon: Icons.remove_rounded,
+              icon: PhosphorIcons.minus(),
               onTap: onDecrement,
               enabled: onDecrement != null,
             ),
@@ -191,7 +192,7 @@ class _CounterRow extends StatelessWidget {
               ),
             ),
             _CircleButton(
-              icon: Icons.add_rounded,
+              icon: PhosphorIcons.plus(),
               onTap: onIncrement,
               enabled: true,
             ),

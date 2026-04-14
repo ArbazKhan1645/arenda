@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_dimensions.dart';
 
@@ -23,7 +24,7 @@ class AppRatingBar extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.star_rounded, size: size, color: color),
+        Icon(PhosphorIcons.star(PhosphorIconsStyle.fill), size: size, color: color),
         const SizedBox(width: 2),
         Text(
           rating.toStringAsFixed(2),
@@ -88,7 +89,7 @@ class _AppStarRatingInputState extends State<AppStarRatingInput> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2),
             child: Icon(
-              filled ? Icons.star_rounded : Icons.star_outline_rounded,
+              filled ? PhosphorIcons.star(PhosphorIconsStyle.fill) : PhosphorIcons.star(),
               size: widget.starSize,
               color: filled ? AppColors.star : AppColors.border,
             ),

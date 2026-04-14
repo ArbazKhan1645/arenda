@@ -26,10 +26,12 @@ abstract final class AppTheme {
       onErrorContainer: AppColors.error,
       surface: isDark ? AppColors.darkSurface : AppColors.background,
       onSurface: isDark ? AppColors.darkTextPrimary : AppColors.textPrimary,
-      surfaceContainerHighest:
-          isDark ? AppColors.darkSurfaceVariant : AppColors.surface,
-      onSurfaceVariant:
-          isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
+      surfaceContainerHighest: isDark
+          ? AppColors.darkSurfaceVariant
+          : AppColors.surface,
+      onSurfaceVariant: isDark
+          ? AppColors.darkTextSecondary
+          : AppColors.textSecondary,
       outline: isDark ? AppColors.darkBorder : AppColors.border,
     );
 
@@ -114,23 +116,27 @@ abstract final class AppTheme {
     );
 
     return ThemeData(
-      fontFamily: 'Montserrat',
+      fontFamily: 'NunitoSans',
       useMaterial3: true,
       brightness: brightness,
       colorScheme: colorScheme,
       textTheme: textTheme,
-      scaffoldBackgroundColor:
-          isDark ? AppColors.darkBackground : AppColors.background,
+      scaffoldBackgroundColor: isDark
+          ? AppColors.darkBackground
+          : AppColors.background,
       appBarTheme: AppBarTheme(
         elevation: 0,
         scrolledUnderElevation: 0.5,
-        backgroundColor:
-            isDark ? AppColors.darkBackground : AppColors.background,
-        foregroundColor:
-            isDark ? AppColors.darkTextPrimary : AppColors.textPrimary,
+        backgroundColor: isDark
+            ? AppColors.darkBackground
+            : AppColors.background,
+        foregroundColor: isDark
+            ? AppColors.darkTextPrimary
+            : AppColors.textPrimary,
         centerTitle: true,
-        systemOverlayStyle:
-            isDark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+        systemOverlayStyle: isDark
+            ? SystemUiOverlayStyle.light
+            : SystemUiOverlayStyle.dark,
         titleTextStyle: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
@@ -138,11 +144,13 @@ abstract final class AppTheme {
         ),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor:
-            isDark ? AppColors.darkBackground : AppColors.background,
+        backgroundColor: isDark
+            ? AppColors.darkBackground
+            : AppColors.background,
         selectedItemColor: AppColors.primary,
-        unselectedItemColor:
-            isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
+        unselectedItemColor: isDark
+            ? AppColors.darkTextSecondary
+            : AppColors.textSecondary,
         type: BottomNavigationBarType.fixed,
         elevation: 0,
         selectedLabelStyle: TextStyle(
@@ -163,10 +171,7 @@ abstract final class AppTheme {
             borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
           ),
           elevation: 0,
-          textStyle: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -177,19 +182,13 @@ abstract final class AppTheme {
             borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
           ),
           side: const BorderSide(color: AppColors.border, width: 1.5),
-          textStyle: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: AppColors.primary,
-          textStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -211,6 +210,11 @@ abstract final class AppTheme {
           borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
           borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
+      ),
+      dividerTheme: DividerThemeData(
+        color: isDark ? AppColors.darkBorder : AppColors.border,
+        thickness: 1,
+        space: 1,
       ),
       cardTheme: CardThemeData(
         elevation: 0,

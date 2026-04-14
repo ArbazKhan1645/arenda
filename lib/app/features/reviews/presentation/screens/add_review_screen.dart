@@ -8,6 +8,7 @@ import '../../../../core/theme/app_dimensions.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../shared/widgets/app_button.dart';
 import '../../application/review_notifier.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class AddReviewScreen extends ConsumerStatefulWidget {
   const AddReviewScreen({super.key, required this.listingId});
@@ -69,7 +70,7 @@ class _AddReviewScreenState extends ConsumerState<AddReviewScreen> {
       appBar: AppBar(
         title: const Text('Write a review'),
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded),
+          icon: Icon(PhosphorIcons.x()),
           onPressed: () => context.pop(),
         ),
       ),
@@ -156,7 +157,7 @@ class _AddReviewScreenState extends ConsumerState<AddReviewScreen> {
               const SizedBox(height: AppDimensions.spaceMD),
               Row(
                 children: [
-                  const Icon(Icons.info_outline_rounded,
+                  Icon(PhosphorIcons.info(),
                       size: 16, color: AppColors.error),
                   const SizedBox(width: AppDimensions.spaceXS),
                   Text(
@@ -229,8 +230,8 @@ class _StarSelector extends StatelessWidget {
             padding: const EdgeInsets.only(right: 6),
             child: Icon(
               starIndex <= rating
-                  ? Icons.star_rounded
-                  : Icons.star_outline_rounded,
+                  ? PhosphorIcons.star(PhosphorIconsStyle.fill)
+                  : PhosphorIcons.star(PhosphorIconsStyle.fill),
               size: 44,
               color: starIndex <= rating ? AppColors.star : AppColors.border,
             ),
@@ -282,8 +283,8 @@ class _CategoryRowState extends State<_CategoryRow> {
                   padding: const EdgeInsets.only(left: 4),
                   child: Icon(
                     star <= _value
-                        ? Icons.star_rounded
-                        : Icons.star_outline_rounded,
+                        ? PhosphorIcons.star(PhosphorIconsStyle.fill)
+                        : PhosphorIcons.star(PhosphorIconsStyle.fill),
                     size: 24,
                     color: star <= _value ? AppColors.star : AppColors.border,
                   ),

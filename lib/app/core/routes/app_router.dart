@@ -9,6 +9,7 @@ import '../../features/authentication/presentation/screens/signup_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/home/presentation/screens/main_shell.dart';
 import '../../features/search/presentation/screens/search_screen.dart';
+import '../../features/search/presentation/screens/search_results_screen.dart';
 import '../../features/search/presentation/screens/filters_screen.dart';
 import '../../features/listing/presentation/screens/listing_detail_screen.dart';
 import '../../features/listing/presentation/screens/landmark_navigation_screen.dart';
@@ -111,6 +112,16 @@ GoRouter appRouter(Ref ref) {
           final id = state.pathParameters['listingId']!;
           return _slideFromRight(
               state, LandmarkNavigationScreen(listingId: id));
+        },
+      ),
+
+      // ── Search Results ─────────────────────────────────────────────────
+      GoRoute(
+        path: AppRoutes.searchResults,
+        pageBuilder: (context, state) {
+          final query = state.pathParameters['query']!;
+          return _slideFromRight(
+              state, SearchResultsScreen(query: query));
         },
       ),
 

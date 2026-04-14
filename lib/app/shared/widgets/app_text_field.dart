@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_dimensions.dart';
 
@@ -103,7 +104,7 @@ class _AppTextFieldState extends State<AppTextField> {
         suffixIcon: widget.obscureText
             ? IconButton(
                 icon: Icon(
-                  _obscure ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                  _obscure ? PhosphorIcons.eyeSlash() : PhosphorIcons.eye(),
                   size: AppDimensions.iconMD,
                   color: AppColors.textSecondary,
                 ),

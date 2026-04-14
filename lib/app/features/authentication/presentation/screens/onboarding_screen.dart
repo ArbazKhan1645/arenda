@@ -3,11 +3,11 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_dimensions.dart';
 import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_image.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -20,45 +20,45 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final _pageController = PageController();
   int _currentPage = 0;
 
-  static const _pages = [
+  static final _pages = [
     _OnboardingPage(
-      image: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=900&q=80',
+      image: 'assets/images/onboarding/onboarding_1.jpg',
       badge: 'West Africa\'s #1 rental platform',
       title: 'Verified shortlets\nacross West Africa',
       subtitle: 'Every listing is physically vetted by our team. Find trusted apartments, villas and shortlets in Accra, Lagos, Dakar and beyond.',
       highlights: [
-        _Highlight(icon: Icons.verified_rounded, label: 'Physically vetted properties'),
-        _Highlight(icon: Icons.shield_rounded, label: 'Trusted & verified hosts'),
+        _Highlight(icon: PhosphorIcons.sealCheck(PhosphorIconsStyle.fill), label: 'Physically vetted properties'),
+        _Highlight(icon: PhosphorIcons.shield(PhosphorIconsStyle.fill), label: 'Trusted & verified hosts'),
       ],
     ),
     _OnboardingPage(
-      image: 'https://images.unsplash.com/photo-1601597111158-2fceff292cdc?auto=format&fit=crop&w=900&q=80',
+      image: 'assets/images/onboarding/onboarding_2.jpg',
       badge: 'Pay the way you know',
       title: 'Mobile Money\npayments built in',
       subtitle: 'Pay with MTN MoMo, Orange Money, Wave or bank transfer. Your funds are held in escrow until check-in.',
       highlights: [
-        _Highlight(icon: Icons.lock_rounded, label: 'Escrow payment protection'),
-        _Highlight(icon: Icons.phone_android_rounded, label: 'MTN MoMo · Orange · Wave'),
+        _Highlight(icon: PhosphorIcons.lock(PhosphorIconsStyle.fill), label: 'Escrow payment protection'),
+        _Highlight(icon: PhosphorIcons.deviceMobile(), label: 'MTN MoMo · Orange · Wave'),
       ],
     ),
     _OnboardingPage(
-      image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=900&q=80',
+      image: 'assets/images/onboarding/onboarding_3.jpg',
       badge: 'No more "near the big tree"',
       title: 'Navigate by\nlandmark directions',
       subtitle: 'GPS coordinates alone won\'t cut it. Every listing includes local landmark directions so you always find your way.',
       highlights: [
-        _Highlight(icon: Icons.place_rounded, label: 'Landmark-based navigation'),
-        _Highlight(icon: Icons.map_rounded, label: 'Local directions from hosts'),
+        _Highlight(icon: PhosphorIcons.mapPin(PhosphorIconsStyle.fill), label: 'Landmark-based navigation'),
+        _Highlight(icon: PhosphorIcons.mapTrifold(), label: 'Local directions from hosts'),
       ],
     ),
     _OnboardingPage(
-      image: 'https://images.unsplash.com/photo-1512917774899-1a3a02bab173?auto=format&fit=crop&w=900&q=80',
+      image: 'assets/images/onboarding/onboarding_4.jpg',
       badge: 'You\'re protected',
       title: 'ID-verified guests\n& trusted stays',
       subtitle: 'Ghana Card, NIN, Voter ID — all guests verify before check-in. Hosts are vetted. Your safety comes first.',
       highlights: [
-        _Highlight(icon: Icons.badge_rounded, label: 'Government ID verification'),
-        _Highlight(icon: Icons.support_agent_rounded, label: '24/7 guest support'),
+        _Highlight(icon: PhosphorIcons.identificationCard(), label: 'Government ID verification'),
+        _Highlight(icon: PhosphorIcons.headset(PhosphorIconsStyle.fill), label: '24/7 guest support'),
       ],
     ),
   ];
@@ -225,7 +225,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   'Get Started',
                                   style: AppTextStyles.buttonLG.copyWith(color: Colors.white),
                                 )
-                              : const Icon(Icons.arrow_forward_rounded, color: Colors.white),
+                              : Icon(PhosphorIcons.arrowRight(PhosphorIconsStyle.bold), color: Colors.white),
                         ),
                       ),
                     ],
@@ -259,8 +259,8 @@ class _OnboardingPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppImage(
-      url: page.image,
+    return Image.asset(
+      page.image,
       width: double.infinity,
       height: double.infinity,
       fit: BoxFit.cover,

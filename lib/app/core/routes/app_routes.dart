@@ -18,7 +18,9 @@ abstract final class AppRoutes {
   static String listingDetailPath(String id) => '/listing/$id';
 
   // ── Search / Filters ──────────────────────────────────────────────────────
-  static const String filters = '/filters';
+  static const String filters        = '/filters';
+  static const String searchResults  = '/search-results/:query';
+  static String searchResultsPath(String query) => '/search-results/$query';
 
   // ── Booking ───────────────────────────────────────────────────────────────
   static const String booking             = '/booking/:listingId';

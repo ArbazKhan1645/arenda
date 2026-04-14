@@ -23,9 +23,9 @@ class AppInitResult {
 
   /// Converts initialized services into Riverpod ProviderScope overrides
   List<Override> get providerOverrides => [
-        supabaseServiceProvider.overrideWithValue(supabaseService),
-        storageServiceProvider.overrideWithValue(storageService),
-      ];
+    supabaseServiceProvider.overrideWithValue(supabaseService),
+    storageServiceProvider.overrideWithValue(storageService),
+  ];
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -69,7 +69,8 @@ class AppInitializer {
     } catch (_) {
       // .env missing is acceptable in CI / release builds using --dart-define
       debugPrint(
-          '[AppInitializer] ⚠ .env not found — using --dart-define values');
+        '[AppInitializer] ⚠ .env not found — using --dart-define values',
+      );
     }
   }
 
@@ -95,7 +96,7 @@ class AppInitializer {
   static Future<SupabaseService> _initSupabase() async {
     try {
       final service = SupabaseService();
-      await service.initialize();
+      // await service.initialize();
       debugPrint('[AppInitializer] ✓ SupabaseService ready');
       return service;
     } on SupabaseInitException {

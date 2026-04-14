@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_dimensions.dart';
@@ -14,8 +15,7 @@ class ConversationScreen extends ConsumerStatefulWidget {
   final String conversationId;
 
   @override
-  ConsumerState<ConversationScreen> createState() =>
-      _ConversationScreenState();
+  ConsumerState<ConversationScreen> createState() => _ConversationScreenState();
 }
 
 class _ConversationScreenState extends ConsumerState<ConversationScreen> {
@@ -26,25 +26,18 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(conversationProvider.notifier)
-          .load(widget.conversationId);
+      ref.read(conversationProvider.notifier).load(widget.conversationId);
     });
-  }
-
-  @override
-  void dispose() {
-    _msgCtrl.dispose();
-    _scrollCtrl.dispose();
-    super.dispose();
   }
 
   void _send() {
     final text = _msgCtrl.text.trim();
     if (text.isEmpty) return;
+
     ref.read(conversationProvider.notifier).sendMessage(text);
     _msgCtrl.clear();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+
+    Future.delayed(const Duration(milliseconds: 100), () {
       if (_scrollCtrl.hasClients) {
         _scrollCtrl.animateTo(
           _scrollCtrl.position.maxScrollExtent,
@@ -60,165 +53,192 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
     final state = ref.watch(conversationProvider);
 
     return Scaffold(
+      backgroundColor: AppColors.background,
+
+      /// APP BAR
       appBar: state is ConversationLoaded
-          ? _ConversationAppBar(conversation: state.conversation)
+          ? _ModernAppBar(conversation: state.conversation)
           : AppBar(),
+
       body: switch (state) {
-        ConversationLoading() =>
-          const Center(child: CircularProgressIndicator()),
+        ConversationLoading() => const Center(
+          child: CircularProgressIndicator(),
+        ),
+
         ConversationLoaded(:final messages) => Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  controller: _scrollCtrl,
-                  padding: const EdgeInsets.all(AppDimensions.paddingPage),
-                  itemCount: messages.length,
-                  itemBuilder: (_, i) => _MessageBubble(
-                    message: messages[i],
-                    isMe: messages[i].senderId == 'u1',
-                    index: i,
-                  ),
+          children: [
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollCtrl,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingPage,
+                  vertical: 12,
+                ),
+                itemCount: messages.length,
+                itemBuilder: (_, i) => _MessageBubble(
+                  message: messages[i],
+                  isMe: messages[i].senderId == 'u1',
+                  index: i,
                 ),
               ),
-              _MessageInput(
-                controller: _msgCtrl,
-                onSend: _send,
-              ),
-            ],
-          ),
+            ),
+
+            /// INPUT
+            _ModernInput(controller: _msgCtrl, onSend: _send),
+          ],
+        ),
       },
     );
   }
 }
 
-class _ConversationAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
-  const _ConversationAppBar({required this.conversation});
+////////////////////////////////////////////////////////////
+/// 🔥 MODERN APPBAR
+////////////////////////////////////////////////////////////
+
+class _ModernAppBar extends StatelessWidget implements PreferredSizeWidget {
   final ConversationEntity conversation;
 
+  const _ModernAppBar({required this.conversation});
+
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      elevation: 0.5,
       titleSpacing: 0,
       title: Row(
         children: [
           AppAvatar(
             imageUrl: conversation.otherUserAvatarUrl,
             name: conversation.otherUserName,
-            size: 36,
+            size: 40,
           ),
-          const SizedBox(width: AppDimensions.spaceMD),
+
+          const SizedBox(width: 12),
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(conversation.otherUserName,
-                  style: AppTextStyles.labelMD),
-              if (conversation.listingTitle != null)
-                Text(conversation.listingTitle!,
-                    style: AppTextStyles.bodyXS.copyWith(
-                        color: AppColors.primary),
-                    maxLines: 1, overflow: TextOverflow.ellipsis),
+              Text(conversation.otherUserName, style: AppTextStyles.labelMD),
+
+              const SizedBox(height: 2),
+
+              Text(
+                "Online",
+                style: AppTextStyles.caption.copyWith(color: Colors.green),
+              ),
             ],
           ),
         ],
       ),
+      actions: [
+        IconButton(icon: Icon(PhosphorIcons.phone()), onPressed: () {}),
+        IconButton(icon: Icon(PhosphorIcons.videoCamera()), onPressed: () {}),
+      ],
     );
   }
 }
 
+////////////////////////////////////////////////////////////
+/// 💬 MODERN BUBBLE
+////////////////////////////////////////////////////////////
+
 class _MessageBubble extends StatelessWidget {
+  final MessageEntity message;
+  final bool isMe;
+  final int index;
+
   const _MessageBubble({
     required this.message,
     required this.isMe,
     required this.index,
   });
 
-  final MessageEntity message;
-  final bool isMe;
-  final int index;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppDimensions.spaceSM),
-      child: Row(
-        mainAxisAlignment:
-            isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          if (!isMe) ...[
-            const SizedBox(width: 4),
-          ],
-          ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * 0.72,
-            ),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.spaceLG,
-                vertical: AppDimensions.spaceMD,
-              ),
-              decoration: BoxDecoration(
-                color: isMe ? AppColors.primary : AppColors.surface,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(AppDimensions.radiusLG),
-                  topRight: const Radius.circular(AppDimensions.radiusLG),
-                  bottomLeft: Radius.circular(isMe ? AppDimensions.radiusLG : 4),
-                  bottomRight: Radius.circular(isMe ? 4 : AppDimensions.radiusLG),
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Row(
+            mainAxisAlignment: isMe
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.75,
                 ),
-                border: isMe
-                    ? null
-                    : Border.all(color: AppColors.border),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    message.content,
-                    style: AppTextStyles.bodyMD.copyWith(
-                      color: isMe ? Colors.white : AppColors.textPrimary,
-                    ),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 10,
                   ),
-                  const SizedBox(height: 2),
-                  Text(
-                    message.formattedTime,
-                    style: AppTextStyles.caption.copyWith(
-                      color: isMe
-                          ? Colors.white70
-                          : AppColors.textTertiary,
-                    ),
+                  decoration: BoxDecoration(
+                    color: isMe ? AppColors.primary : AppColors.surface,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      if (!isMe)
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.03),
+                          blurRadius: 6,
+                        ),
+                    ],
                   ),
-                ],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        message.content,
+                        style: AppTextStyles.bodyMD.copyWith(
+                          color: isMe ? Colors.white : AppColors.textPrimary,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        message.formattedTime,
+                        style: AppTextStyles.caption.copyWith(
+                          color: isMe ? Colors.white70 : AppColors.textTertiary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    ).animate(delay: Duration(milliseconds: 30 * index)).fadeIn(duration: 300.ms);
+        )
+        .animate(delay: Duration(milliseconds: 25 * index))
+        .fadeIn(duration: 250.ms)
+        .slideY(begin: 0.1);
   }
 }
 
-class _MessageInput extends StatelessWidget {
-  const _MessageInput({required this.controller, required this.onSend});
+////////////////////////////////////////////////////////////
+/// ✍️ MODERN INPUT
+////////////////////////////////////////////////////////////
 
+class _ModernInput extends StatelessWidget {
   final TextEditingController controller;
   final VoidCallback onSend;
+
+  const _ModernInput({required this.controller, required this.onSend});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(
-        AppDimensions.paddingPage,
-        AppDimensions.spaceSM,
-        AppDimensions.paddingPage,
-        MediaQuery.of(context).padding.bottom + AppDimensions.spaceSM,
+        12,
+        10,
+        12,
+        MediaQuery.of(context).padding.bottom + 10,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        border: Border(top: BorderSide(color: AppColors.border)),
+        color: AppColors.background,
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10),
+        ],
       ),
       child: Row(
         children: [
@@ -226,40 +246,39 @@ class _MessageInput extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: AppColors.surface,
-                borderRadius:
-                    BorderRadius.circular(AppDimensions.radiusFull),
-                border: Border.all(color: AppColors.border),
+                borderRadius: BorderRadius.circular(30),
               ),
               child: TextField(
                 controller: controller,
                 maxLines: null,
-                textInputAction: TextInputAction.send,
-                onSubmitted: (_) => onSend(),
                 decoration: InputDecoration(
-                  hintText: 'Message...',
-                  hintStyle: AppTextStyles.bodyMD
-                      .copyWith(color: AppColors.textTertiary),
+                  hintText: "Type a message...",
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.symmetric(
-                    horizontal: AppDimensions.spaceLG,
-                    vertical: AppDimensions.spaceMD,
+                    horizontal: 16,
+                    vertical: 12,
                   ),
                 ),
               ),
             ),
           ),
-          const SizedBox(width: AppDimensions.spaceSM),
+
+          const SizedBox(width: 10),
+
           GestureDetector(
             onTap: onSend,
             child: Container(
-              width: 44,
-              height: 44,
+              width: 46,
+              height: 46,
               decoration: const BoxDecoration(
                 color: AppColors.primary,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.send_rounded,
-                  size: 20, color: Colors.white),
+              child: Icon(
+                PhosphorIcons.paperPlaneTilt(PhosphorIconsStyle.fill),
+                color: Colors.white,
+                size: 20,
+              ),
             ),
           ),
         ],

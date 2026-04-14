@@ -6,6 +6,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_dimensions.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../shared/widgets/app_button.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 // ── ID Type Model ──────────────────────────────────────────────────────────
 
@@ -89,7 +90,7 @@ class _IdVerificationScreenState extends State<IdVerificationScreen> {
       appBar: AppBar(
         title: const Text('Verify your ID'),
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded),
+          icon: Icon(PhosphorIcons.x()),
           onPressed: () => context.pop(),
         ),
       ),
@@ -106,7 +107,7 @@ class _IdVerificationScreenState extends State<IdVerificationScreen> {
               key: const ValueKey(1),
               title: 'Front of ID',
               instruction: 'Make sure all corners are visible and the text is clearly readable.',
-              icon: Icons.credit_card_rounded,
+              icon: PhosphorIcons.creditCard(),
               isUploaded: _frontUploaded,
               onUpload: () => setState(() => _frontUploaded = true),
               onNext: () => setState(() => _step = 2),
@@ -115,7 +116,7 @@ class _IdVerificationScreenState extends State<IdVerificationScreen> {
               key: const ValueKey(2),
               title: 'Back of ID',
               instruction: 'Place the ID on a flat surface with good lighting.',
-              icon: Icons.flip_to_back_rounded,
+              icon: PhosphorIcons.arrowsIn(),
               isUploaded: _backUploaded,
               onUpload: () => setState(() => _backUploaded = true),
               onNext: () => setState(() => _step = 3),
@@ -251,7 +252,7 @@ class _StepSelectId extends StatelessWidget {
                           ),
                         ),
                         if (selected)
-                          const Icon(Icons.check_circle_rounded,
+                          Icon(PhosphorIcons.checkCircle(PhosphorIconsStyle.fill),
                               color: AppColors.primary),
                       ],
                     ),
@@ -334,7 +335,7 @@ class _StepUploadPhoto extends StatelessWidget {
                 children: [
                   Icon(
                     isUploaded
-                        ? Icons.check_circle_outline_rounded
+                        ? PhosphorIcons.checkCircle()
                         : icon,
                     size: 56,
                     color: isUploaded
@@ -424,8 +425,8 @@ class _StepSelfie extends StatelessWidget {
                   children: [
                     Icon(
                       isUploaded
-                          ? Icons.check_circle_outline_rounded
-                          : Icons.face_retouching_natural_rounded,
+                          ? PhosphorIcons.checkCircle()
+                          : PhosphorIcons.smiley(),
                       size: 64,
                       color: isUploaded
                           ? AppColors.success
@@ -481,8 +482,8 @@ class _StepSuccess extends StatelessWidget {
               color: AppColors.success.withAlpha(30),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.verified_user_rounded,
+            child: Icon(
+              PhosphorIcons.shieldCheck(PhosphorIconsStyle.fill),
               color: AppColors.success,
               size: 52,
             ),
@@ -505,12 +506,12 @@ class _StepSuccess extends StatelessWidget {
           ).animate(delay: 300.ms).fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.space3XL),
           _TrustPoint(
-            icon: Icons.lock_outline_rounded,
+            icon: PhosphorIcons.lock(),
             text: 'Your ID is encrypted and stored securely.',
           ).animate(delay: 400.ms).fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.spaceMD),
           _TrustPoint(
-            icon: Icons.visibility_off_outlined,
+            icon: PhosphorIcons.eyeSlash(),
             text: 'Only shared with hosts after confirmed booking.',
           ).animate(delay: 480.ms).fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.space3XL),

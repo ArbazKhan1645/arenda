@@ -12,6 +12,7 @@ import '../../../../shared/widgets/app_image.dart';
 import '../../../../shared/widgets/app_shimmer.dart';
 import '../../../home/domain/entities/listing_entity.dart';
 import '../../application/host_notifier.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class HostDashboardScreen extends ConsumerStatefulWidget {
   const HostDashboardScreen({super.key});
@@ -36,12 +37,9 @@ class _HostDashboardScreenState extends ConsumerState<HostDashboardScreen> {
       appBar: AppBar(
         title: const Text('Host Dashboard'),
         actions: [
+          IconButton(icon: Icon(PhosphorIcons.bell()), onPressed: () {}),
           IconButton(
-            icon: const Icon(Icons.notifications_outlined),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.more_vert_rounded),
+            icon: Icon(PhosphorIcons.dotsThreeVertical()),
             onPressed: () {},
           ),
         ],
@@ -54,7 +52,7 @@ class _HostDashboardScreenState extends ConsumerState<HostDashboardScreen> {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
-        icon: const Icon(Icons.add_rounded),
+        icon: Icon(PhosphorIcons.plus()),
         label: const Text('Add listing'),
         onPressed: () => context.push(AppRoutes.hostCreateListing),
       ),
@@ -105,38 +103,35 @@ class _LoadedView extends StatelessWidget {
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 // ── Earnings Card ──────────────────────────────────
-                _EarningsCard(state: state)
-                    .animate()
-                    .fadeIn(duration: 400.ms),
+                _EarningsCard(state: state).animate().fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceXXL),
 
                 // ── Stats Row ──────────────────────────────────────
-                _StatsRow(state: state)
-                    .animate(delay: 80.ms)
-                    .fadeIn(duration: 400.ms),
+                _StatsRow(
+                  state: state,
+                ).animate(delay: 80.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceXXL),
                 const Divider(),
                 const SizedBox(height: AppDimensions.spaceXXL),
 
                 // ── Quick Actions ──────────────────────────────────
-                Text('Quick actions', style: AppTextStyles.h3)
-                    .animate(delay: 120.ms)
-                    .fadeIn(duration: 400.ms),
+                Text(
+                  'Quick actions',
+                  style: AppTextStyles.h3,
+                ).animate(delay: 120.ms).fadeIn(duration: 400.ms),
                 const SizedBox(height: AppDimensions.spaceLG),
-                _QuickActions()
-                    .animate(delay: 150.ms)
-                    .fadeIn(duration: 400.ms),
+                _QuickActions().animate(delay: 150.ms).fadeIn(duration: 400.ms),
 
-                const SizedBox(height: AppDimensions.spaceXXL),
+                const SizedBox(height: AppDimensions.spaceSM),
                 const Divider(),
                 const SizedBox(height: AppDimensions.spaceXXL),
 
                 // ── Verification Status ────────────────────────────
-                _VerificationStatus(isVerified: state.isIdVerified)
-                    .animate(delay: 200.ms)
-                    .fadeIn(duration: 400.ms),
+                _VerificationStatus(
+                  isVerified: state.isIdVerified,
+                ).animate(delay: 200.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceXXL),
                 const Divider(),
@@ -152,8 +147,9 @@ class _LoadedView extends StatelessWidget {
                           context.push(AppRoutes.hostCreateListing),
                       child: Text(
                         '+ Add new',
-                        style: AppTextStyles.labelSM
-                            .copyWith(color: AppColors.primary),
+                        style: AppTextStyles.labelSM.copyWith(
+                          color: AppColors.primary,
+                        ),
                       ),
                     ),
                   ],
@@ -165,10 +161,7 @@ class _LoadedView extends StatelessWidget {
                   _EmptyListings()
                 else
                   ...state.myListings.asMap().entries.map(
-                    (e) => _HostListingTile(
-                      listing: e.value,
-                      index: e.key,
-                    ),
+                    (e) => _HostListingTile(listing: e.value, index: e.key),
                   ),
 
                 // Bottom padding for FAB
@@ -191,8 +184,11 @@ class _EarningsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sym = state.localCurrency == 'NGN' ? '₦' :
-                state.localCurrency == 'XOF' ? 'CFA ' : '₵';
+    final sym = state.localCurrency == 'NGN'
+        ? '₦'
+        : state.localCurrency == 'XOF'
+        ? 'CFA '
+        : '₵';
     return Container(
       padding: const EdgeInsets.all(AppDimensions.spaceLG),
       decoration: BoxDecoration(
@@ -214,7 +210,10 @@ class _EarningsCard extends StatelessWidget {
                 style: AppTextStyles.bodyMD.copyWith(color: Colors.white70),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withAlpha(40),
                   borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
@@ -248,7 +247,8 @@ class _EarningsCard extends StatelessWidget {
                 height: 32,
                 color: Colors.white38,
                 margin: const EdgeInsets.symmetric(
-                    horizontal: AppDimensions.spaceLG),
+                  horizontal: AppDimensions.spaceLG,
+                ),
               ),
               _EarningsStat(
                 label: 'Active listings',
@@ -259,7 +259,8 @@ class _EarningsCard extends StatelessWidget {
                 height: 32,
                 color: Colors.white38,
                 margin: const EdgeInsets.symmetric(
-                    horizontal: AppDimensions.spaceLG),
+                  horizontal: AppDimensions.spaceLG,
+                ),
               ),
               _EarningsStat(
                 label: 'Payout via',
@@ -285,14 +286,18 @@ class _EarningsStat extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(value,
-              style: AppTextStyles.labelMD.copyWith(color: Colors.white),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis),
-          Text(label,
-              style: AppTextStyles.bodyXS.copyWith(color: Colors.white60),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis),
+          Text(
+            value,
+            style: AppTextStyles.labelMD.copyWith(color: Colors.white),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Text(
+            label,
+            style: AppTextStyles.bodyXS.copyWith(color: Colors.white60),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     );
@@ -313,21 +318,21 @@ class _StatsRow extends StatelessWidget {
         _StatCard(
           label: 'Pending',
           value: '${state.pendingBookingsCount}',
-          icon: Icons.pending_actions_rounded,
+          icon: PhosphorIcons.clockCounterClockwise(),
           color: AppColors.warning,
         ),
         const SizedBox(width: AppDimensions.spaceMD),
         _StatCard(
           label: 'Completed',
           value: '${state.completedBookingsCount}',
-          icon: Icons.check_circle_outline_rounded,
+          icon: PhosphorIcons.checkCircle(),
           color: AppColors.success,
         ),
         const SizedBox(width: AppDimensions.spaceMD),
         _StatCard(
           label: 'Avg rating',
           value: '4.9 ⭐',
-          icon: Icons.star_outline_rounded,
+          icon: PhosphorIcons.star(PhosphorIconsStyle.fill),
           color: AppColors.star,
         ),
       ],
@@ -362,11 +367,13 @@ class _StatCard extends StatelessWidget {
           children: [
             Icon(icon, color: color, size: 24),
             const SizedBox(height: AppDimensions.spaceXS),
-            Text(value,
-                style: AppTextStyles.labelLG.copyWith(color: color)),
-            Text(label,
-                style: AppTextStyles.bodyXS
-                    .copyWith(color: AppColors.textSecondary)),
+            Text(value, style: AppTextStyles.labelLG.copyWith(color: color)),
+            Text(
+              label,
+              style: AppTextStyles.bodyXS.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
           ],
         ),
       ),
@@ -380,15 +387,32 @@ class _QuickActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final actions = [
-      (icon: Icons.add_home_rounded,     label: 'Add listing',    route: AppRoutes.hostCreateListing),
-      (icon: Icons.account_balance_wallet_rounded, label: 'Payouts', route: AppRoutes.payoutPreferences),
-      (icon: Icons.security_rounded,     label: 'Trust & Safety', route: AppRoutes.trustSafety),
-      (icon: Icons.badge_rounded,        label: 'Verify ID',      route: AppRoutes.idVerification),
+      (
+        icon: PhosphorIcons.house(),
+        label: 'Add listing',
+        route: AppRoutes.hostCreateListing,
+      ),
+      (
+        icon: PhosphorIcons.wallet(),
+        label: 'Payouts',
+        route: AppRoutes.payoutPreferences,
+      ),
+      (
+        icon: PhosphorIcons.shieldCheck(),
+        label: 'Trust & Safety',
+        route: AppRoutes.trustSafety,
+      ),
+      (
+        icon: PhosphorIcons.identificationCard(),
+        label: 'Verify ID',
+        route: AppRoutes.idVerification,
+      ),
     ];
 
     return GridView.count(
       crossAxisCount: 4,
       shrinkWrap: true,
+      childAspectRatio: 0.7,
       physics: const NeverScrollableScrollPhysics(),
       crossAxisSpacing: AppDimensions.spaceSM,
       children: actions
@@ -404,10 +428,10 @@ class _QuickActions extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: AppColors.primaryLight,
                       borderRadius: BorderRadius.circular(
-                          AppDimensions.radiusMD),
+                        AppDimensions.radiusMD,
+                      ),
                     ),
-                    child: Icon(a.icon,
-                        color: AppColors.primaryDark, size: 24),
+                    child: Icon(a.icon, color: AppColors.primaryDark, size: 24),
                   ),
                   const SizedBox(height: 6),
                   Text(
@@ -452,8 +476,8 @@ class _VerificationStatus extends StatelessWidget {
         children: [
           Icon(
             isVerified
-                ? Icons.verified_user_rounded
-                : Icons.warning_amber_rounded,
+                ? PhosphorIcons.shieldCheck(PhosphorIconsStyle.fill)
+                : PhosphorIcons.warning(PhosphorIconsStyle.fill),
             color: isVerified ? AppColors.success : AppColors.warning,
             size: 28,
           ),
@@ -473,8 +497,9 @@ class _VerificationStatus extends StatelessWidget {
                   isVerified
                       ? 'Your identity has been verified. Guests can book with confidence.'
                       : 'Verify your ID to increase trust and booking rates.',
-                  style: AppTextStyles.bodyXS
-                      .copyWith(color: AppColors.textSecondary),
+                  style: AppTextStyles.bodyXS.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
                 ),
               ],
             ),
@@ -501,75 +526,81 @@ class _HostListingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: AppDimensions.spaceLG),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(AppDimensions.radiusLG),
-              bottomLeft: Radius.circular(AppDimensions.radiusLG),
-            ),
-            child: AppImage(
-              url: listing.thumbnailUrl,
-              width: 100,
-              height: 100,
-            ),
+          margin: const EdgeInsets.only(bottom: AppDimensions.spaceLG),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
+            border: Border.all(color: AppColors.border),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(AppDimensions.spaceMD),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    listing.title,
-                    style: AppTextStyles.labelMD,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    listing.city,
-                    style: AppTextStyles.bodyXS
-                        .copyWith(color: AppColors.textSecondary),
-                  ),
-                  const SizedBox(height: 6),
-                  Row(
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(AppDimensions.radiusLG),
+                  bottomLeft: Radius.circular(AppDimensions.radiusLG),
+                ),
+                child: AppImage(
+                  url: listing.thumbnailUrl,
+                  width: 100,
+                  height: 100,
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(AppDimensions.spaceMD),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 3),
-                        decoration: BoxDecoration(
-                          color: AppColors.success.withAlpha(20),
-                          borderRadius: BorderRadius.circular(
-                              AppDimensions.radiusFull),
-                        ),
-                        child: Text(
-                          'Active',
-                          style: AppTextStyles.bodyXS
-                              .copyWith(color: AppColors.success),
+                      Text(
+                        listing.title,
+                        style: AppTextStyles.labelMD,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        listing.city,
+                        style: AppTextStyles.bodyXS.copyWith(
+                          color: AppColors.textSecondary,
                         ),
                       ),
-                      const Spacer(),
-                      Text(
-                        '\$${listing.pricePerNight.toInt()}/night',
-                        style: AppTextStyles.labelSM.copyWith(
-                            color: AppColors.primary),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 3,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.success.withAlpha(20),
+                              borderRadius: BorderRadius.circular(
+                                AppDimensions.radiusFull,
+                              ),
+                            ),
+                            child: Text(
+                              'Active',
+                              style: AppTextStyles.bodyXS.copyWith(
+                                color: AppColors.success,
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            '\$${listing.pricePerNight.toInt()}/night',
+                            style: AppTextStyles.labelSM.copyWith(
+                              color: AppColors.primary,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    )
+        )
         .animate(delay: Duration(milliseconds: 280 + index * 60))
         .fadeIn(duration: 400.ms)
         .slideX(begin: 0.04, end: 0, duration: 400.ms);
@@ -584,15 +615,15 @@ class _EmptyListings extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          const Icon(Icons.home_work_outlined,
-              size: 56, color: AppColors.border),
+          Icon(PhosphorIcons.house(), size: 56, color: AppColors.border),
           const SizedBox(height: AppDimensions.spaceLG),
           Text('No listings yet', style: AppTextStyles.h3),
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             'Create your first listing to start earning.',
-            style: AppTextStyles.bodyMD
-                .copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ),
           const SizedBox(height: AppDimensions.space2XL),
           AppButton(

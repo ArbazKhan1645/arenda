@@ -10,6 +10,7 @@ import '../../../../shared/widgets/app_text_field.dart';
 import '../../../authentication/application/auth_notifier.dart';
 import '../../../authentication/application/auth_state.dart';
 import '../../application/profile_notifier.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
@@ -82,7 +83,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                       color: AppColors.primaryLight,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.person_rounded,
+                    child: Icon(PhosphorIcons.user(),
                         size: 48, color: AppColors.primary),
                   ),
                   Positioned(
@@ -96,7 +97,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.white, width: 2),
                       ),
-                      child: const Icon(Icons.camera_alt_rounded,
+                      child: Icon(PhosphorIcons.camera(),
                           size: 16, color: Colors.white),
                     ),
                   ),
@@ -108,7 +109,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               controller: _nameCtrl,
               label: 'Full name',
               textInputAction: TextInputAction.next,
-              prefixIcon: const Icon(Icons.person_outline_rounded,
+              prefixIcon: Icon(PhosphorIcons.user(),
                   size: 18, color: AppColors.textSecondary),
               validator: (v) =>
                   v == null || v.trim().isEmpty ? 'Name required' : null,
@@ -119,7 +120,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               label: 'Phone number',
               keyboardType: TextInputType.phone,
               textInputAction: TextInputAction.next,
-              prefixIcon: const Icon(Icons.phone_outlined,
+              prefixIcon: Icon(PhosphorIcons.phone(),
                   size: 18, color: AppColors.textSecondary),
             ),
             const SizedBox(height: AppDimensions.spaceLG),
@@ -129,7 +130,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               hint: 'Tell us about yourself...',
               maxLines: 3,
               textInputAction: TextInputAction.next,
-              prefixIcon: const Icon(Icons.info_outline_rounded,
+              prefixIcon: Icon(PhosphorIcons.info(),
                   size: 18, color: AppColors.textSecondary),
             ),
             const SizedBox(height: AppDimensions.spaceLG),
@@ -138,7 +139,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               label: 'Location',
               hint: 'City, Country',
               textInputAction: TextInputAction.done,
-              prefixIcon: const Icon(Icons.location_on_outlined,
+              prefixIcon: Icon(PhosphorIcons.mapPin(),
                   size: 18, color: AppColors.textSecondary),
             ),
             const SizedBox(height: AppDimensions.space2XL),

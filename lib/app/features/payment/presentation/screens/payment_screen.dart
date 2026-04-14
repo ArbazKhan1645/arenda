@@ -9,6 +9,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_dimensions.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../shared/widgets/app_button.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 // ── Payment Method Model ───────────────────────────────────────────────────
 
@@ -137,7 +138,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
       appBar: AppBar(
         title: const Text('Secure Checkout'),
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded),
+          icon: Icon(PhosphorIcons.x()),
           onPressed: () => context.pop(),
         ),
       ),
@@ -264,8 +265,8 @@ class _EscrowBanner extends StatelessWidget {
               color: AppColors.primary.withAlpha(30),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.lock_rounded,
+            child: Icon(
+              PhosphorIcons.lock(),
               color: AppColors.primaryDark,
               size: 22,
             ),
@@ -477,7 +478,7 @@ class _MethodTile extends StatelessWidget {
                 color: isSelected ? method.color : Colors.transparent,
               ),
               child: isSelected
-                  ? const Icon(Icons.check_rounded,
+                  ? Icon(PhosphorIcons.check(),
                       size: 14, color: Colors.white)
                   : null,
             ),
@@ -513,7 +514,7 @@ class _PhoneField extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           decoration: InputDecoration(
             hintText: 'e.g. 0244 123 456',
-            prefixIcon: const Icon(Icons.phone_android_rounded),
+            prefixIcon: Icon(PhosphorIcons.deviceMobile()),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
             ),
@@ -522,7 +523,7 @@ class _PhoneField extends StatelessWidget {
         const SizedBox(height: AppDimensions.spaceSM),
         Row(
           children: [
-            const Icon(Icons.info_outline_rounded,
+            Icon(PhosphorIcons.info(),
                 size: 14, color: AppColors.textSecondary),
             const SizedBox(width: 4),
             Expanded(
@@ -562,7 +563,7 @@ class _BankFields extends StatelessWidget {
           controller: bankCtrl,
           decoration: InputDecoration(
             hintText: 'Bank name (e.g. GTBank, GCB)',
-            prefixIcon: const Icon(Icons.account_balance_rounded),
+            prefixIcon: Icon(PhosphorIcons.buildings()),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
             ),
@@ -575,7 +576,7 @@ class _BankFields extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           decoration: InputDecoration(
             hintText: 'Account number',
-            prefixIcon: const Icon(Icons.credit_card_rounded),
+            prefixIcon: Icon(PhosphorIcons.creditCard()),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
             ),

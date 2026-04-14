@@ -8,6 +8,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_dimensions.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../shared/widgets/app_button.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class PayoutPreferencesScreen extends ConsumerStatefulWidget {
   const PayoutPreferencesScreen({super.key});
@@ -203,7 +204,7 @@ class _PayoutPreferencesScreenState
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.info_outline_rounded,
+                  Icon(PhosphorIcons.info(),
                       size: 18, color: AppColors.primaryDark),
                   const SizedBox(width: AppDimensions.spaceSM),
                   Expanded(
@@ -279,7 +280,7 @@ class _MethodSelector extends StatelessWidget {
             const SizedBox(width: AppDimensions.spaceMD),
             Expanded(child: Text(label, style: AppTextStyles.labelMD)),
             if (isSelected)
-              Icon(Icons.check_circle_rounded, color: color, size: 20),
+              Icon(PhosphorIcons.checkCircle(PhosphorIconsStyle.fill), color: color, size: 20),
           ],
         ),
       ),

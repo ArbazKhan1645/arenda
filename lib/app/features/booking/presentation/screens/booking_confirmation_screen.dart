@@ -10,6 +10,7 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../shared/widgets/app_button.dart';
 import '../../application/booking_notifier.dart';
 import '../../application/booking_state.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class BookingConfirmationScreen extends ConsumerWidget {
   const BookingConfirmationScreen({super.key});
@@ -29,18 +30,18 @@ class BookingConfirmationScreen extends ConsumerWidget {
 
               // Success icon
               Container(
-                width: 100,
-                height: 100,
-                decoration: const BoxDecoration(
-                  color: AppColors.primaryLight,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.check_circle_rounded,
-                  size: 60,
-                  color: AppColors.primary,
-                ),
-              )
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryLight,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      PhosphorIcons.checkCircle(PhosphorIconsStyle.fill),
+                      size: 60,
+                      color: AppColors.primary,
+                    ),
+                  )
                   .animate()
                   .scale(duration: 600.ms, curve: Curves.elasticOut)
                   .fadeIn(duration: 400.ms),
@@ -48,39 +49,42 @@ class BookingConfirmationScreen extends ConsumerWidget {
               const SizedBox(height: AppDimensions.spaceXXL),
 
               Text(
-                'Booking confirmed!',
-                style: AppTextStyles.h1,
-                textAlign: TextAlign.center,
-              ).animate(delay: 300.ms).fadeIn(duration: 400.ms).slideY(begin: 0.2, end: 0),
+                    'Booking confirmed!',
+                    style: AppTextStyles.h1,
+                    textAlign: TextAlign.center,
+                  )
+                  .animate(delay: 300.ms)
+                  .fadeIn(duration: 400.ms)
+                  .slideY(begin: 0.2, end: 0),
 
               const SizedBox(height: AppDimensions.spaceMD),
 
               Text(
                 'Your reservation is confirmed.\nHave an amazing trip!',
-                style: AppTextStyles.bodyLG.copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.bodyLG.copyWith(
+                  color: AppColors.textSecondary,
+                ),
                 textAlign: TextAlign.center,
               ).animate(delay: 400.ms).fadeIn(duration: 400.ms),
 
               if (booking != null) ...[
                 const SizedBox(height: AppDimensions.space2XL),
-                _BookingDetailsCard(booking: booking)
-                    .animate(delay: 500.ms)
-                    .fadeIn(duration: 400.ms),
+                _BookingDetailsCard(
+                  booking: booking,
+                ).animate(delay: 500.ms).fadeIn(duration: 400.ms),
               ],
 
               const SizedBox(height: AppDimensions.spaceXXL),
 
               // Escrow banner
-              _EscrowInfoCard()
-                  .animate(delay: 600.ms)
-                  .fadeIn(duration: 400.ms),
+              _EscrowInfoCard().animate(delay: 600.ms).fadeIn(duration: 400.ms),
 
               const SizedBox(height: AppDimensions.spaceXXL),
 
               // ID verification reminder
-              _IdVerificationReminder(context: context)
-                  .animate(delay: 700.ms)
-                  .fadeIn(duration: 400.ms),
+              _IdVerificationReminder(
+                context: context,
+              ).animate(delay: 700.ms).fadeIn(duration: 400.ms),
 
               const SizedBox(height: AppDimensions.space2XL),
 
@@ -162,18 +166,22 @@ class _EscrowInfoCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.lock_rounded, color: Color(0xFF2D9E8F), size: 20),
+              Icon(PhosphorIcons.lock(), color: Color(0xFF2D9E8F), size: 20),
               const SizedBox(width: AppDimensions.spaceSM),
               Text(
                 'Your payment is protected',
-                style: AppTextStyles.labelMD.copyWith(color: const Color(0xFF1A6B5E)),
+                style: AppTextStyles.labelMD.copyWith(
+                  color: const Color(0xFF1A6B5E),
+                ),
               ),
             ],
           ),
           const SizedBox(height: AppDimensions.spaceMD),
           Text(
             'Your funds are held securely in escrow and will only be released to the host after you check in.',
-            style: AppTextStyles.bodyMD.copyWith(color: const Color(0xFF1A6B5E)),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: const Color(0xFF1A6B5E),
+            ),
           ),
           const SizedBox(height: AppDimensions.spaceLG),
           _EscrowStep(
@@ -223,7 +231,9 @@ class _EscrowStep extends StatelessWidget {
             width: 28,
             height: 28,
             decoration: BoxDecoration(
-              color: isActive ? const Color(0xFF2D9E8F) : const Color(0xFF2D9E8F).withAlpha(40),
+              color: isActive
+                  ? const Color(0xFF2D9E8F)
+                  : const Color(0xFF2D9E8F).withAlpha(40),
               shape: BoxShape.circle,
             ),
             child: Center(
@@ -240,10 +250,18 @@ class _EscrowStep extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: AppTextStyles.labelSM.copyWith(color: const Color(0xFF1A6B5E))),
-                Text(subtitle,
-                    style: AppTextStyles.bodyXS.copyWith(color: const Color(0xFF2D9E8F))),
+                Text(
+                  title,
+                  style: AppTextStyles.labelSM.copyWith(
+                    color: const Color(0xFF1A6B5E),
+                  ),
+                ),
+                Text(
+                  subtitle,
+                  style: AppTextStyles.bodyXS.copyWith(
+                    color: const Color(0xFF2D9E8F),
+                  ),
+                ),
               ],
             ),
           ),
@@ -268,7 +286,11 @@ class _IdVerificationReminder extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(Icons.badge_rounded, color: AppColors.primaryDark, size: 24),
+          Icon(
+            PhosphorIcons.identificationCard(),
+            color: AppColors.primaryDark,
+            size: 24,
+          ),
           const SizedBox(width: AppDimensions.spaceMD),
           Expanded(
             child: Column(
@@ -276,12 +298,16 @@ class _IdVerificationReminder extends StatelessWidget {
               children: [
                 Text(
                   'Complete ID verification',
-                  style: AppTextStyles.labelMD.copyWith(color: AppColors.primaryDark),
+                  style: AppTextStyles.labelMD.copyWith(
+                    color: AppColors.primaryDark,
+                  ),
                 ),
                 const SizedBox(height: 3),
                 Text(
                   'A government-issued ID is required at check-in. Verify now to avoid delays.',
-                  style: AppTextStyles.bodyXS.copyWith(color: AppColors.primaryDark),
+                  style: AppTextStyles.bodyXS.copyWith(
+                    color: AppColors.primaryDark,
+                  ),
                 ),
                 const SizedBox(height: AppDimensions.spaceSM),
                 GestureDetector(
@@ -318,8 +344,10 @@ class _ConfirmRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label,
-            style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary)),
+        Text(
+          label,
+          style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
+        ),
         Flexible(
           child: Text(
             value,

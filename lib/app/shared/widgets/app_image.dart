@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../core/theme/app_colors.dart';
 import 'app_shimmer.dart';
 
@@ -38,9 +39,9 @@ class AppImage extends StatelessWidget {
         width: width,
         height: height,
         color: AppColors.surface,
-        child: const Center(
+        child: Center(
           child: Icon(
-            Icons.image_not_supported_outlined,
+            PhosphorIcons.imageSquare(),
             color: AppColors.textTertiary,
           ),
         ),

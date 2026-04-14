@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -9,13 +10,13 @@ class MainShell extends StatelessWidget {
 
   final Widget child;
 
-  static const _tabs = [
-    _TabItem(icon: Icons.explore_outlined, activeIcon: Icons.explore_rounded, label: 'Explore', path: AppRoutes.home),
-    _TabItem(icon: Icons.search_outlined, activeIcon: Icons.search_rounded, label: 'Search', path: AppRoutes.search),
-    _TabItem(icon: Icons.favorite_outline_rounded, activeIcon: Icons.favorite_rounded, label: 'Wishlists', path: AppRoutes.wishlist),
-    _TabItem(icon: Icons.luggage_outlined, activeIcon: Icons.luggage_rounded, label: 'Trips', path: AppRoutes.trips),
-    _TabItem(icon: Icons.chat_bubble_outline_rounded, activeIcon: Icons.chat_bubble_rounded, label: 'Inbox', path: AppRoutes.inbox),
-    _TabItem(icon: Icons.person_outline_rounded, activeIcon: Icons.person_rounded, label: 'Profile', path: AppRoutes.profile),
+  static final _tabs = [
+    _TabItem(icon: PhosphorIcons.compass(), activeIcon: PhosphorIcons.compass(PhosphorIconsStyle.fill), label: 'Explore', path: AppRoutes.home),
+    _TabItem(icon: PhosphorIcons.magnifyingGlass(), activeIcon: PhosphorIcons.magnifyingGlass(PhosphorIconsStyle.bold), label: 'Search', path: AppRoutes.search),
+    _TabItem(icon: PhosphorIcons.heart(), activeIcon: PhosphorIcons.heart(PhosphorIconsStyle.fill), label: 'Wishlists', path: AppRoutes.wishlist),
+    _TabItem(icon: PhosphorIcons.suitcase(), activeIcon: PhosphorIcons.suitcase(PhosphorIconsStyle.fill), label: 'Trips', path: AppRoutes.trips),
+    _TabItem(icon: PhosphorIcons.chatCircle(), activeIcon: PhosphorIcons.chatCircle(PhosphorIconsStyle.fill), label: 'Inbox', path: AppRoutes.inbox),
+    _TabItem(icon: PhosphorIcons.user(), activeIcon: PhosphorIcons.user(PhosphorIconsStyle.fill), label: 'Profile', path: AppRoutes.profile),
   ];
 
   int _currentIndex(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -38,24 +39,27 @@ class HomeScreen extends ConsumerWidget {
                   ref: ref,
                 ),
               HomeError(:final message) => SliverFillRemaining(
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.error_outline_rounded,
-                            size: 48, color: AppColors.textTertiary),
-                        const SizedBox(height: AppDimensions.spaceMD),
-                        Text(message, style: AppTextStyles.bodyMD),
-                        const SizedBox(height: AppDimensions.spaceLG),
-                        TextButton(
-                          onPressed: () =>
-                              ref.read(homeProvider.notifier).refresh(),
-                          child: const Text('Try again'),
-                        ),
-                      ],
-                    ),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        PhosphorIcons.warningCircle(),
+                        size: 48,
+                        color: AppColors.textTertiary,
+                      ),
+                      const SizedBox(height: AppDimensions.spaceMD),
+                      Text(message, style: AppTextStyles.bodyMD),
+                      const SizedBox(height: AppDimensions.spaceLG),
+                      TextButton(
+                        onPressed: () =>
+                            ref.read(homeProvider.notifier).refresh(),
+                        child: const Text('Try again'),
+                      ),
+                    ],
                   ),
                 ),
+              ),
             },
           ],
         ),
@@ -103,8 +107,11 @@ class _SearchBarButton extends StatelessWidget {
         child: Row(
           children: [
             const SizedBox(width: AppDimensions.spaceLG),
-            const Icon(Icons.search_rounded,
-                size: 20, color: AppColors.textPrimary),
+            Icon(
+              PhosphorIcons.magnifyingGlass(),
+              size: 20,
+              color: AppColors.textPrimary,
+            ),
             const SizedBox(width: AppDimensions.spaceMD),
             Expanded(
               child: Column(
@@ -118,10 +125,7 @@ class _SearchBarButton extends StatelessWidget {
                       fontSize: 12,
                     ),
                   ),
-                  Text(
-                    'Any week · Add guests',
-                    style: AppTextStyles.bodyXS,
-                  ),
+                  Text('Any week · Add guests', style: AppTextStyles.bodyXS),
                 ],
               ),
             ),
@@ -133,8 +137,11 @@ class _SearchBarButton extends StatelessWidget {
                 color: AppColors.primary,
                 shape: BoxShape.circle,
               ),
-              child:
-                  const Icon(Icons.tune_rounded, size: 16, color: Colors.white),
+              child: Icon(
+                PhosphorIcons.slidersHorizontal(),
+                size: 16,
+                color: Colors.white,
+              ),
             ),
           ],
         ),
@@ -187,7 +194,7 @@ class _ContentSliver extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(
               AppDimensions.paddingPage,
-              AppDimensions.spaceXXL,
+              AppDimensions.spaceSM,
               AppDimensions.paddingPage,
               AppDimensions.spaceLG,
             ),
@@ -208,11 +215,12 @@ class _ContentSliver extends StatelessWidget {
             ),
           ).animate().fadeIn(duration: 400.ms),
           SizedBox(
-            height: 280,
+            height: 240,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppDimensions.paddingPage),
+                horizontal: AppDimensions.paddingPage,
+              ),
               itemCount: featuredListings.length,
               separatorBuilder: (_, __) =>
                   const SizedBox(width: AppDimensions.spaceLG),
@@ -226,13 +234,14 @@ class _ContentSliver extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(
             AppDimensions.paddingPage,
-            AppDimensions.spaceXXL,
+            AppDimensions.spaceSM,
             AppDimensions.paddingPage,
             AppDimensions.spaceLG,
           ),
-          child: Text('All stays', style: AppTextStyles.h3)
-              .animate()
-              .fadeIn(duration: 400.ms),
+          child: Text(
+            'All stays',
+            style: AppTextStyles.h3,
+          ).animate().fadeIn(duration: 400.ms),
         ),
 
         ...List.generate(
@@ -260,10 +269,7 @@ class _ContentSliver extends StatelessWidget {
 // ── Category Filter Row ────────────────────────────────────────────────────
 
 class _CategoryFilterRow extends StatelessWidget {
-  const _CategoryFilterRow({
-    required this.homeState,
-    required this.ref,
-  });
+  const _CategoryFilterRow({required this.homeState, required this.ref});
 
   final HomeLoaded homeState;
   final WidgetRef ref;
@@ -342,8 +348,9 @@ class _FeaturedCard extends StatelessWidget {
               url: listing.thumbnailUrl as String,
               height: 180,
               width: 240,
-              borderRadius:
-                  BorderRadius.circular(AppDimensions.listingCardRadius),
+              borderRadius: BorderRadius.circular(
+                AppDimensions.listingCardRadius,
+              ),
             ),
             const SizedBox(height: AppDimensions.spaceMD),
             Text(
@@ -355,7 +362,11 @@ class _FeaturedCard extends StatelessWidget {
             const SizedBox(height: 2),
             Row(
               children: [
-                const Icon(Icons.star_rounded, size: 12, color: AppColors.star),
+                Icon(
+                  PhosphorIcons.star(PhosphorIconsStyle.fill),
+                  size: 12,
+                  color: AppColors.star,
+                ),
                 const SizedBox(width: 3),
                 Text(
                   (listing.rating as double).toStringAsFixed(2),

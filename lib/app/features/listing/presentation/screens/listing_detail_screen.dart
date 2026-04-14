@@ -15,6 +15,7 @@ import '../../../home/data/datasources/mock_home_datasource.dart';
 import '../../../home/domain/entities/listing_entity.dart';
 import '../../../home/domain/entities/review_entity.dart';
 import '../../../wishlist/application/wishlist_notifier.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ListingDetailScreen extends ConsumerStatefulWidget {
   const ListingDetailScreen({super.key, required this.listingId});
@@ -25,8 +26,7 @@ class ListingDetailScreen extends ConsumerStatefulWidget {
       _ListingDetailScreenState();
 }
 
-class _ListingDetailScreenState
-    extends ConsumerState<ListingDetailScreen> {
+class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
   late ListingEntity? _listing;
   late List<ReviewEntity> _reviews;
   int _currentImageIndex = 0;
@@ -70,19 +70,20 @@ class _ListingDetailScreenState
                   color: Colors.white,
                   shape: BoxShape.circle,
                   boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withAlpha(30), blurRadius: 8)
+                    BoxShadow(color: Colors.black.withAlpha(30), blurRadius: 8),
                   ],
                 ),
-                child: const Icon(Icons.arrow_back_rounded,
-                    color: AppColors.textPrimary, size: 20),
+                child: Icon(
+                  PhosphorIcons.arrowLeft(),
+                  color: AppColors.textPrimary,
+                  size: 20,
+                ),
               ),
             ),
             actions: [
               GestureDetector(
-                onTap: () => ref
-                    .read(wishlistProvider.notifier)
-                    .toggle(listing),
+                onTap: () =>
+                    ref.read(wishlistProvider.notifier).toggle(listing),
                 child: Container(
                   margin: const EdgeInsets.all(8),
                   padding: const EdgeInsets.all(8),
@@ -91,15 +92,18 @@ class _ListingDetailScreenState
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.black.withAlpha(30), blurRadius: 8)
+                        color: Colors.black.withAlpha(30),
+                        blurRadius: 8,
+                      ),
                     ],
                   ),
                   child: Icon(
                     isWishlisted
-                        ? Icons.favorite_rounded
-                        : Icons.favorite_outline_rounded,
-                    color:
-                        isWishlisted ? AppColors.error : AppColors.textPrimary,
+                        ? PhosphorIcons.heart(PhosphorIconsStyle.fill)
+                        : PhosphorIcons.heart(),
+                    color: isWishlisted
+                        ? AppColors.error
+                        : AppColors.textPrimary,
                     size: 20,
                   ),
                 ),
@@ -111,12 +115,14 @@ class _ListingDetailScreenState
                   color: Colors.white,
                   shape: BoxShape.circle,
                   boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withAlpha(30), blurRadius: 8)
+                    BoxShadow(color: Colors.black.withAlpha(30), blurRadius: 8),
                   ],
                 ),
-                child: const Icon(Icons.share_outlined,
-                    color: AppColors.textPrimary, size: 20),
+                child: Icon(
+                  PhosphorIcons.shareNetwork(),
+                  color: AppColors.textPrimary,
+                  size: 20,
+                ),
               ),
             ],
             flexibleSpace: FlexibleSpaceBar(
@@ -138,8 +144,7 @@ class _ListingDetailScreenState
                         listing.images.length,
                         (i) => AnimatedContainer(
                           duration: const Duration(milliseconds: 250),
-                          margin:
-                              const EdgeInsets.symmetric(horizontal: 3),
+                          margin: const EdgeInsets.symmetric(horizontal: 3),
                           width: _currentImageIndex == i ? 20 : 6,
                           height: 6,
                           decoration: BoxDecoration(
@@ -160,15 +165,17 @@ class _ListingDetailScreenState
           // ── Content ────────────────────────────────────────────────────
           SliverPadding(
             padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.paddingPage),
+              horizontal: AppDimensions.paddingPage,
+            ),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 const SizedBox(height: AppDimensions.spaceXL),
 
                 // Title & Rating
-                Text(listing.title, style: AppTextStyles.h2)
-                    .animate()
-                    .fadeIn(duration: 400.ms),
+                Text(
+                  listing.title,
+                  style: AppTextStyles.h2,
+                ).animate().fadeIn(duration: 400.ms),
                 const SizedBox(height: AppDimensions.spaceSM),
                 Row(
                   children: [
@@ -189,31 +196,31 @@ class _ListingDetailScreenState
                   ],
                 ),
 
-                const SizedBox(height: AppDimensions.spaceXL),
+                const SizedBox(height: AppDimensions.spaceSM),
                 const Divider(),
-                const SizedBox(height: AppDimensions.spaceXL),
+                const SizedBox(height: AppDimensions.spaceSM),
 
                 // Verification badges
                 if (listing.verificationBadges.isNotEmpty) ...[
-                  _VerificationBadges(badges: listing.verificationBadges)
-                      .animate(delay: 80.ms)
-                      .fadeIn(duration: 400.ms),
-                  const SizedBox(height: AppDimensions.spaceXL),
+                  _VerificationBadges(
+                    badges: listing.verificationBadges,
+                  ).animate(delay: 80.ms).fadeIn(duration: 400.ms),
+                  const SizedBox(height: AppDimensions.spaceLG),
                   const Divider(),
-                  const SizedBox(height: AppDimensions.spaceXL),
+                  const SizedBox(height: AppDimensions.spaceLG),
                 ],
 
                 // Host
                 _HostSection(listing: listing),
 
-                const SizedBox(height: AppDimensions.spaceXL),
+                const SizedBox(height: AppDimensions.spaceLG),
                 const Divider(),
-                const SizedBox(height: AppDimensions.spaceXL),
+                const SizedBox(height: AppDimensions.spaceMD),
 
                 // Property stats
                 _StatsRow(listing: listing),
 
-                const SizedBox(height: AppDimensions.spaceXL),
+                const SizedBox(height: AppDimensions.spaceMD),
                 const Divider(),
                 const SizedBox(height: AppDimensions.spaceXL),
 
@@ -222,7 +229,8 @@ class _ListingDetailScreenState
                   description: listing.description,
                   showFull: _showFullDescription,
                   onToggle: () => setState(
-                      () => _showFullDescription = !_showFullDescription),
+                    () => _showFullDescription = !_showFullDescription,
+                  ),
                 ),
 
                 const SizedBox(height: AppDimensions.spaceXL),
@@ -295,17 +303,22 @@ class _HostSection extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text('Hosted by ${listing.hostName}',
-                      style: AppTextStyles.h4),
+                  Text(
+                    'Hosted by ${listing.hostName}',
+                    style: AppTextStyles.h4.copyWith(fontSize: 12),
+                  ),
                   if (listing.hostIsSuperhost) ...[
                     const SizedBox(width: 6),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 2),
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.primaryLight,
                         borderRadius: BorderRadius.circular(
-                            AppDimensions.radiusFull),
+                          AppDimensions.radiusFull,
+                        ),
                       ),
                       child: Text(
                         'Superhost',
@@ -320,8 +333,9 @@ class _HostSection extends StatelessWidget {
               ),
               Text(
                 '${listing.reviewCount} reviews · 4 years hosting',
-                style: AppTextStyles.bodyMD
-                    .copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.bodyMD.copyWith(
+                  color: AppColors.textSecondary,
+                ),
               ),
             ],
           ),
@@ -341,12 +355,16 @@ class _StatsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        _Stat(icon: Icons.people_outline_rounded,
-            label: '${listing.maxGuests} guests'),
-        _Stat(icon: Icons.bed_outlined, label: '${listing.bedrooms} bedrooms'),
-        _Stat(icon: Icons.king_bed_outlined, label: '${listing.beds} beds'),
-        _Stat(icon: Icons.bathtub_outlined,
-            label: '${listing.bathrooms} baths'),
+        _Stat(
+          icon: PhosphorIcons.usersThree(),
+          label: '${listing.maxGuests} guests',
+        ),
+        _Stat(icon: PhosphorIcons.bed(), label: '${listing.bedrooms} bedrooms'),
+        _Stat(icon: PhosphorIcons.bed(), label: '${listing.beds} beds'),
+        _Stat(
+          icon: PhosphorIcons.bathtub(),
+          label: '${listing.bathrooms} baths',
+        ),
       ],
     );
   }
@@ -364,8 +382,7 @@ class _Stat extends StatelessWidget {
         children: [
           Icon(icon, size: 22, color: AppColors.textPrimary),
           const SizedBox(height: 4),
-          Text(label,
-              style: AppTextStyles.bodyXS, textAlign: TextAlign.center),
+          Text(label, style: AppTextStyles.bodyXS, textAlign: TextAlign.center),
         ],
       ),
     );
@@ -393,7 +410,7 @@ class _DescriptionSection extends StatelessWidget {
         const SizedBox(height: AppDimensions.spaceMD),
         Text(
           description,
-          style: AppTextStyles.bodyLG,
+          style: AppTextStyles.bodyMD,
           maxLines: showFull ? null : 4,
           overflow: showFull ? null : TextOverflow.ellipsis,
         ),
@@ -411,8 +428,8 @@ class _DescriptionSection extends StatelessWidget {
               ),
               Icon(
                 showFull
-                    ? Icons.keyboard_arrow_up_rounded
-                    : Icons.keyboard_arrow_down_rounded,
+                    ? PhosphorIcons.caretUp()
+                    : PhosphorIcons.caretDown(),
                 size: 20,
               ),
             ],
@@ -429,28 +446,26 @@ class _AmenitiesSection extends StatelessWidget {
   const _AmenitiesSection({required this.amenities});
   final List<String> amenities;
 
-  static const _amenityMeta = {
-    'wifi': (icon: Icons.wifi_rounded, label: 'Wifi'),
-    'pool': (icon: Icons.pool_rounded, label: 'Pool'),
-    'kitchen': (icon: Icons.kitchen_rounded, label: 'Kitchen'),
-    'parking': (icon: Icons.local_parking_rounded, label: 'Free parking'),
-    'ac': (icon: Icons.ac_unit_rounded, label: 'Air conditioning'),
-    'beach_access':
-        (icon: Icons.beach_access_rounded, label: 'Beach access'),
-    'bbq': (icon: Icons.outdoor_grill_rounded, label: 'BBQ grill'),
-    'gym': (icon: Icons.fitness_center_rounded, label: 'Gym'),
-    'fireplace':
-        (icon: Icons.fireplace_rounded, label: 'Indoor fireplace'),
-    'hot_tub': (icon: Icons.hot_tub_rounded, label: 'Hot tub'),
-    'washer': (icon: Icons.local_laundry_service_rounded, label: 'Washer'),
-    'dryer': (icon: Icons.dry_cleaning_rounded, label: 'Dryer'),
-    'heating': (icon: Icons.thermostat_rounded, label: 'Heating'),
-    'doorman': (icon: Icons.security_rounded, label: 'Doorman'),
-    'breakfast': (icon: Icons.free_breakfast_rounded, label: 'Breakfast'),
-    'kayak': (icon: Icons.kayaking_rounded, label: 'Kayak'),
-    'garden': (icon: Icons.yard_rounded, label: 'Garden'),
-    'spa': (icon: Icons.spa_rounded, label: 'Spa'),
-    'butler': (icon: Icons.room_service_rounded, label: 'Butler'),
+  static final _amenityMeta = {
+    'wifi': (icon: PhosphorIcons.wifiHigh(), label: 'Wifi'),
+    'pool': (icon: PhosphorIcons.waves(), label: 'Pool'),
+    'kitchen': (icon: PhosphorIcons.forkKnife(), label: 'Kitchen'),
+    'parking': (icon: PhosphorIcons.car(), label: 'Free parking'),
+    'ac': (icon: PhosphorIcons.snowflake(), label: 'Air conditioning'),
+    'beach_access': (icon: PhosphorIcons.umbrella(), label: 'Beach access'),
+    'bbq': (icon: PhosphorIcons.fire(), label: 'BBQ grill'),
+    'gym': (icon: PhosphorIcons.barbell(), label: 'Gym'),
+    'fireplace': (icon: PhosphorIcons.fire(), label: 'Indoor fireplace'),
+    'hot_tub': (icon: PhosphorIcons.thermometer(), label: 'Hot tub'),
+    'washer': (icon: PhosphorIcons.arrowClockwise(), label: 'Washer'),
+    'dryer': (icon: PhosphorIcons.tote(), label: 'Dryer'),
+    'heating': (icon: PhosphorIcons.thermometer(), label: 'Heating'),
+    'doorman': (icon: PhosphorIcons.shieldCheck(), label: 'Doorman'),
+    'breakfast': (icon: PhosphorIcons.coffee(), label: 'Breakfast'),
+    'kayak': (icon: PhosphorIcons.waves(), label: 'Kayak'),
+    'garden': (icon: PhosphorIcons.tree(), label: 'Garden'),
+    'spa': (icon: PhosphorIcons.leaf(), label: 'Spa'),
+    'butler': (icon: PhosphorIcons.bellSimple(), label: 'Butler'),
   };
 
   @override
@@ -459,9 +474,10 @@ class _AmenitiesSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('What this place offers', style: AppTextStyles.h3),
-        const SizedBox(height: AppDimensions.spaceLG),
+        const SizedBox(height: AppDimensions.spaceSM),
         GridView.builder(
           shrinkWrap: true,
+          padding: EdgeInsets.all(0),
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -476,15 +492,15 @@ class _AmenitiesSection extends StatelessWidget {
             return Row(
               children: [
                 Icon(
-                  meta?.icon ?? Icons.check_circle_outline_rounded,
+                  meta?.icon ?? PhosphorIcons.checkCircle(),
                   size: 20,
-                  color: AppColors.textPrimary,
+                  color: AppColors.darkSurfaceVariant,
                 ),
                 const SizedBox(width: AppDimensions.spaceSM),
                 Expanded(
                   child: Text(
                     meta?.label ?? key,
-                    style: AppTextStyles.bodyMD,
+                    style: AppTextStyles.bodySM,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -521,21 +537,17 @@ class _ReviewsSection extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.star_rounded,
-                    size: 18, color: AppColors.star),
+                Icon(PhosphorIcons.star(PhosphorIconsStyle.fill), size: 18, color: AppColors.star),
                 const SizedBox(width: 4),
-                Text(
-                  '$rating · $reviewCount reviews',
-                  style: AppTextStyles.h3,
-                ),
+                Text('$rating · $reviewCount reviews', style: AppTextStyles.h3),
               ],
             ),
             TextButton(
-              onPressed: () =>
-                  context.push(AppRoutes.reviewsPath(listingId)),
-              child: Text('See all',
-                  style: AppTextStyles.labelSM
-                      .copyWith(color: AppColors.primary)),
+              onPressed: () => context.push(AppRoutes.reviewsPath(listingId)),
+              child: Text(
+                'See all',
+                style: AppTextStyles.labelSM.copyWith(color: AppColors.primary),
+              ),
             ),
           ],
         ),
@@ -569,16 +581,18 @@ class _ReviewTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(review.userName, style: AppTextStyles.labelMD),
-                  Text(review.formattedDate,
-                      style: AppTextStyles.bodyXS),
+                  Text(review.formattedDate, style: AppTextStyles.bodyXS),
                 ],
               ),
             ],
           ),
           const SizedBox(height: AppDimensions.spaceMD),
-          Text(review.comment,
-              style: AppTextStyles.bodyMD, maxLines: 4,
-              overflow: TextOverflow.ellipsis),
+          Text(
+            review.comment,
+            style: AppTextStyles.bodyMD,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     );
@@ -619,24 +633,26 @@ class _MapSection extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 10),
+                  horizontal: 16,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius:
-                      BorderRadius.circular(AppDimensions.radiusFull),
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
                   boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withAlpha(30), blurRadius: 8)
+                    BoxShadow(color: Colors.black.withAlpha(30), blurRadius: 8),
                   ],
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.location_on_rounded,
-                        size: 16, color: AppColors.primary),
+                    Icon(
+                      PhosphorIcons.mapPin(PhosphorIconsStyle.fill),
+                      size: 16,
+                      color: AppColors.primary,
+                    ),
                     const SizedBox(width: 4),
-                    Text(listing.city,
-                        style: AppTextStyles.labelMD),
+                    Text(listing.city, style: AppTextStyles.labelMD),
                   ],
                 ),
               ),
@@ -646,8 +662,7 @@ class _MapSection extends StatelessWidget {
         const SizedBox(height: AppDimensions.spaceMD),
         Text(
           listing.location,
-          style: AppTextStyles.bodyMD
-              .copyWith(color: AppColors.textSecondary),
+          style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
         ),
       ],
     );
@@ -662,8 +677,8 @@ class _ReserveBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasLocal = listing.localPricePerNight != null &&
-        listing.localCurrency != 'USD';
+    final hasLocal =
+        listing.localPricePerNight != null && listing.localCurrency != 'USD';
 
     return Container(
       padding: EdgeInsets.fromLTRB(
@@ -689,16 +704,20 @@ class _ReserveBar extends StatelessWidget {
                     '\$${listing.discountedPrice.toInt()}',
                     style: AppTextStyles.priceLG,
                   ),
-                  Text(' / night',
-                      style: AppTextStyles.bodyMD
-                          .copyWith(color: AppColors.textSecondary)),
+                  Text(
+                    ' / night',
+                    style: AppTextStyles.bodyMD.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
                 ],
               ),
               if (hasLocal)
                 Text(
                   '≈ ${listing.localCurrencySymbol}${listing.effectiveLocalPrice.toInt()} ${listing.localCurrency}',
-                  style: AppTextStyles.bodyXS
-                      .copyWith(color: AppColors.primaryDark),
+                  style: AppTextStyles.bodyXS.copyWith(
+                    color: AppColors.primaryDark,
+                  ),
                 ),
               AppRatingBar(
                 rating: listing.rating,
@@ -712,8 +731,7 @@ class _ReserveBar extends StatelessWidget {
           Expanded(
             child: AppButton(
               label: 'Reserve',
-              onPressed: () =>
-                  context.push(AppRoutes.bookingPath(listing.id)),
+              onPressed: () => context.push(AppRoutes.bookingPath(listing.id)),
             ),
           ),
         ],
@@ -728,14 +746,20 @@ class _VerificationBadges extends StatelessWidget {
   const _VerificationBadges({required this.badges});
   final List<String> badges;
 
-  static const _badgeMeta = {
-    '24/7 Power':        (icon: Icons.bolt_rounded,          color: Color(0xFFFFC107)),
-    'Physically Vetted': (icon: Icons.verified_rounded,       color: Color(0xFF22C55E)),
-    'High-Speed WiFi':   (icon: Icons.wifi_rounded,           color: Color(0xFF14B8A6)),
-    'CCTV':              (icon: Icons.videocam_rounded,        color: Color(0xFF6366F1)),
-    'Gated Estate':      (icon: Icons.lock_rounded,           color: Color(0xFF0D9488)),
-    'Beach Access':      (icon: Icons.beach_access_rounded,   color: Color(0xFF0EA5E9)),
-    'Concierge':         (icon: Icons.room_service_rounded,   color: Color(0xFFEC4899)),
+  static final _badgeMeta = {
+    '24/7 Power': (icon: PhosphorIcons.lightning(), color: Color(0xFFFFC107)),
+    'Physically Vetted': (
+      icon: PhosphorIcons.sealCheck(PhosphorIconsStyle.fill),
+      color: Color(0xFF22C55E),
+    ),
+    'High-Speed WiFi': (icon: PhosphorIcons.wifiHigh(), color: Color(0xFF14B8A6)),
+    'CCTV': (icon: PhosphorIcons.video(), color: Color(0xFF6366F1)),
+    'Gated Estate': (icon: PhosphorIcons.lock(), color: Color(0xFF0D9488)),
+    'Beach Access': (
+      icon: PhosphorIcons.umbrella(),
+      color: Color(0xFF0EA5E9),
+    ),
+    'Concierge': (icon: PhosphorIcons.bellSimple(), color: Color(0xFFEC4899)),
   };
 
   @override
@@ -743,7 +767,7 @@ class _VerificationBadges extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Verified by Arenda', style: AppTextStyles.h3),
+        Text('Verified by Arenda', style: AppTextStyles.h4),
         const SizedBox(height: AppDimensions.spaceLG),
         Wrap(
           spacing: AppDimensions.spaceSM,
@@ -761,10 +785,13 @@ class _VerificationBadges extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(meta?.icon ?? Icons.check_rounded, size: 14, color: color),
+                  Icon(
+                    meta?.icon ?? PhosphorIcons.check(),
+                    size: 14,
+                    color: color,
+                  ),
                   const SizedBox(width: 5),
-                  Text(b,
-                      style: AppTextStyles.labelSM.copyWith(color: color)),
+                  Text(b, style: AppTextStyles.labelSM.copyWith(color: color)),
                 ],
               ),
             );
@@ -789,16 +816,21 @@ class _LandmarkSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('How to find this place', style: AppTextStyles.h3),
+            Text(
+              'How to find this place',
+              style: AppTextStyles.h4.copyWith(fontSize: 13),
+            ),
             TextButton.icon(
-              onPressed: () =>
-                  context.push(AppRoutes.landmarkPath(listing.id)),
-              icon: const Icon(Icons.map_rounded, size: 16),
-              label: const Text('Full directions'),
+              onPressed: () => context.push(AppRoutes.landmarkPath(listing.id)),
+              icon: Icon(PhosphorIcons.mapTrifold(), size: 16),
+              label: Text(
+                'Full directions',
+                style: AppTextStyles.h4.copyWith(fontSize: 13),
+              ),
             ),
           ],
         ),
-        const SizedBox(height: AppDimensions.spaceMD),
+        const SizedBox(height: AppDimensions.spaceSM),
         if (listing.landmarkNote != null) ...[
           Container(
             padding: const EdgeInsets.all(AppDimensions.spaceLG),
@@ -826,8 +858,9 @@ class _LandmarkSection extends StatelessWidget {
         ] else
           Text(
             'Exact directions will be shared after booking is confirmed.',
-            style: AppTextStyles.bodyMD
-                .copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ),
       ],
     );

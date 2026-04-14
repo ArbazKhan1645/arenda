@@ -14,7 +14,8 @@ class ArendaApp extends ConsumerWidget {
       title: 'Arenda',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
+      // darkTheme: AppTheme.dark,
+      darkTheme: AppTheme.light,
       themeMode: ThemeMode.system,
       routerConfig: router,
     );

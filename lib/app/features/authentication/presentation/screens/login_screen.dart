@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/routes/app_routes.dart';
@@ -33,10 +35,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Future<void> _submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-    final success = await ref.read(authProvider.notifier).signIn(
-          _emailCtrl.text.trim(),
-          _passwordCtrl.text,
-        );
+    final success = await ref
+        .read(authProvider.notifier)
+        .signIn(_emailCtrl.text.trim(), _passwordCtrl.text);
     if (success && mounted) context.go(AppRoutes.home);
   }
 
@@ -50,10 +51,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.close_rounded),
-          onPressed: () => context.canPop() ? context.pop() : null,
-        ),
+        leading: context.canPop()
+            ? IconButton(
+                icon: Icon(PhosphorIcons.x()),
+                onPressed: () => context.canPop() ? context.pop() : null,
+              )
+            : null,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -68,10 +71,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const SizedBox(height: AppDimensions.spaceXL),
 
                 // Header
-                Text('Welcome back', style: AppTextStyles.h1)
-                    .animate()
-                    .fadeIn(duration: 400.ms)
-                    .slideY(begin: 0.2, end: 0),
+                Text(
+                  'Welcome back',
+                  style: AppTextStyles.h1,
+                ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.2, end: 0),
 
                 const SizedBox(height: AppDimensions.spaceSM),
 
@@ -94,8 +97,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.info_outline_rounded,
-                          size: 16, color: AppColors.primary),
+                      Icon(
+                        PhosphorIcons.info(),
+                        size: 16,
+                        color: AppColors.primary,
+                      ),
                       const SizedBox(width: AppDimensions.spaceSM),
                       Expanded(
                         child: Text(
@@ -118,8 +124,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   hint: 'you@example.com',
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
-                  prefixIcon: const Icon(Icons.email_outlined,
-                      size: 18, color: AppColors.textSecondary),
+                  prefixIcon: Icon(
+                    PhosphorIcons.envelope(),
+                    size: 18,
+                    color: AppColors.textSecondary,
+                  ),
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) {
                       return 'Email is required';
@@ -139,8 +148,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   obscureText: true,
                   textInputAction: TextInputAction.done,
                   onSubmitted: (_) => _submit(),
-                  prefixIcon: const Icon(Icons.lock_outline_rounded,
-                      size: 18, color: AppColors.textSecondary),
+                  prefixIcon: Icon(
+                    PhosphorIcons.lock(),
+                    size: 18,
+                    color: AppColors.textSecondary,
+                  ),
                   validator: (v) {
                     if (v == null || v.isEmpty) return 'Password is required';
                     return null;
@@ -170,13 +182,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     padding: const EdgeInsets.all(AppDimensions.spaceMD),
                     decoration: BoxDecoration(
                       color: AppColors.errorLight,
-                      borderRadius:
-                          BorderRadius.circular(AppDimensions.radiusMD),
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusMD,
+                      ),
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.error_outline_rounded,
-                            size: 16, color: AppColors.error),
+                        Icon(
+                          PhosphorIcons.warningCircle(),
+                          size: 16,
+                          color: AppColors.error,
+                        ),
                         const SizedBox(width: AppDimensions.spaceSM),
                         Expanded(
                           child: Text(
@@ -205,7 +221,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 // Divider
                 Row(
                   children: [
-                    const Expanded(child: Divider()),
+                    const Expanded(child: Divider(color: AppColors.border)),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: AppDimensions.spaceMD,
@@ -217,7 +233,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ),
                     ),
-                    const Expanded(child: Divider()),
+                    const Expanded(child: Divider(color: AppColors.border)),
                   ],
                 ),
 
@@ -225,7 +241,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                 // Social logins
                 _SocialButton(
-                  icon: Icons.g_mobiledata_rounded,
+                  faIcon: FontAwesomeIcons.google,
+                  iconColor: const Color(0xFF4285F4),
                   label: 'Continue with Google',
                   onTap: () {},
                 ).animate(delay: 350.ms).fadeIn(duration: 400.ms),
@@ -233,7 +250,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const SizedBox(height: AppDimensions.spaceMD),
 
                 _SocialButton(
-                  icon: Icons.apple_rounded,
+                  faIcon: FontAwesomeIcons.apple,
+                  iconColor: Colors.black,
                   label: 'Continue with Apple',
                   onTap: () {},
                 ).animate(delay: 400.ms).fadeIn(duration: 400.ms),
@@ -276,12 +294,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
 class _SocialButton extends StatelessWidget {
   const _SocialButton({
-    required this.icon,
+    required this.faIcon,
+    required this.iconColor,
     required this.label,
     required this.onTap,
   });
 
-  final IconData icon;
+  final IconData faIcon;
+  final Color iconColor;
   final String label;
   final VoidCallback onTap;
 
@@ -301,7 +321,7 @@ class _SocialButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 22, color: AppColors.textPrimary),
+            FaIcon(faIcon, size: 20, color: iconColor),
             const SizedBox(width: AppDimensions.spaceSM),
             Text(
               label,
