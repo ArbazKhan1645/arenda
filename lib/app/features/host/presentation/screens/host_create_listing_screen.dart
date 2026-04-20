@@ -46,8 +46,9 @@ class _HostCreateListingScreenState extends State<HostCreateListingScreen> {
   bool _hasSecurity = true;
   bool _hasPool = false;
 
-  // ── Step 5 data (photos placeholder)
+  // ── Step 5 data
   int _photoCount = 0;
+  int _videoCount = 0;
 
   // ── Step 6 data
   final _priceUSDCtrl = TextEditingController();
@@ -178,7 +179,9 @@ class _HostCreateListingScreenState extends State<HostCreateListingScreen> {
           ),
           _Step5Photos(
             photoCount: _photoCount,
+            videoCount: _videoCount,
             onAddPhoto: () => setState(() => _photoCount++),
+            onAddVideo: () => setState(() => _videoCount++),
             onNext: _next,
           ),
           _Step6Pricing(
@@ -779,93 +782,137 @@ class _Step4Utilities extends StatelessWidget {
   }
 }
 
-// ── Step 5: Photos ─────────────────────────────────────────────────────────
+// ── Step 5: Photos & Videos ────────────────────────────────────────────────
 
 class _Step5Photos extends StatelessWidget {
   const _Step5Photos({
     required this.photoCount,
+    required this.videoCount,
     required this.onAddPhoto,
+    required this.onAddVideo,
     required this.onNext,
   });
 
   final int photoCount;
+  final int videoCount;
   final VoidCallback onAddPhoto;
+  final VoidCallback onAddVideo;
   final VoidCallback onNext;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(AppDimensions.paddingPage),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Add photos',
+            'Photos & Vidéos',
             style: AppTextStyles.h2,
           ).animate().fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
-            'Add at least 5 high-quality photos. Good photos increase bookings by 3×.',
-            style: AppTextStyles.bodyMD.copyWith(
-              color: AppColors.textSecondary,
-            ),
+            'Ajoutez au moins 5 photos. Les annonces avec vidéos reçoivent 2× plus de réservations.',
+            style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
           ).animate(delay: 80.ms).fadeIn(),
+
           const SizedBox(height: AppDimensions.space2XL),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 3,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              children: [
-                ...List.generate(photoCount, (i) => _PhotoTile(index: i)),
-                GestureDetector(
-                  onTap: onAddPhoto,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryLight,
-                      borderRadius: BorderRadius.circular(
-                        AppDimensions.radiusMD,
-                      ),
-                      border: Border.all(
-                        color: AppColors.primary,
-                        style: BorderStyle.solid,
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          PhosphorIcons.image(),
-                          size: 32,
-                          color: AppColors.primary,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Add',
-                          style: AppTextStyles.bodyXS.copyWith(
-                            color: AppColors.primary,
-                          ),
-                        ),
-                      ],
-                    ),
+
+          // ── Photos section ───────────────────────────────────────────────
+          Row(
+            children: [
+              Icon(PhosphorIcons.images(), size: 18, color: AppColors.textPrimary),
+              const SizedBox(width: 8),
+              Text('Photos', style: AppTextStyles.labelMD),
+              const SizedBox(width: 8),
+              if (photoCount < 5)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: AppColors.warning.withAlpha(30),
+                    borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
+                    border: Border.all(color: AppColors.warning.withAlpha(80)),
+                  ),
+                  child: Text(
+                    '${5 - photoCount} required',
+                    style: AppTextStyles.bodyXS.copyWith(color: AppColors.warning),
                   ),
                 ),
-              ],
-            ),
-          ),
-          if (photoCount < 5)
-            Padding(
-              padding: const EdgeInsets.only(bottom: AppDimensions.spaceMD),
-              child: Text(
-                '${5 - photoCount} more photo${5 - photoCount == 1 ? "" : "s"} required',
-                style: AppTextStyles.bodyXS.copyWith(color: AppColors.warning),
+            ],
+          ).animate(delay: 100.ms).fadeIn(),
+          const SizedBox(height: AppDimensions.spaceMD),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 3,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            children: [
+              ...List.generate(photoCount, (i) => _MediaTile(index: i, isVideo: false)),
+              GestureDetector(
+                onTap: onAddPhoto,
+                child: _AddMediaButton(
+                  icon: PhosphorIcons.image(),
+                  label: 'Photo',
+                ),
               ),
-            ),
+            ],
+          ).animate(delay: 120.ms).fadeIn(),
+
+          const SizedBox(height: AppDimensions.space2XL),
+
+          // ── Videos section ───────────────────────────────────────────────
+          Row(
+            children: [
+              Icon(PhosphorIcons.videoCamera(), size: 18, color: AppColors.textPrimary),
+              const SizedBox(width: 8),
+              Text('Vidéos', style: AppTextStyles.labelMD),
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                decoration: BoxDecoration(
+                  color: AppColors.primarySurface,
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
+                ),
+                child: Text(
+                  'Optionnel',
+                  style: AppTextStyles.bodyXS.copyWith(color: AppColors.primary),
+                ),
+              ),
+            ],
+          ).animate(delay: 160.ms).fadeIn(),
+          const SizedBox(height: AppDimensions.spaceSM),
+          Text(
+            'La première vidéo apparaîtra sur la carte de votre annonce.',
+            style: AppTextStyles.bodyXS.copyWith(color: AppColors.textSecondary),
+          ).animate(delay: 170.ms).fadeIn(),
+          const SizedBox(height: AppDimensions.spaceMD),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 3,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            children: [
+              ...List.generate(videoCount, (i) => _MediaTile(index: i, isVideo: true)),
+              GestureDetector(
+                onTap: onAddVideo,
+                child: _AddMediaButton(
+                  icon: PhosphorIcons.videoCamera(),
+                  label: 'Vidéo',
+                  color: const Color(0xFF6366F1),
+                ),
+              ),
+            ],
+          ).animate(delay: 180.ms).fadeIn(),
+
+          const SizedBox(height: AppDimensions.space2XL),
+
           AppButton(
-            label: 'Next',
+            label: 'Suivant',
             isDisabled: photoCount < 1,
             onPressed: photoCount >= 1 ? onNext : null,
-          ),
+          ).animate(delay: 220.ms).fadeIn(),
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
@@ -873,11 +920,44 @@ class _Step5Photos extends StatelessWidget {
   }
 }
 
-class _PhotoTile extends StatelessWidget {
-  const _PhotoTile({required this.index});
-  final int index;
+class _AddMediaButton extends StatelessWidget {
+  const _AddMediaButton({
+    required this.icon,
+    required this.label,
+    this.color,
+  });
 
-  static const _colors = [
+  final IconData icon;
+  final String label;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = color ?? AppColors.primary;
+    return Container(
+      decoration: BoxDecoration(
+        color: c.withAlpha(20),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
+        border: Border.all(color: c.withAlpha(120)),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 28, color: c),
+          const SizedBox(height: 4),
+          Text(label, style: AppTextStyles.bodyXS.copyWith(color: c)),
+        ],
+      ),
+    );
+  }
+}
+
+class _MediaTile extends StatelessWidget {
+  const _MediaTile({required this.index, required this.isVideo});
+  final int index;
+  final bool isVideo;
+
+  static const _photoColors = [
     Color(0xFFB2DFDB),
     Color(0xFFB3E5FC),
     Color(0xFFC8E6C9),
@@ -886,14 +966,25 @@ class _PhotoTile extends StatelessWidget {
     Color(0xFFE1BEE7),
   ];
 
+  static const _videoColors = [
+    Color(0xFFD1C4E9),
+    Color(0xFFBBDEFB),
+    Color(0xFFB3E5FC),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final colors = isVideo ? _videoColors : _photoColors;
     return Container(
       decoration: BoxDecoration(
-        color: _colors[index % _colors.length],
+        color: colors[index % colors.length],
         borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
       ),
-      child: Icon(PhosphorIcons.image(), color: Colors.white54, size: 32),
+      child: Icon(
+        isVideo ? PhosphorIcons.videoCamera() : PhosphorIcons.image(),
+        color: Colors.white54,
+        size: 32,
+      ),
     );
   }
 }

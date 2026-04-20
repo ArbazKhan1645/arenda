@@ -46,9 +46,9 @@ class LandmarkNavigationScreen extends StatelessWidget {
         slivers: [
           // ── Map Placeholder ────────────────────────────────────────
           SliverToBoxAdapter(
-            child: _MapPlaceholder(listing: listing)
-                .animate()
-                .fadeIn(duration: 400.ms),
+            child: _MapPlaceholder(
+              listing: listing,
+            ).animate().fadeIn(duration: 400.ms),
           ),
 
           SliverPadding(
@@ -62,8 +62,9 @@ class LandmarkNavigationScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: AppColors.primaryLight,
-                        borderRadius:
-                            BorderRadius.circular(AppDimensions.radiusMD),
+                        borderRadius: BorderRadius.circular(
+                          AppDimensions.radiusMD,
+                        ),
                       ),
                       child: Icon(
                         PhosphorIcons.mapPin(PhosphorIconsStyle.fill),
@@ -78,9 +79,10 @@ class LandmarkNavigationScreen extends StatelessWidget {
                         children: [
                           Text(listing.city, style: AppTextStyles.labelLG),
                           Text(
-                            listing.location,
-                            style: AppTextStyles.bodyMD
-                                .copyWith(color: AppColors.textSecondary),
+                            listing.location.city,
+                            style: AppTextStyles.bodyMD.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
                           ),
                         ],
                       ),
@@ -93,20 +95,23 @@ class LandmarkNavigationScreen extends StatelessWidget {
                 const SizedBox(height: AppDimensions.space2XL),
 
                 // ── Landmark Note ────────────────────────────────────
-                Text('Landmark directions', style: AppTextStyles.h3)
-                    .animate(delay: 150.ms)
-                    .fadeIn(duration: 400.ms),
+                Text(
+                  'Landmark directions',
+                  style: AppTextStyles.h3,
+                ).animate(delay: 150.ms).fadeIn(duration: 400.ms),
                 const SizedBox(height: AppDimensions.spaceSM),
                 Text(
                   'Use these directions when GPS is inaccurate or you need to describe to a driver.',
-                  style: AppTextStyles.bodyMD
-                      .copyWith(color: AppColors.textSecondary),
+                  style: AppTextStyles.bodyMD.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
                 ).animate(delay: 180.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceLG),
 
                 _LandmarkCard(
-                  note: listing.landmarkNote ??
+                  note:
+                      listing.landmarkNote ??
                       'The host will send exact directions after your booking is confirmed.',
                 ).animate(delay: 220.ms).fadeIn(duration: 400.ms),
 
@@ -115,9 +120,10 @@ class LandmarkNavigationScreen extends StatelessWidget {
                 const SizedBox(height: AppDimensions.space2XL),
 
                 // ── Coordinates (for driver apps) ────────────────────
-                Text('GPS Coordinates', style: AppTextStyles.h3)
-                    .animate(delay: 270.ms)
-                    .fadeIn(duration: 400.ms),
+                Text(
+                  'GPS Coordinates',
+                  style: AppTextStyles.h3,
+                ).animate(delay: 270.ms).fadeIn(duration: 400.ms),
                 const SizedBox(height: AppDimensions.spaceSM),
                 _CoordinateRow(
                   lat: listing.latitude,
@@ -129,15 +135,13 @@ class LandmarkNavigationScreen extends StatelessWidget {
                 const SizedBox(height: AppDimensions.space2XL),
 
                 // ── Tips ─────────────────────────────────────────────
-                Text('Local tips', style: AppTextStyles.h3)
-                    .animate(delay: 340.ms)
-                    .fadeIn(duration: 400.ms),
+                Text(
+                  'Local tips',
+                  style: AppTextStyles.h3,
+                ).animate(delay: 340.ms).fadeIn(duration: 400.ms),
                 const SizedBox(height: AppDimensions.spaceLG),
                 ..._tips.asMap().entries.map(
-                  (e) => _TipTile(
-                    tip: e.value,
-                    delay: 360 + e.key * 60,
-                  ),
+                  (e) => _TipTile(tip: e.value, delay: 360 + e.key * 60),
                 ),
 
                 const SizedBox(height: AppDimensions.space2XL),
@@ -150,9 +154,7 @@ class LandmarkNavigationScreen extends StatelessWidget {
                   onPressed: () => _copyToClipboard(context, listing),
                 ).animate(delay: 500.ms).fadeIn(duration: 400.ms),
 
-                SizedBox(
-                    height:
-                        MediaQuery.of(context).padding.bottom + 16),
+                SizedBox(height: MediaQuery.of(context).padding.bottom + 16),
               ]),
             ),
           ),
@@ -162,10 +164,25 @@ class LandmarkNavigationScreen extends StatelessWidget {
   }
 
   static const _tips = [
-    (icon: '🚕', text: 'When taking a taxi/Uber, show the driver this screen with the landmark description.'),
-    (icon: '📞', text: 'If you get lost, call the host directly — they can guide you in real time.'),
-    (icon: '⏰', text: 'Allow extra travel time during peak hours (7–9 AM and 4–7 PM).'),
-    (icon: '🌙', text: 'For late-night arrivals, contact the host in advance for gate access.'),
+    (
+      icon: '🚕',
+      text:
+          'When taking a taxi/Uber, show the driver this screen with the landmark description.',
+    ),
+    (
+      icon: '📞',
+      text:
+          'If you get lost, call the host directly — they can guide you in real time.',
+    ),
+    (
+      icon: '⏰',
+      text: 'Allow extra travel time during peak hours (7–9 AM and 4–7 PM).',
+    ),
+    (
+      icon: '🌙',
+      text:
+          'For late-night arrivals, contact the host in advance for gate access.',
+    ),
   ];
 
   void _copyToClipboard(BuildContext context, ListingEntity listing) {
@@ -212,14 +229,16 @@ class _MapPlaceholder extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   '${listing.city}, ${listing.country}',
-                  style: AppTextStyles.labelLG
-                      .copyWith(color: const Color(0xFF004D40)),
+                  style: AppTextStyles.labelLG.copyWith(
+                    color: const Color(0xFF004D40),
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   'Exact pin shared after booking',
-                  style: AppTextStyles.bodyXS
-                      .copyWith(color: const Color(0xFF00695C)),
+                  style: AppTextStyles.bodyXS.copyWith(
+                    color: const Color(0xFF00695C),
+                  ),
                 ),
               ],
             ),
@@ -252,11 +271,7 @@ class _MapPlaceholder extends StatelessWidget {
                     size: 20,
                   ),
                 ),
-                Container(
-                  width: 2,
-                  height: 16,
-                  color: AppColors.primary,
-                ),
+                Container(width: 2, height: 16, color: AppColors.primary),
               ],
             ),
           ),
@@ -318,8 +333,11 @@ class _CoordinateRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(PhosphorIcons.mapPin(PhosphorIconsStyle.fill),
-              color: AppColors.primary, size: 20),
+          Icon(
+            PhosphorIcons.mapPin(PhosphorIconsStyle.fill),
+            color: AppColors.primary,
+            size: 20,
+          ),
           const SizedBox(width: AppDimensions.spaceMD),
           Text(
             '${lat.toStringAsFixed(4)}, ${lng.toStringAsFixed(4)}',
@@ -328,14 +346,16 @@ class _CoordinateRow extends StatelessWidget {
           const Spacer(),
           GestureDetector(
             onTap: () {
-              Clipboard.setData(
-                  ClipboardData(text: '$lat, $lng'));
+              Clipboard.setData(ClipboardData(text: '$lat, $lng'));
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Coordinates copied')),
               );
             },
-            child: Icon(PhosphorIcons.copy(),
-                size: 18, color: AppColors.textSecondary),
+            child: Icon(
+              PhosphorIcons.copy(),
+              size: 18,
+              color: AppColors.textSecondary,
+            ),
           ),
         ],
       ),
@@ -354,22 +374,24 @@ class _TipTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppDimensions.spaceMD),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(tip.icon, style: const TextStyle(fontSize: 18)),
-          const SizedBox(width: AppDimensions.spaceMD),
-          Expanded(
-            child: Text(
-              tip.text,
-              style: AppTextStyles.bodyMD
-                  .copyWith(color: AppColors.textSecondary, height: 1.5),
-            ),
+          padding: const EdgeInsets.only(bottom: AppDimensions.spaceMD),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(tip.icon, style: const TextStyle(fontSize: 18)),
+              const SizedBox(width: AppDimensions.spaceMD),
+              Expanded(
+                child: Text(
+                  tip.text,
+                  style: AppTextStyles.bodyMD.copyWith(
+                    color: AppColors.textSecondary,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    )
+        )
         .animate(delay: Duration(milliseconds: delay))
         .fadeIn(duration: 350.ms)
         .slideX(begin: 0.04, end: 0, duration: 350.ms);

@@ -159,9 +159,9 @@ class _LoadingSliver extends StatelessWidget {
       padding: const EdgeInsets.all(AppDimensions.paddingPage),
       sliver: SliverList.separated(
         itemCount: 4,
-        separatorBuilder: (_, __) =>
+        separatorBuilder: (_, _) =>
             const SizedBox(height: AppDimensions.spaceXXL),
-        itemBuilder: (_, __) => const ListingCardShimmer(),
+        itemBuilder: (_, _) => const ListingCardShimmer(),
       ),
     );
   }
@@ -222,7 +222,7 @@ class _ContentSliver extends StatelessWidget {
                 horizontal: AppDimensions.paddingPage,
               ),
               itemCount: featuredListings.length,
-              separatorBuilder: (_, __) =>
+              separatorBuilder: (_, _) =>
                   const SizedBox(width: AppDimensions.spaceLG),
               itemBuilder: (context, i) =>
                   _FeaturedCard(listing: featuredListings[i]),
@@ -285,7 +285,7 @@ class _CategoryFilterRow extends StatelessWidget {
           vertical: 8,
         ),
         itemCount: homeState.categories.length,
-        separatorBuilder: (_, __) =>
+        separatorBuilder: (_, _) =>
             const SizedBox(width: AppDimensions.spaceSM),
         itemBuilder: (context, i) {
           final cat = homeState.categories[i];

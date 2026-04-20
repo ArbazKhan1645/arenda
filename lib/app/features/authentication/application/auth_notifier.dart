@@ -67,6 +67,48 @@ class AuthNotifier extends _$AuthNotifier {
     state = const AuthUnauthenticated();
   }
 
+  Future<bool> verifyOtpSignIn({
+    required String identifier,
+    required String otp,
+  }) async {
+    state = const AuthLoading();
+    try {
+      final user = await MockAuthDataSource.verifyOtpAndSignIn(
+        identifier: identifier,
+        otp: otp,
+      );
+      state = AuthAuthenticated(user);
+      return true;
+    } catch (e) {
+      state = AuthError(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> verifyOtpSignUp({
+    required String identifier,
+    required String name,
+    required String otp,
+  }) async {
+    state = const AuthLoading();
+    try {
+      final user = await MockAuthDataSource.verifyOtpAndSignUp(
+        identifier: identifier,
+        name: name,
+        otp: otp,
+      );
+      state = AuthAuthenticated(user);
+      return true;
+    } catch (e) {
+      state = AuthError(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> hasSeenOnboarding() => MockAuthDataSource.isOnboarded();
+
+  Future<void> markOnboarded() => MockAuthDataSource.markOnboarded();
+
   UserEntity? get currentUser => switch (state) {
         AuthAuthenticated(:final user) => user,
         _ => null,

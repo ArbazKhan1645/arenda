@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../authentication/domain/entities/user_entity.dart';
 import '../../../../core/errors/app_exception.dart';
+import '../../../../core/services/local/storage_service.dart';
 
 abstract final class MockAuthDataSource {
   static const _kLoggedInEmail = 'arenda_logged_in_email';
@@ -18,14 +19,15 @@ abstract final class MockAuthDataSource {
         avatarUrl:
             'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80',
         phone: '+225 07 00 00 00 00',
-        bio: 'Passionné de voyage et de découverte. J\'adore explorer les trésors cachés de la Côte d\'Ivoire.',
+        bio:
+            'Passionné de voyage et de découverte. J\'adore explorer les trésors cachés de la Côte d\'Ivoire.',
         location: 'Abidjan, Côte d\'Ivoire',
         joinedAt: DateTime(2023, 6, 1),
         isSuperhost: false,
       ),
     ),
     // Also support phone number login for CI
-    '+22507000000': (
+    '07000000': (
       password: 'demo1234',
       user: UserEntity(
         id: 'u1',
@@ -110,5 +112,56 @@ abstract final class MockAuthDataSource {
     await Future.delayed(const Duration(milliseconds: 600));
     _currentUser = updated;
     return updated;
+  }
+
+  static Future<UserEntity> verifyOtpAndSignIn({
+    required String identifier,
+    required String otp,
+  }) async {
+    await Future.delayed(const Duration(milliseconds: 700));
+    if (otp.trim() != '123456') throw const AuthException.invalidCredentials();
+    final key = identifier.toLowerCase().trim().replaceAll(' ', '');
+    final record = _users[key];
+    if (record == null) throw const AuthException.invalidCredentials();
+    _currentUser = record.user;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_kLoggedInEmail, key);
+    return record.user;
+  }
+
+  static Future<UserEntity> verifyOtpAndSignUp({
+    required String identifier,
+    required String name,
+    required String otp,
+  }) async {
+    await Future.delayed(const Duration(milliseconds: 800));
+    if (otp.trim() != '123456') throw const AuthException.invalidCredentials();
+    final normalized = identifier.toLowerCase().trim().replaceAll(' ', '');
+    if (_users.containsKey(normalized)) {
+      throw const AuthException.emailAlreadyInUse();
+    }
+    final newUser = UserEntity(
+      id: 'u${DateTime.now().millisecondsSinceEpoch}',
+      email: normalized.contains('@') ? normalized : '$normalized@arenda.app',
+      name: name.trim(),
+      phone: normalized.startsWith('+') ? normalized : null,
+      location: 'Abidjan, Côte d\'Ivoire',
+      joinedAt: DateTime.now(),
+    );
+    _users[normalized] = (password: '', user: newUser);
+    _currentUser = newUser;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_kLoggedInEmail, normalized);
+    return newUser;
+  }
+
+  static Future<bool> isOnboarded() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(StorageKeys.isOnboarded) ?? false;
+  }
+
+  static Future<void> markOnboarded() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(StorageKeys.isOnboarded, true);
   }
 }

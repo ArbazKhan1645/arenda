@@ -6,6 +6,8 @@ import '../../features/authentication/presentation/screens/splash_screen.dart';
 import '../../features/authentication/presentation/screens/onboarding_screen.dart';
 import '../../features/authentication/presentation/screens/login_screen.dart';
 import '../../features/authentication/presentation/screens/signup_screen.dart';
+import '../../features/authentication/presentation/screens/otp_screen.dart';
+import '../../features/authentication/presentation/screens/reset_password_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/home/presentation/screens/main_shell.dart';
 import '../../features/search/presentation/screens/search_screen.dart';
@@ -62,6 +64,18 @@ GoRouter appRouter(Ref ref) {
         path: AppRoutes.signup,
         pageBuilder: (context, state) =>
             _slideFromBottom(state, const SignupScreen()),
+      ),
+      GoRoute(
+        path: AppRoutes.otp,
+        pageBuilder: (context, state) {
+          final args = state.extra as OtpArgs;
+          return _slideFromBottom(state, OtpScreen(args: args));
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.resetPassword,
+        pageBuilder: (context, state) =>
+            _slideFromBottom(state, const ResetPasswordScreen()),
       ),
 
       // ── Shell ──────────────────────────────────────────────────────────

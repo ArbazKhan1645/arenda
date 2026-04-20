@@ -26,12 +26,13 @@ class SearchNotifier extends _$SearchNotifier {
       return l.title.toLowerCase().contains(q) ||
           l.city.toLowerCase().contains(q) ||
           l.country.toLowerCase().contains(q) ||
-          l.location.toLowerCase().contains(q);
+          l.location.address.toLowerCase().contains(q);
     }).toList();
 
     final current = state;
-    final filters =
-        current is SearchLoaded ? current.filters : const SearchFilters();
+    final filters = current is SearchLoaded
+        ? current.filters
+        : const SearchFilters();
 
     state = SearchLoaded(results: results, query: query, filters: filters);
   }

@@ -31,9 +31,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     final authState = ref.read(authProvider);
     if (authState is AuthAuthenticated) {
       context.go(AppRoutes.home);
-    } else {
-      context.go(AppRoutes.onboarding);
+      return;
     }
+
+    final seen = await ref.read(authProvider.notifier).hasSeenOnboarding();
+    if (!mounted) return;
+    context.go(seen ? AppRoutes.login : AppRoutes.onboarding);
   }
 
   @override

@@ -99,8 +99,7 @@ flutter:
     - assets/audios/
     - assets/images/onboarding/
 
-
-fonts:
+  fonts:
   - family: JosefinSans
     fonts:
       - asset: assets/fonts/JosefinSans-Thin.ttf

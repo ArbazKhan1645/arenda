@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:video_player/video_player.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -15,7 +17,6 @@ import '../../../home/data/datasources/mock_home_datasource.dart';
 import '../../../home/domain/entities/listing_entity.dart';
 import '../../../home/domain/entities/review_entity.dart';
 import '../../../wishlist/application/wishlist_notifier.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ListingDetailScreen extends ConsumerStatefulWidget {
   const ListingDetailScreen({super.key, required this.listingId});
@@ -29,14 +30,102 @@ class ListingDetailScreen extends ConsumerStatefulWidget {
 class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
   late ListingEntity? _listing;
   late List<ReviewEntity> _reviews;
-  int _currentImageIndex = 0;
+  int _currentMediaIndex = 0;
   bool _showFullDescription = false;
+
+  final Map<int, VideoPlayerController> _videoControllers = {};
+  final Set<int> _initializedVideos = {};
 
   @override
   void initState() {
     super.initState();
     _listing = MockHomeDataSource.getListingById(widget.listingId);
     _reviews = MockHomeDataSource.getReviews(widget.listingId);
+    _maybeInitVideo(0);
+  }
+
+  @override
+  void dispose() {
+    for (final c in _videoControllers.values) {
+      c.dispose();
+    }
+    super.dispose();
+  }
+
+  Future<void> _maybeInitVideo(int index) async {
+    if (_listing == null) return;
+    final media = _listing!.media;
+    if (index >= media.length || !media[index].isVideo) return;
+    if (_videoControllers.containsKey(index)) return;
+
+    final ctrl = VideoPlayerController.networkUrl(
+      Uri.parse(media[index].url),
+    );
+    _videoControllers[index] = ctrl;
+    await ctrl.initialize();
+    if (!mounted) return;
+    setState(() => _initializedVideos.add(index));
+    if (index == _currentMediaIndex) ctrl.play();
+  }
+
+  void _onPageChanged(int i) {
+    _videoControllers[_currentMediaIndex]?.pause();
+    setState(() => _currentMediaIndex = i);
+    _maybeInitVideo(i);
+  }
+
+  Widget _buildMediaItem(int i) {
+    final item = _listing!.media[i];
+    if (item.isVideo) {
+      final ctrl = _videoControllers[i];
+      final ready = _initializedVideos.contains(i) && ctrl != null;
+      if (ready) {
+        return GestureDetector(
+          onTap: () => setState(() {
+            ctrl.value.isPlaying ? ctrl.pause() : ctrl.play();
+          }),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              FittedBox(
+                fit: BoxFit.cover,
+                child: SizedBox(
+                  width: ctrl.value.size.width,
+                  height: ctrl.value.size.height,
+                  child: VideoPlayer(ctrl),
+                ),
+              ),
+              ValueListenableBuilder<VideoPlayerValue>(
+                valueListenable: ctrl,
+                builder: (context, val, child) => val.isPlaying
+                    ? const SizedBox.shrink()
+                    : Container(
+                        color: Colors.black38,
+                        child: const Center(
+                          child: Icon(
+                            Icons.play_circle_outline_rounded,
+                            color: Colors.white,
+                            size: 64,
+                          ),
+                        ),
+                      ),
+              ),
+            ],
+          ),
+        );
+      }
+      // Loading state — show thumbnail while controller initialises
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          AppImage(url: item.effectiveThumbnail),
+          const Center(
+            child: CircularProgressIndicator(color: Colors.white),
+          ),
+        ],
+      );
+    }
+    return AppImage(url: item.url);
   }
 
   @override
@@ -129,10 +218,9 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
               background: Stack(
                 children: [
                   PageView.builder(
-                    itemCount: listing.images.length,
-                    onPageChanged: (i) =>
-                        setState(() => _currentImageIndex = i),
-                    itemBuilder: (_, i) => AppImage(url: listing.images[i]),
+                    itemCount: listing.media.length,
+                    onPageChanged: _onPageChanged,
+                    itemBuilder: (_, i) => _buildMediaItem(i),
                   ),
                   Positioned(
                     bottom: 16,
@@ -141,14 +229,14 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                        listing.images.length,
+                        listing.media.length,
                         (i) => AnimatedContainer(
                           duration: const Duration(milliseconds: 250),
                           margin: const EdgeInsets.symmetric(horizontal: 3),
-                          width: _currentImageIndex == i ? 20 : 6,
+                          width: _currentMediaIndex == i ? 20 : 6,
                           height: 6,
                           decoration: BoxDecoration(
-                            color: _currentImageIndex == i
+                            color: _currentMediaIndex == i
                                 ? Colors.white
                                 : Colors.white54,
                             borderRadius: BorderRadius.circular(3),
@@ -188,7 +276,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                     const Text('·'),
                     const SizedBox(width: AppDimensions.spaceSM),
                     Text(
-                      listing.location,
+                      listing.location.address,
                       style: AppTextStyles.bodyMD.copyWith(
                         color: AppColors.textSecondary,
                       ),
@@ -661,7 +749,7 @@ class _MapSection extends StatelessWidget {
         ),
         const SizedBox(height: AppDimensions.spaceMD),
         Text(
-          listing.location,
+          listing.location.address,
           style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
         ),
       ],

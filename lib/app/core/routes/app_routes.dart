@@ -4,6 +4,8 @@ abstract final class AppRoutes {
   static const String onboarding  = '/onboarding';
   static const String login       = '/login';
   static const String signup      = '/signup';
+  static const String otp             = '/otp';
+  static const String resetPassword  = '/reset-password';
 
   // ── Shell (Bottom Nav) ────────────────────────────────────────────────────
   static const String home        = '/home';
