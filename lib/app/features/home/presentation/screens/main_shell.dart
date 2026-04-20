@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -23,6 +24,7 @@ class _MainShellState extends State<MainShell> {
 
   GoRouter? _router;
   int _lastTabIndex = 0;
+  DateTime? _lastBackPressTime;
 
   @override
   void didChangeDependencies() {
@@ -81,8 +83,41 @@ class _MainShellState extends State<MainShell> {
     final currentIndex = _currentIndex;
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      body: widget.child,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+
+        if (currentIndex != 0) {
+          context.go(AppRoutes.home);
+          return;
+        }
+
+        final now = DateTime.now();
+        if (_lastBackPressTime == null ||
+            now.difference(_lastBackPressTime!) > const Duration(seconds: 2)) {
+          _lastBackPressTime = now;
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text(
+                'Appuyez encore pour quitter',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+              ),
+              backgroundColor: AppColors.textPrimary,
+              duration: const Duration(seconds: 2),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          );
+        } else {
+          SystemNavigator.pop();
+        }
+      },
+      child: Scaffold(
+        body: widget.child,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: isDark ? AppColors.darkBackground : AppColors.background,
@@ -137,6 +172,7 @@ class _MainShellState extends State<MainShell> {
           ),
         ),
       ),
+    ),
     );
   }
 }

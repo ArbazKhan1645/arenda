@@ -38,6 +38,7 @@ class _MapSearchScreenState extends ConsumerState<MapSearchScreen>
   @override
   void dispose() {
     _tabController.dispose();
+    _mapController.dispose();
     super.dispose();
   }
 
@@ -49,52 +50,62 @@ class _MapSearchScreenState extends ConsumerState<MapSearchScreen>
   Widget build(BuildContext context) {
     final state = ref.watch(mapSearchProvider);
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Column(
-        children: [
-          // ── Custom AppBar ─────────────────────────────────────────────────
-          _MapAppBar(tabController: _tabController),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (context.canPop()) {
+          context.pop();
+        } else {
+          context.go(AppRoutes.home);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        body: Column(
+          children: [
+            // ── Custom AppBar ─────────────────────────────────────────────────
+            _MapAppBar(tabController: _tabController),
 
-          // ── Content ───────────────────────────────────────────────────────
-          Expanded(
-            child: switch (state) {
-              MapSearchLoading() => _LoadingView(),
-              MapSearchLoaded(
-                :final allListings,
-                :final nearestListings,
-                :final selectedId,
-              ) =>
-                TabBarView(
-                  controller: _tabController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    // Tab 1: View on Map
-                    _ViewOnMapTab(
-                      listings: allListings,
-                      selectedId: selectedId,
-                      mapController: _mapController,
-                      onMarkerTap: (l) {
-                        ref
-                            .read(mapSearchProvider.notifier)
-                            .selectListing(l.id);
-                        _flyTo(l.latitude, l.longitude);
-                      },
-                      onCardTap: (l) =>
-                          context.push(AppRoutes.listingDetailPath(l.id)),
-                    ),
-                    // Tab 2: Nearest Me
-                    _NearestMeTab(
-                      listings: nearestListings,
-                      onTap: (l) =>
-                          context.push(AppRoutes.listingDetailPath(l.id)),
-                    ),
-                  ],
-                ),
-              _ => _LoadingView(),
-            },
-          ),
-        ],
+            // ── Content ───────────────────────────────────────────────────────
+            Expanded(
+              child: switch (state) {
+                MapSearchLoading() => _LoadingView(),
+                MapSearchLoaded(
+                  :final allListings,
+                  :final nearestListings,
+                  :final selectedId,
+                ) =>
+                  TabBarView(
+                    controller: _tabController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      // Tab 1: View on Map
+                      _ViewOnMapTab(
+                        listings: allListings,
+                        selectedId: selectedId,
+                        mapController: _mapController,
+                        onMarkerTap: (l) {
+                          ref
+                              .read(mapSearchProvider.notifier)
+                              .selectListing(l.id);
+                          _flyTo(l.latitude, l.longitude);
+                        },
+                        onCardTap: (l) =>
+                            context.push(AppRoutes.listingDetailPath(l.id)),
+                      ),
+                      // Tab 2: Nearest Me
+                      _NearestMeTab(
+                        listings: nearestListings,
+                        onTap: (l) =>
+                            context.push(AppRoutes.listingDetailPath(l.id)),
+                      ),
+                    ],
+                  ),
+                _ => _LoadingView(),
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -130,7 +141,7 @@ class _MapAppBar extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: Icon(PhosphorIcons.arrowLeft(), size: 22),
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => context.pop(),
                   ),
                   const SizedBox(width: 4),
                   Expanded(
@@ -479,9 +490,7 @@ class _NearestMeTab extends StatelessWidget {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-                    border: Border.all(
-                      color: AppColors.primary.withAlpha(40),
-                    ),
+                    border: Border.all(color: AppColors.primary.withAlpha(40)),
                   ),
                   child: Row(
                     children: [

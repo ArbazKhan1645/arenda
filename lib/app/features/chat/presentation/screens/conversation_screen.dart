@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import 'package:arenda/app/core/routes/app_routes.dart';
 import 'package:arenda/app/core/theme/app_colors.dart';
 import 'package:arenda/app/core/theme/app_dimensions.dart';
 import 'package:arenda/app/core/theme/app_text_styles.dart';
@@ -30,6 +32,13 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
     });
   }
 
+  @override
+  void dispose() {
+    _msgCtrl.dispose();
+    _scrollCtrl.dispose();
+    super.dispose();
+  }
+
   void _send() {
     final text = _msgCtrl.text.trim();
     if (text.isEmpty) return;
@@ -52,42 +61,57 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(conversationProvider);
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (context.canPop()) {
+          context.pop();
+        } else {
+          context.go(AppRoutes.home);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.background,
 
-      /// APP BAR
-      appBar: state is ConversationLoaded
-          ? _ModernAppBar(conversation: state.conversation)
-          : AppBar(),
-
-      body: switch (state) {
-        ConversationLoading() => const Center(
-          child: CircularProgressIndicator(),
-        ),
-
-        ConversationLoaded(:final messages) => Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                controller: _scrollCtrl,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppDimensions.paddingPage,
-                  vertical: 12,
-                ),
-                itemCount: messages.length,
-                itemBuilder: (_, i) => _MessageBubble(
-                  message: messages[i],
-                  isMe: messages[i].senderId == 'u1',
-                  index: i,
+        /// APP BAR
+        appBar: state is ConversationLoaded
+            ? _ModernAppBar(conversation: state.conversation)
+            : AppBar(
+                leading: IconButton(
+                  icon: Icon(PhosphorIcons.arrowLeft()),
+                  onPressed: () => context.pop(),
                 ),
               ),
-            ),
 
-            /// INPUT
-            _ModernInput(controller: _msgCtrl, onSend: _send),
-          ],
-        ),
-      },
+        body: switch (state) {
+          ConversationLoading() => const Center(
+            child: CircularProgressIndicator(),
+          ),
+
+          ConversationLoaded(:final messages) => Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  controller: _scrollCtrl,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppDimensions.paddingPage,
+                    vertical: 12,
+                  ),
+                  itemCount: messages.length,
+                  itemBuilder: (_, i) => _MessageBubble(
+                    message: messages[i],
+                    isMe: messages[i].senderId == 'u1',
+                    index: i,
+                  ),
+                ),
+              ),
+
+              /// INPUT
+              _ModernInput(controller: _msgCtrl, onSend: _send),
+            ],
+          ),
+        },
+      ),
     );
   }
 }
@@ -109,6 +133,10 @@ class _ModernAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       elevation: 0.5,
       titleSpacing: 0,
+      leading: IconButton(
+        icon: Icon(PhosphorIcons.arrowLeft()),
+        onPressed: () => context.pop(),
+      ),
       title: Row(
         children: [
           AppAvatar(
