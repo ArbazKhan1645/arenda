@@ -186,6 +186,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                 // Fields — animated swap
                 AnimatedSwitcher(
                   duration: const Duration(milliseconds: 220),
+                  layoutBuilder: (currentChild, previousChildren) {
+                    return Stack(
+                      alignment: Alignment.topCenter,
+                      children: <Widget>[...previousChildren, ?currentChild],
+                    );
+                  },
                   transitionBuilder: (child, anim) => FadeTransition(
                     opacity: anim,
                     child: SlideTransition(
@@ -334,7 +340,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
   }
 }
 
-// ── CI phone field with matching height ───────────────────────────────────────
+// ── CI phone field ────────────────────────────────────────────────────────────
 
 class _CIPhoneField extends StatelessWidget {
   const _CIPhoneField({super.key, required this.controller});
@@ -342,56 +348,39 @@ class _CIPhoneField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Numéro de téléphone', style: AppTextStyles.labelMD),
-        const SizedBox(height: 6),
-        IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Country prefix
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                decoration: BoxDecoration(
-                  color: AppColors.surface,
-                  borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-                  border: Border.all(color: AppColors.border),
-                ),
-                child: const Center(child: _CIFlag()),
-              ),
-              const SizedBox(width: AppDimensions.spaceSM),
-              // Number input
-              Expanded(
-                child: TextFormField(
-                  controller: controller,
-                  keyboardType: TextInputType.phone,
-                  textInputAction: TextInputAction.done,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(10),
-                  ],
-                  style: AppTextStyles.bodyMD,
-                  decoration: InputDecoration(
-                    hintText: '07 00 00 00 00',
-                    hintStyle: AppTextStyles.bodyMD.copyWith(
-                      color: AppColors.textTertiary,
-                    ),
-                  ),
-                  validator: (v) {
-                    if (v == null || v.trim().isEmpty) {
-                      return 'Le numéro est requis';
-                    }
-                    if (v.trim().length < 8) return 'Numéro invalide';
-                    return null;
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
+    return AppTextField(
+      controller: controller,
+      label: 'Numéro de téléphone',
+      hint: '07 00 00 00 00',
+      keyboardType: TextInputType.phone,
+      textInputAction: TextInputAction.done,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(10),
       ],
+      prefixIcon: const Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _CIFlag(),
+          SizedBox(width: 8),
+          Text(
+            '+225',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+              color: AppColors.textSecondary,
+            ),
+          ),
+          SizedBox(width: 4),
+        ],
+      ),
+      validator: (v) {
+        if (v == null || v.trim().isEmpty) {
+          return 'Le numéro est requis';
+        }
+        if (v.trim().length < 8) return 'Numéro invalide';
+        return null;
+      },
     );
   }
 }

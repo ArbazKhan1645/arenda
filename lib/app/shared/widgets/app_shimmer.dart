@@ -94,48 +94,75 @@ class ChatTileShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: AppColors.shimmerBase,
-      highlightColor: AppColors.shimmerHighlight,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppDimensions.paddingPage,
-          vertical: AppDimensions.spaceSM,
-        ),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Shimmer.fromColors(
+        baseColor: AppColors.shimmerBase,
+        highlightColor: AppColors.shimmerHighlight,
         child: Row(
           children: [
             Container(
               width: AppDimensions.avatarMD,
               height: AppDimensions.avatarMD,
               decoration: const BoxDecoration(
-                color: AppColors.shimmerBase,
+                color: Colors.white,
                 shape: BoxShape.circle,
               ),
             ),
-            const SizedBox(width: AppDimensions.spaceMD),
+            const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 14,
-                    width: 140,
-                    decoration: BoxDecoration(
-                      color: AppColors.shimmerBase,
-                      borderRadius: BorderRadius.circular(
-                        AppDimensions.radiusSM,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 14,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
+                        ),
                       ),
+                      Container(
+                        height: 12,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    height: 12,
+                    width: 160,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
                     ),
                   ),
-                  const SizedBox(height: AppDimensions.spaceXS),
+                  const SizedBox(height: 8),
                   Container(
                     height: 12,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: AppColors.shimmerBase,
-                      borderRadius: BorderRadius.circular(
-                        AppDimensions.radiusSM,
-                      ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
                     ),
                   ),
                 ],

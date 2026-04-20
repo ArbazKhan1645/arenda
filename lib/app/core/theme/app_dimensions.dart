@@ -13,7 +13,7 @@ abstract final class AppDimensions {
   static const double space5XL = 64.0;
 
   // ── Padding ────────────────────────────────────────────────────────────────
-  static const double paddingPage = 24.0;
+  static const double paddingPage = 16.0;
   static const double paddingCard = 16.0;
   static const double paddingSection = 24.0;
 

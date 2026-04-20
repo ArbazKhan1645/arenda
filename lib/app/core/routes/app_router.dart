@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -266,34 +267,17 @@ GoRouter appRouter(Ref ref) {
   );
 }
 
-CustomTransitionPage<void> _slideFromRight(GoRouterState state, Widget child) {
-  return CustomTransitionPage<void>(
+Page<void> _slideFromRight(GoRouterState state, Widget child) {
+  return CupertinoPage<void>(
     key: state.pageKey,
     child: child,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      return SlideTransition(
-        position: Tween<Offset>(begin: const Offset(1.0, 0.0), end: Offset.zero)
-            .animate(
-              CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
-            ),
-        child: child,
-      );
-    },
   );
 }
 
-CustomTransitionPage<void> _slideFromBottom(GoRouterState state, Widget child) {
-  return CustomTransitionPage<void>(
+Page<void> _slideFromBottom(GoRouterState state, Widget child) {
+  return MaterialPage<void>(
     key: state.pageKey,
     child: child,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      return SlideTransition(
-        position: Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero)
-            .animate(
-              CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
-            ),
-        child: child,
-      );
-    },
+    fullscreenDialog: true,       
   );
 }
