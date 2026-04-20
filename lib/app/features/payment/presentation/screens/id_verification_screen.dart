@@ -77,7 +77,8 @@ class IdVerificationScreen extends StatefulWidget {
 }
 
 class _IdVerificationScreenState extends State<IdVerificationScreen> {
-  int _step = 0; // 0 = select type, 1 = upload front, 2 = upload back, 3 = selfie, 4 = done
+  int _step =
+      0; // 0 = select type, 1 = upload front, 2 = upload back, 3 = selfie, 4 = done
   String? _selectedId;
   bool _frontUploaded = false;
   bool _backUploaded = false;
@@ -98,50 +99,56 @@ class _IdVerificationScreenState extends State<IdVerificationScreen> {
         duration: const Duration(milliseconds: 300),
         child: switch (_step) {
           0 => _StepSelectId(
-              key: const ValueKey(0),
-              selectedId: _selectedId,
-              onSelect: (id) => setState(() => _selectedId = id),
-              onNext: () => setState(() => _step = 1),
-            ),
+            key: const ValueKey(0),
+            selectedId: _selectedId,
+            onSelect: (id) => setState(() => _selectedId = id),
+            onNext: () => setState(() => _step = 1),
+          ),
           1 => _StepUploadPhoto(
-              key: const ValueKey(1),
-              title: 'Front of ID',
-              instruction: 'Make sure all corners are visible and the text is clearly readable.',
-              icon: PhosphorIcons.creditCard(),
-              isUploaded: _frontUploaded,
-              onUpload: () => setState(() => _frontUploaded = true),
-              onNext: () => setState(() => _step = 2),
-            ),
+            key: const ValueKey(1),
+            title: 'Front of ID',
+            instruction:
+                'Make sure all corners are visible and the text is clearly readable.',
+            icon: PhosphorIcons.creditCard(),
+            isUploaded: _frontUploaded,
+            onUpload: () => setState(() => _frontUploaded = true),
+            onNext: () => setState(() => _step = 2),
+          ),
           2 => _StepUploadPhoto(
-              key: const ValueKey(2),
-              title: 'Back of ID',
-              instruction: 'Place the ID on a flat surface with good lighting.',
-              icon: PhosphorIcons.arrowsIn(),
-              isUploaded: _backUploaded,
-              onUpload: () => setState(() => _backUploaded = true),
-              onNext: () => setState(() => _step = 3),
-            ),
+            key: const ValueKey(2),
+            title: 'Back of ID',
+            instruction: 'Place the ID on a flat surface with good lighting.',
+            icon: PhosphorIcons.arrowsIn(),
+            isUploaded: _backUploaded,
+            onUpload: () => setState(() => _backUploaded = true),
+            onNext: () => setState(() => _step = 3),
+          ),
           3 => _StepSelfie(
-              key: const ValueKey(3),
-              isUploaded: _selfieUploaded,
-              onUpload: () => setState(() => _selfieUploaded = true),
-              onNext: () async {
-                setState(() => _processing = true);
-                await Future.delayed(const Duration(seconds: 2));
-                if (mounted) setState(() { _processing = false; _step = 4; });
-              },
-              processing: _processing,
-            ),
+            key: const ValueKey(3),
+            isUploaded: _selfieUploaded,
+            onUpload: () => setState(() => _selfieUploaded = true),
+            onNext: () async {
+              setState(() => _processing = true);
+              await Future.delayed(const Duration(seconds: 2));
+              if (mounted) {
+                setState(() {
+                  _processing = false;
+                  _step = 4;
+                });
+              }
+            },
+            processing: _processing,
+          ),
           _ => _StepSuccess(
-              key: const ValueKey(4),
-              onContinue: () {
-                if (widget.returnRoute != null) {
-                  context.push(widget.returnRoute!);
-                } else {
-                  context.pop();
-                }
-              },
-            ),
+            key: const ValueKey(4),
+            onContinue: () {
+              if (widget.returnRoute != null) {
+                context.push(widget.returnRoute!);
+              } else {
+                context.pop();
+              }
+            },
+          ),
         },
       ),
     );
@@ -200,64 +207,76 @@ class _StepSelectId extends StatelessWidget {
         children: [
           _StepIndicator(current: 0, total: 4),
           const SizedBox(height: AppDimensions.spaceXXL),
-          Text('Select your ID type', style: AppTextStyles.h2)
-              .animate()
-              .fadeIn(duration: 400.ms),
+          Text(
+            'Select your ID type',
+            style: AppTextStyles.h2,
+          ).animate().fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             'We need a government-issued photo ID to verify your identity before check-in.',
-            style: AppTextStyles.bodyMD
-                .copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ).animate(delay: 80.ms).fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.space2XL),
           Expanded(
             child: ListView.separated(
               itemCount: _idTypes.length,
-              separatorBuilder: (_, __) =>
+              separatorBuilder: (_, _) =>
                   const SizedBox(height: AppDimensions.spaceMD),
               itemBuilder: (context, i) {
                 final t = _idTypes[i];
                 final selected = selectedId == t.id;
                 return GestureDetector(
-                  onTap: () => onSelect(t.id),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    padding: const EdgeInsets.all(AppDimensions.spaceLG),
-                    decoration: BoxDecoration(
-                      color: selected
-                          ? AppColors.primaryLight
-                          : Theme.of(context).colorScheme.surface,
-                      borderRadius:
-                          BorderRadius.circular(AppDimensions.radiusLG),
-                      border: Border.all(
-                        color: selected ? AppColors.primary : AppColors.border,
-                        width: selected ? 2 : 1,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(t.icon,
-                            style: const TextStyle(fontSize: 28)),
-                        const SizedBox(width: AppDimensions.spaceLG),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(t.label,
-                                  style: AppTextStyles.labelMD),
-                              Text(t.sublabel,
-                                  style: AppTextStyles.bodyXS.copyWith(
-                                      color: AppColors.textSecondary)),
-                            ],
+                      onTap: () => onSelect(t.id),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        padding: const EdgeInsets.all(AppDimensions.spaceLG),
+                        decoration: BoxDecoration(
+                          color: selected
+                              ? AppColors.primaryLight
+                              : Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.radiusLG,
+                          ),
+                          border: Border.all(
+                            color: selected
+                                ? AppColors.primary
+                                : AppColors.border,
+                            width: selected ? 2 : 1,
                           ),
                         ),
-                        if (selected)
-                          Icon(PhosphorIcons.checkCircle(PhosphorIconsStyle.fill),
-                              color: AppColors.primary),
-                      ],
-                    ),
-                  ),
-                ).animate(delay: Duration(milliseconds: 80 + i * 50)).fadeIn(duration: 350.ms);
+                        child: Row(
+                          children: [
+                            Text(t.icon, style: const TextStyle(fontSize: 28)),
+                            const SizedBox(width: AppDimensions.spaceLG),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(t.label, style: AppTextStyles.labelMD),
+                                  Text(
+                                    t.sublabel,
+                                    style: AppTextStyles.bodyXS.copyWith(
+                                      color: AppColors.textSecondary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            if (selected)
+                              Icon(
+                                PhosphorIcons.checkCircle(
+                                  PhosphorIconsStyle.fill,
+                                ),
+                                color: AppColors.primary,
+                              ),
+                          ],
+                        ),
+                      ),
+                    )
+                    .animate(delay: Duration(milliseconds: 80 + i * 50))
+                    .fadeIn(duration: 350.ms);
               },
             ),
           ),
@@ -303,13 +322,16 @@ class _StepUploadPhoto extends StatelessWidget {
         children: [
           _StepIndicator(current: title.contains('Front') ? 1 : 2, total: 4),
           const SizedBox(height: AppDimensions.spaceXXL),
-          Text(title, style: AppTextStyles.h2)
-              .animate().fadeIn(duration: 400.ms),
+          Text(
+            title,
+            style: AppTextStyles.h2,
+          ).animate().fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             instruction,
-            style: AppTextStyles.bodyMD
-                .copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ).animate(delay: 80.ms).fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.space3XL),
           GestureDetector(
@@ -322,8 +344,7 @@ class _StepUploadPhoto extends StatelessWidget {
                 color: isUploaded
                     ? AppColors.success.withAlpha(20)
                     : AppColors.border.withAlpha(40),
-                borderRadius:
-                    BorderRadius.circular(AppDimensions.radiusXL),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusXL),
                 border: Border.all(
                   color: isUploaded ? AppColors.success : AppColors.border,
                   width: 2,
@@ -334,9 +355,7 @@ class _StepUploadPhoto extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    isUploaded
-                        ? PhosphorIcons.checkCircle()
-                        : icon,
+                    isUploaded ? PhosphorIcons.checkCircle() : icon,
                     size: 56,
                     color: isUploaded
                         ? AppColors.success
@@ -344,7 +363,9 @@ class _StepUploadPhoto extends StatelessWidget {
                   ),
                   const SizedBox(height: AppDimensions.spaceMD),
                   Text(
-                    isUploaded ? 'Photo uploaded ✓' : 'Tap to take photo or upload',
+                    isUploaded
+                        ? 'Photo uploaded ✓'
+                        : 'Tap to take photo or upload',
                     style: AppTextStyles.labelMD.copyWith(
                       color: isUploaded
                           ? AppColors.success
@@ -393,13 +414,16 @@ class _StepSelfie extends StatelessWidget {
         children: [
           _StepIndicator(current: 3, total: 4),
           const SizedBox(height: AppDimensions.spaceXXL),
-          Text('Take a selfie', style: AppTextStyles.h2)
-              .animate().fadeIn(duration: 400.ms),
+          Text(
+            'Take a selfie',
+            style: AppTextStyles.h2,
+          ).animate().fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             'Hold your device at eye level. Make sure your face is clearly visible in good lighting.',
-            style: AppTextStyles.bodyMD
-                .copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ).animate(delay: 80.ms).fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.space3XL),
           GestureDetector(
@@ -415,8 +439,7 @@ class _StepSelfie extends StatelessWidget {
                       ? AppColors.success.withAlpha(20)
                       : AppColors.border.withAlpha(40),
                   border: Border.all(
-                    color:
-                        isUploaded ? AppColors.success : AppColors.border,
+                    color: isUploaded ? AppColors.success : AppColors.border,
                     width: 2,
                   ),
                 ),
@@ -487,10 +510,11 @@ class _StepSuccess extends StatelessWidget {
               color: AppColors.success,
               size: 52,
             ),
-          )
-              .animate()
-              .scale(begin: const Offset(0.6, 0.6), duration: 500.ms,
-                  curve: Curves.elasticOut),
+          ).animate().scale(
+            begin: const Offset(0.6, 0.6),
+            duration: 500.ms,
+            curve: Curves.elasticOut,
+          ),
           const SizedBox(height: AppDimensions.space2XL),
           Text(
             'ID Submitted!',
@@ -500,8 +524,9 @@ class _StepSuccess extends StatelessWidget {
           const SizedBox(height: AppDimensions.spaceMD),
           Text(
             'Your documents are under review. Verification usually completes within 2 hours. You\'ll receive a notification once approved.',
-            style: AppTextStyles.bodyLG
-                .copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyLG.copyWith(
+              color: AppColors.textSecondary,
+            ),
             textAlign: TextAlign.center,
           ).animate(delay: 300.ms).fadeIn(duration: 400.ms),
           const SizedBox(height: AppDimensions.space3XL),
@@ -540,8 +565,9 @@ class _TrustPoint extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            style: AppTextStyles.bodyMD
-                .copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ),
         ),
       ],

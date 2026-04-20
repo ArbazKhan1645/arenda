@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -31,10 +33,20 @@ class _PayoutPreferencesScreenState
   final _accountCtrl = TextEditingController();
 
   static const _methods = [
-    (id: 'mtn_momo',      label: 'MTN Mobile Money',    icon: '📱', color: Color(0xFFFFC107)),
-    (id: 'orange_money',  label: 'Orange Money',         icon: '🟠', color: Color(0xFFFF6B00)),
-    (id: 'wave',          label: 'Wave',                 icon: '🌊', color: Color(0xFF1A73E8)),
-    (id: 'bank',          label: 'Bank Transfer',        icon: '🏦', color: Color(0xFF14B8A6)),
+    (
+      id: 'mtn_momo',
+      label: 'MTN Mobile Money',
+      icon: '📱',
+      color: Color(0xFFFFC107),
+    ),
+    (
+      id: 'orange_money',
+      label: 'Orange Money',
+      icon: '🟠',
+      color: Color(0xFFFF6B00),
+    ),
+    (id: 'wave', label: 'Wave', icon: '🌊', color: Color(0xFF1A73E8)),
+    (id: 'bank', label: 'Bank Transfer', icon: '🏦', color: Color(0xFF14B8A6)),
   ];
 
   static const _currencies = [
@@ -79,13 +91,16 @@ class _PayoutPreferencesScreenState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ── Currency ────────────────────────────────────────────
-            Text('Payout currency', style: AppTextStyles.h3)
-                .animate().fadeIn(duration: 400.ms),
+            Text(
+              'Payout currency',
+              style: AppTextStyles.h3,
+            ).animate().fadeIn(duration: 400.ms),
             const SizedBox(height: AppDimensions.spaceSM),
             Text(
               'Choose the currency in which you want to receive earnings.',
-              style: AppTextStyles.bodyMD
-                  .copyWith(color: AppColors.textSecondary),
+              style: AppTextStyles.bodyMD.copyWith(
+                color: AppColors.textSecondary,
+              ),
             ).animate(delay: 60.ms).fadeIn(duration: 400.ms),
             const SizedBox(height: AppDimensions.spaceLG),
             DropdownButtonFormField<String>(
@@ -115,13 +130,16 @@ class _PayoutPreferencesScreenState
             const SizedBox(height: AppDimensions.space3XL),
 
             // ── Primary Method ───────────────────────────────────────
-            Text('Primary payout method', style: AppTextStyles.h3)
-                .animate(delay: 120.ms).fadeIn(duration: 400.ms),
+            Text(
+              'Primary payout method',
+              style: AppTextStyles.h3,
+            ).animate(delay: 120.ms).fadeIn(duration: 400.ms),
             const SizedBox(height: AppDimensions.spaceSM),
             Text(
               'This is how you\'ll receive earnings by default.',
-              style: AppTextStyles.bodyMD
-                  .copyWith(color: AppColors.textSecondary),
+              style: AppTextStyles.bodyMD.copyWith(
+                color: AppColors.textSecondary,
+              ),
             ).animate(delay: 150.ms).fadeIn(duration: 400.ms),
             const SizedBox(height: AppDimensions.spaceLG),
 
@@ -140,8 +158,10 @@ class _PayoutPreferencesScreenState
             const SizedBox(height: AppDimensions.space2XL),
 
             // ── Account details ──────────────────────────────────────
-            Text('Account details', style: AppTextStyles.h3)
-                .animate(delay: 400.ms).fadeIn(duration: 400.ms),
+            Text(
+              'Account details',
+              style: AppTextStyles.h3,
+            ).animate(delay: 400.ms).fadeIn(duration: 400.ms),
             const SizedBox(height: AppDimensions.spaceLG),
 
             _LabeledField(
@@ -167,8 +187,10 @@ class _PayoutPreferencesScreenState
             ),
 
             const SizedBox(height: AppDimensions.spaceMD),
-            Text('Bank account', style: AppTextStyles.labelMD)
-                .animate(delay: 540.ms).fadeIn(),
+            Text(
+              'Bank account',
+              style: AppTextStyles.labelMD,
+            ).animate(delay: 540.ms).fadeIn(),
             const SizedBox(height: AppDimensions.spaceSM),
             TextFormField(
               controller: _bankNameCtrl,
@@ -204,14 +226,19 @@ class _PayoutPreferencesScreenState
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(PhosphorIcons.info(),
-                      size: 18, color: AppColors.primaryDark),
+                  Icon(
+                    PhosphorIcons.info(),
+                    size: 18,
+                    color: AppColors.primaryDark,
+                  ),
                   const SizedBox(width: AppDimensions.spaceSM),
                   Expanded(
                     child: Text(
                       'Payouts are processed 24–48 hours after guest check-in. You\'ll receive a push notification when funds are released.',
-                      style: AppTextStyles.bodyXS
-                          .copyWith(color: AppColors.primaryDark, height: 1.5),
+                      style: AppTextStyles.bodyXS.copyWith(
+                        color: AppColors.primaryDark,
+                        height: 1.5,
+                      ),
                     ),
                   ),
                 ],
@@ -280,7 +307,11 @@ class _MethodSelector extends StatelessWidget {
             const SizedBox(width: AppDimensions.spaceMD),
             Expanded(child: Text(label, style: AppTextStyles.labelMD)),
             if (isSelected)
-              Icon(PhosphorIcons.checkCircle(PhosphorIconsStyle.fill), color: color, size: 20),
+              Icon(
+                PhosphorIcons.checkCircle(PhosphorIconsStyle.fill),
+                color: color,
+                size: 20,
+              ),
           ],
         ),
       ),
@@ -323,7 +354,9 @@ class _LabeledField extends StatelessWidget {
           TextFormField(
             controller: controller,
             keyboardType: TextInputType.phone,
-            inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9 +]'))],
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9 +]')),
+            ],
             decoration: InputDecoration(
               hintText: hint,
               isDense: true,

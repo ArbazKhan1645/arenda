@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
@@ -813,7 +815,9 @@ class _Step5Photos extends StatelessWidget {
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             'Ajoutez au moins 5 photos. Les annonces avec vidéos reçoivent 2× plus de réservations.',
-            style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ).animate(delay: 80.ms).fadeIn(),
 
           const SizedBox(height: AppDimensions.space2XL),
@@ -821,21 +825,32 @@ class _Step5Photos extends StatelessWidget {
           // ── Photos section ───────────────────────────────────────────────
           Row(
             children: [
-              Icon(PhosphorIcons.images(), size: 18, color: AppColors.textPrimary),
+              Icon(
+                PhosphorIcons.images(),
+                size: 18,
+                color: AppColors.textPrimary,
+              ),
               const SizedBox(width: 8),
               Text('Photos', style: AppTextStyles.labelMD),
               const SizedBox(width: 8),
               if (photoCount < 5)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.warning.withAlpha(30),
-                    borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
+                    borderRadius: BorderRadius.circular(
+                      AppDimensions.radiusFull,
+                    ),
                     border: Border.all(color: AppColors.warning.withAlpha(80)),
                   ),
                   child: Text(
                     '${5 - photoCount} required',
-                    style: AppTextStyles.bodyXS.copyWith(color: AppColors.warning),
+                    style: AppTextStyles.bodyXS.copyWith(
+                      color: AppColors.warning,
+                    ),
                   ),
                 ),
             ],
@@ -848,7 +863,10 @@ class _Step5Photos extends StatelessWidget {
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
             children: [
-              ...List.generate(photoCount, (i) => _MediaTile(index: i, isVideo: false)),
+              ...List.generate(
+                photoCount,
+                (i) => _MediaTile(index: i, isVideo: false),
+              ),
               GestureDetector(
                 onTap: onAddPhoto,
                 child: _AddMediaButton(
@@ -864,7 +882,11 @@ class _Step5Photos extends StatelessWidget {
           // ── Videos section ───────────────────────────────────────────────
           Row(
             children: [
-              Icon(PhosphorIcons.videoCamera(), size: 18, color: AppColors.textPrimary),
+              Icon(
+                PhosphorIcons.videoCamera(),
+                size: 18,
+                color: AppColors.textPrimary,
+              ),
               const SizedBox(width: 8),
               Text('Vidéos', style: AppTextStyles.labelMD),
               const SizedBox(width: 8),
@@ -876,7 +898,9 @@ class _Step5Photos extends StatelessWidget {
                 ),
                 child: Text(
                   'Optionnel',
-                  style: AppTextStyles.bodyXS.copyWith(color: AppColors.primary),
+                  style: AppTextStyles.bodyXS.copyWith(
+                    color: AppColors.primary,
+                  ),
                 ),
               ),
             ],
@@ -884,7 +908,9 @@ class _Step5Photos extends StatelessWidget {
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             'La première vidéo apparaîtra sur la carte de votre annonce.',
-            style: AppTextStyles.bodyXS.copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyXS.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ).animate(delay: 170.ms).fadeIn(),
           const SizedBox(height: AppDimensions.spaceMD),
           GridView.count(
@@ -894,7 +920,10 @@ class _Step5Photos extends StatelessWidget {
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
             children: [
-              ...List.generate(videoCount, (i) => _MediaTile(index: i, isVideo: true)),
+              ...List.generate(
+                videoCount,
+                (i) => _MediaTile(index: i, isVideo: true),
+              ),
               GestureDetector(
                 onTap: onAddVideo,
                 child: _AddMediaButton(
@@ -921,11 +950,7 @@ class _Step5Photos extends StatelessWidget {
 }
 
 class _AddMediaButton extends StatelessWidget {
-  const _AddMediaButton({
-    required this.icon,
-    required this.label,
-    this.color,
-  });
+  const _AddMediaButton({required this.icon, required this.label, this.color});
 
   final IconData icon;
   final String label;

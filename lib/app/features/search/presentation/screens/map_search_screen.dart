@@ -276,7 +276,8 @@ class _ViewOnMapTab extends StatelessWidget {
           ),
           children: [
             TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              urlTemplate:
+                  'https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}',
               userAgentPackageName: 'com.arenda.app',
             ),
             // User location marker
@@ -427,7 +428,7 @@ class _ViewOnMapTab extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                         itemCount: listings.length,
-                        separatorBuilder: (_, __) => const SizedBox(width: 10),
+                        separatorBuilder: (_, _) => const SizedBox(width: 10),
                         itemBuilder: (_, i) =>
                             _MapListingTile(
                                   listing: listings[i],
@@ -548,7 +549,7 @@ class _NearestMeTab extends StatelessWidget {
         SliverPadding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
           sliver: SliverList.separated(
-            separatorBuilder: (_, __) => const SizedBox(height: 12),
+            separatorBuilder: (_, _) => const SizedBox(height: 12),
             itemCount: listings.length,
             itemBuilder: (_, i) =>
                 _NearestListingRow(
@@ -632,7 +633,7 @@ class _SelectedListingCard extends StatelessWidget {
                 width: 90,
                 height: 90,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
+                errorBuilder: (_, _, _) => Container(
                   width: 90,
                   color: AppColors.primarySurface,
                   child: Icon(
@@ -754,7 +755,7 @@ class _MapListingTile extends StatelessWidget {
                 width: 70,
                 height: double.infinity,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) =>
+                errorBuilder: (_, _, _) =>
                     Container(width: 70, color: AppColors.primarySurface),
               ),
             ),
@@ -866,7 +867,7 @@ class _NearestListingRow extends StatelessWidget {
               width: 90,
               height: 100,
               fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) =>
+              errorBuilder: (_, _, _) =>
                   Container(width: 90, color: AppColors.primarySurface),
             ),
             // Info

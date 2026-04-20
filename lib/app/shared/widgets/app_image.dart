@@ -29,13 +29,13 @@ class AppImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
-      placeholder: (_, __) =>
+      placeholder: (_, _) =>
           placeholder ??
           AppShimmer(
             width: width ?? double.infinity,
             height: height ?? double.infinity,
           ),
-      errorWidget: (_, __, ___) => Container(
+      errorWidget: (_, _, _) => Container(
         width: width,
         height: height,
         color: AppColors.surface,

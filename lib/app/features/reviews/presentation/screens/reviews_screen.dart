@@ -44,24 +44,23 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen> {
           IconButton(
             icon: Icon(PhosphorIcons.plus()),
             tooltip: 'Write a review',
-            onPressed: () => context.push(
-              AppRoutes.addReviewPath(widget.listingId),
-            ),
+            onPressed: () =>
+                context.push(AppRoutes.addReviewPath(widget.listingId)),
           ),
         ],
       ),
       body: switch (state) {
         ReviewLoading() => _LoadingView(),
         ReviewLoaded(:final reviews, :final averageRating) => _LoadedView(
-            reviews: reviews,
-            averageRating: averageRating,
-            listingId: widget.listingId,
-          ),
+          reviews: reviews,
+          averageRating: averageRating,
+          listingId: widget.listingId,
+        ),
         ReviewError(:final message) => _ErrorView(
-            message: message,
-            onRetry: () =>
-                ref.read(reviewProvider.notifier).load(widget.listingId),
-          ),
+          message: message,
+          onRetry: () =>
+              ref.read(reviewProvider.notifier).load(widget.listingId),
+        ),
       },
     );
   }
@@ -75,9 +74,9 @@ class _LoadingView extends StatelessWidget {
     return ListView.separated(
       padding: const EdgeInsets.all(AppDimensions.paddingPage),
       itemCount: 5,
-      separatorBuilder: (_, __) =>
+      separatorBuilder: (_, _) =>
           const SizedBox(height: AppDimensions.spaceXXL),
-      itemBuilder: (_, __) => const _ReviewTileShimmer(),
+      itemBuilder: (_, _) => const _ReviewTileShimmer(),
     );
   }
 }
@@ -150,14 +149,12 @@ class _LoadedView extends StatelessWidget {
           ),
           sliver: SliverList.separated(
             itemCount: reviews.length,
-            separatorBuilder: (_, __) => const Padding(
+            separatorBuilder: (_, _) => const Padding(
               padding: EdgeInsets.symmetric(vertical: AppDimensions.spaceXXL),
               child: Divider(),
             ),
-            itemBuilder: (context, i) => _ReviewTile(
-              review: reviews[i],
-              index: i,
-            ),
+            itemBuilder: (context, i) =>
+                _ReviewTile(review: reviews[i], index: i),
           ),
         ),
       ],
@@ -215,9 +212,7 @@ class _SummaryHeader extends StatelessWidget {
           ),
           const SizedBox(width: AppDimensions.spaceXXL),
           // Rating breakdown bars
-          Expanded(
-            child: _RatingBreakdown(averageRating: averageRating),
-          ),
+          Expanded(child: _RatingBreakdown(averageRating: averageRating)),
         ],
       ),
     );
@@ -287,41 +282,44 @@ class _ReviewTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppAvatar(
-              imageUrl: review.userAvatarUrl,
-              name: review.userName,
-              size: AppDimensions.avatarMD,
-            ),
-            const SizedBox(width: AppDimensions.spaceMD),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(review.userName, style: AppTextStyles.labelMD),
-                  const SizedBox(height: 2),
-                  Text(
-                    review.formattedDate,
-                    style: AppTextStyles.bodyXS
-                        .copyWith(color: AppColors.textSecondary),
+            Row(
+              children: [
+                AppAvatar(
+                  imageUrl: review.userAvatarUrl,
+                  name: review.userName,
+                  size: AppDimensions.avatarMD,
+                ),
+                const SizedBox(width: AppDimensions.spaceMD),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(review.userName, style: AppTextStyles.labelMD),
+                      const SizedBox(height: 2),
+                      Text(
+                        review.formattedDate,
+                        style: AppTextStyles.bodyXS.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+                AppRatingBar(rating: review.rating.toDouble(), size: 14),
+              ],
+            ),
+            const SizedBox(height: AppDimensions.spaceMD),
+            Text(
+              review.comment,
+              style: AppTextStyles.bodyMD.copyWith(
+                color: AppColors.textSecondary,
+                height: 1.6,
               ),
             ),
-            AppRatingBar(rating: review.rating.toDouble(), size: 14),
           ],
-        ),
-        const SizedBox(height: AppDimensions.spaceMD),
-        Text(
-          review.comment,
-          style: AppTextStyles.bodyMD
-              .copyWith(color: AppColors.textSecondary, height: 1.6),
-        ),
-      ],
-    )
+        )
         .animate(delay: Duration(milliseconds: 60 * index))
         .fadeIn(duration: 400.ms)
         .slideY(begin: 0.05, end: 0, duration: 400.ms);
@@ -357,16 +355,20 @@ class _EmptyView extends StatelessWidget {
             const SizedBox(height: AppDimensions.spaceSM),
             Text(
               'Be the first to share your experience!',
-              style: AppTextStyles.bodyMD
-                  .copyWith(color: AppColors.textSecondary),
+              style: AppTextStyles.bodyMD.copyWith(
+                color: AppColors.textSecondary,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppDimensions.space2XL),
             AppButton(
               label: 'Write a review',
-              prefixIcon: Icon(PhosphorIcons.pencil(), size: 18, color: Colors.white),
-              onPressed: () =>
-                  context.push(AppRoutes.addReviewPath(listingId)),
+              prefixIcon: Icon(
+                PhosphorIcons.pencil(),
+                size: 18,
+                color: Colors.white,
+              ),
+              onPressed: () => context.push(AppRoutes.addReviewPath(listingId)),
             ),
           ],
         ).animate().fadeIn(duration: 500.ms),
@@ -391,8 +393,11 @@ class _ErrorView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(PhosphorIcons.warningCircle(PhosphorIconsStyle.fill),
-                size: 48, color: AppColors.textTertiary),
+            Icon(
+              PhosphorIcons.warningCircle(PhosphorIconsStyle.fill),
+              size: 48,
+              color: AppColors.textTertiary,
+            ),
             const SizedBox(height: AppDimensions.spaceMD),
             Text(message, style: AppTextStyles.bodyMD),
             const SizedBox(height: AppDimensions.spaceLG),

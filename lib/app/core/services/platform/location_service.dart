@@ -199,7 +199,8 @@ class LocationService implements ILocationService {
     if (fineStatus.isGranted) {
       // Check if it's precise or approximate (Android 12+)
       if (await _isAndroid12OrAbove()) {
-        final coarseStatus = await Permission.locationAlways.status;
+        // final coarseStatus = await Permission.locationAlways.status;
+        await Permission.locationAlways.status;
         // Approximate only = grantedLimited
         // We check precise permission separately
         final preciseStatus = await Permission.location.status;
@@ -226,7 +227,8 @@ class LocationService implements ILocationService {
   }
 
   LocationPermissionStatus _mapGeolocatorPermission(
-      LocationPermission permission) {
+    LocationPermission permission,
+  ) {
     switch (permission) {
       case LocationPermission.always:
       case LocationPermission.whileInUse:
@@ -394,8 +396,8 @@ class LocationService implements ILocationService {
 
       // Step 3: Get position
       final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: _mapAccuracy(accuracy),
-        timeLimit: timeout,
+        // desiredAccuracy: _mapAccuracy(accuracy),
+        // timeLimit: timeout,
       );
 
       final result = LocationResult.fromPosition(position);
@@ -403,7 +405,8 @@ class LocationService implements ILocationService {
       // If limited (approximate), mark accordingly
       if (permStatus == LocationPermissionStatus.grantedLimited) {
         return result.copyWith(
-            permissionStatus: LocationPermissionStatus.grantedLimited);
+          permissionStatus: LocationPermissionStatus.grantedLimited,
+        );
       }
 
       return result;
@@ -463,10 +466,12 @@ class LocationService implements ILocationService {
       // Check service
       final serviceEnabled = await isLocationServiceEnabled();
       if (!serviceEnabled) {
-        _locationStreamController?.add(LocationResult.error(
-          permissionStatus: LocationPermissionStatus.serviceDisabled,
-          errorMessage: 'Location services are disabled.',
-        ));
+        _locationStreamController?.add(
+          LocationResult.error(
+            permissionStatus: LocationPermissionStatus.serviceDisabled,
+            errorMessage: 'Location services are disabled.',
+          ),
+        );
         return;
       }
 
@@ -479,10 +484,12 @@ class LocationService implements ILocationService {
       if (permStatus == LocationPermissionStatus.deniedForever ||
           permStatus == LocationPermissionStatus.denied ||
           permStatus == LocationPermissionStatus.restricted) {
-        _locationStreamController?.add(LocationResult.error(
-          permissionStatus: permStatus,
-          errorMessage: _permissionErrorMessage(permStatus),
-        ));
+        _locationStreamController?.add(
+          LocationResult.error(
+            permissionStatus: permStatus,
+            errorMessage: _permissionErrorMessage(permStatus),
+          ),
+        );
         return;
       }
 
@@ -491,35 +498,40 @@ class LocationService implements ILocationService {
         distanceFilterMeters: distanceFilterMeters,
       );
 
-      _positionSubscription = Geolocator.getPositionStream(
-        locationSettings: locationSettings,
-      ).listen(
-        (Position position) {
-          if (_locationStreamController?.isClosed == false) {
-            _locationStreamController?.add(
-              LocationResult.fromPosition(position).copyWith(
-                permissionStatus: permStatus,
-              ),
-            );
-          }
-        },
-        onError: (error) {
-          debugPrint('[LocationService] Stream error: $error');
-          if (_locationStreamController?.isClosed == false) {
-            _locationStreamController?.add(LocationResult.error(
-              permissionStatus: LocationPermissionStatus.unknown,
-              errorMessage: 'Location stream error: $error',
-            ));
-          }
-        },
-        cancelOnError: false,
-      );
+      _positionSubscription =
+          Geolocator.getPositionStream(
+            locationSettings: locationSettings,
+          ).listen(
+            (Position position) {
+              if (_locationStreamController?.isClosed == false) {
+                _locationStreamController?.add(
+                  LocationResult.fromPosition(
+                    position,
+                  ).copyWith(permissionStatus: permStatus),
+                );
+              }
+            },
+            onError: (error) {
+              debugPrint('[LocationService] Stream error: $error');
+              if (_locationStreamController?.isClosed == false) {
+                _locationStreamController?.add(
+                  LocationResult.error(
+                    permissionStatus: LocationPermissionStatus.unknown,
+                    errorMessage: 'Location stream error: $error',
+                  ),
+                );
+              }
+            },
+            cancelOnError: false,
+          );
     } catch (e) {
       debugPrint('[LocationService] _initLocationStream error: $e');
-      _locationStreamController?.add(LocationResult.error(
-        permissionStatus: LocationPermissionStatus.unknown,
-        errorMessage: 'Failed to start location stream: $e',
-      ));
+      _locationStreamController?.add(
+        LocationResult.error(
+          permissionStatus: LocationPermissionStatus.unknown,
+          errorMessage: 'Failed to start location stream: $e',
+        ),
+      );
     }
   }
 
@@ -649,8 +661,9 @@ final locationServiceProvider = Provider<ILocationService>((ref) {
 });
 
 /// Permission status provider
-final locationPermissionProvider =
-    FutureProvider<LocationPermissionStatus>((ref) async {
+final locationPermissionProvider = FutureProvider<LocationPermissionStatus>((
+  ref,
+) async {
   final service = ref.watch(locationServiceProvider);
   return service.checkPermissionStatus();
 });

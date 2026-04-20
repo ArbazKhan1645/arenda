@@ -181,7 +181,7 @@ class _MessageBubble extends StatelessWidget {
                     boxShadow: [
                       if (!isMe)
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.03),
+                          color: Colors.black.withValues(alpha: 0.03),
                           blurRadius: 6,
                         ),
                     ],
@@ -237,7 +237,10 @@ class _ModernInput extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.background,
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+          ),
         ],
       ),
       child: Row(
