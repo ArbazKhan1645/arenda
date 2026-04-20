@@ -1,3 +1,4 @@
+import 'package:arenda/app/shared/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -110,32 +111,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                 // Brand mark
                 Row(
                   children: [
-                    Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.primary.withAlpha(60),
-                            blurRadius: 16,
-                            offset: const Offset(0, 6),
-                          ),
-                        ],
-                      ),
-                      child: Icon(
-                        PhosphorIcons.house(PhosphorIconsStyle.fill),
-                        size: 22,
-                        color: Colors.white,
-                      ),
-                    ),
+                    AppLogo(),
                     const SizedBox(width: 12),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'arenda',
+                          'Arenda',
                           style: AppTextStyles.h3.copyWith(
                             color: AppColors.primary,
                             letterSpacing: -0.5,
