@@ -116,7 +116,7 @@ abstract final class AppTheme {
     );
 
     return ThemeData(
-      fontFamily: 'NunitoSans',
+      fontFamily: 'JosefinSans',
       useMaterial3: true,
       brightness: brightness,
       colorScheme: colorScheme,

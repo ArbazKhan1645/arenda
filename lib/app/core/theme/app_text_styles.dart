@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 abstract final class AppTextStyles {
-  static const String _fontFamily = 'NunitoSans';
+  static const String _fontFamily = 'JosefinSans';
 
   // ── Display ─────────────────────────────────────────────
   static TextStyle get displayLG => const TextStyle(
