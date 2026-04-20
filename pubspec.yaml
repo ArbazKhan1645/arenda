@@ -29,6 +29,8 @@ dependencies:
   flutter_animate: ^4.5.2
   smooth_page_indicator: ^2.0.1
   shimmer: ^3.0.0
+  flutter_map: ^8.2.2
+  latlong2: ^0.9.1
 
   # =========================
   # 🖼️ Media / Images / Viewers

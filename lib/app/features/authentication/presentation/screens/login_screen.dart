@@ -194,8 +194,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                     unselectedLabelStyle: AppTextStyles.bodyMD,
                     padding: const EdgeInsets.all(4),
                     tabs: const [
-                      Tab(text: '🇨🇮  Numéro CI'),
-                      Tab(text: '✉️  E-mail'),
+                      Tab(text: 'Numéro'),
+                      Tab(text: 'E-mail'),
                     ],
                   ),
                 ).animate(delay: 140.ms).fadeIn(duration: 400.ms),
@@ -378,20 +378,7 @@ class _CIPhoneField extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
                   border: Border.all(color: AppColors.border),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text('🇨🇮', style: TextStyle(fontSize: 20)),
-                    const SizedBox(width: 6),
-                    Text('+225', style: AppTextStyles.labelMD),
-                    const SizedBox(width: 4),
-                    Icon(
-                      PhosphorIcons.caretDown(),
-                      size: 12,
-                      color: AppColors.textSecondary,
-                    ),
-                  ],
-                ),
+                child: Center(child: const _CIFlag()),
               ),
               const SizedBox(width: AppDimensions.spaceSM),
               // Number input
@@ -426,6 +413,45 @@ class _CIPhoneField extends StatelessWidget {
       ],
     );
   }
+}
+
+// ── CI flag widget (CustomPainter — works on all platforms) ─────────────────
+
+class _CIFlag extends StatelessWidget {
+  const _CIFlag();
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(3),
+      child: CustomPaint(size: const Size(28, 28), painter: _CIFlagPainter()),
+    );
+  }
+}
+
+class _CIFlagPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width / 3;
+    // Orange stripe
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, w, size.height),
+      Paint()..color = const Color(0xFFF77F00),
+    );
+    // White stripe
+    canvas.drawRect(
+      Rect.fromLTWH(w, 0, w, size.height),
+      Paint()..color = Colors.white,
+    );
+    // Green stripe
+    canvas.drawRect(
+      Rect.fromLTWH(w * 2, 0, w, size.height),
+      Paint()..color = const Color(0xFF009A44),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
 // ── Email + password fields ───────────────────────────────────────────────────

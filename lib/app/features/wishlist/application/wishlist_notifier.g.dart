@@ -15,15 +15,15 @@ final wishlistProvider = WishlistNotifierProvider._();
 final class WishlistNotifierProvider
     extends $NotifierProvider<WishlistNotifier, List<ListingEntity>> {
   WishlistNotifierProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'wishlistProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'wishlistProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$wishlistNotifierHash();
@@ -49,11 +49,14 @@ abstract class _$WishlistNotifier extends $Notifier<List<ListingEntity>> {
   @override
   void runBuild() {
     final ref = this.ref as $Ref<List<ListingEntity>, List<ListingEntity>>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<List<ListingEntity>, List<ListingEntity>>,
-        List<ListingEntity>,
-        Object?,
-        Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<ListingEntity>, List<ListingEntity>>,
+              List<ListingEntity>,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

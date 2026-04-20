@@ -164,6 +164,21 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               ),
             ),
 
+            // ── Map preview banner ────────────────────────────────────────
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  AppDimensions.paddingPage,
+                  AppDimensions.spaceLG,
+                  AppDimensions.paddingPage,
+                  0,
+                ),
+                child: _MapPreviewBanner(
+                  onTap: () => context.push(AppRoutes.mapSearch),
+                ).animate(delay: 360.ms).fadeIn(duration: 400.ms),
+              ),
+            ),
+
             // ── Categories label ──────────────────────────────────────────
             SliverToBoxAdapter(
               child: Padding(
@@ -174,7 +189,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   AppDimensions.spaceLG,
                 ),
                 child: Text('Explorer par type', style: AppTextStyles.h3),
-              ).animate(delay: 400.ms).fadeIn(duration: 400.ms),
+              ).animate(delay: 420.ms).fadeIn(duration: 400.ms),
             ),
 
             // ── Category chips ────────────────────────────────────────────
@@ -227,7 +242,7 @@ class _SearchBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
-        border: Border.all(color: AppColors.border, width: 1.5),
+        // border: Border.all(color: AppColors.border, width: 1.5),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withAlpha(12),
@@ -387,6 +402,188 @@ class _CategoryChip extends StatelessWidget {
       ),
     );
   }
+}
+
+// ── Map Preview Banner ──────────────────────────────────────────────────────
+
+class _MapPreviewBanner extends StatelessWidget {
+  const _MapPreviewBanner({required this.onTap});
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 140,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primary.withAlpha(30),
+              blurRadius: 18,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              // Gradient background
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      const Color(0xFF0F3460),
+                      AppColors.primary,
+                      const Color(0xFF16213E),
+                    ],
+                    stops: const [0.0, 0.5, 1.0],
+                  ),
+                ),
+              ),
+              // Dot grid pattern overlay
+              CustomPaint(painter: _DotGridPainter()),
+              // Content
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 3,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withAlpha(30),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  'NOUVEAU',
+                                  style: AppTextStyles.bodyXS.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 9,
+                                    letterSpacing: 1.2,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Explorer sur la carte',
+                            style: AppTextStyles.h3.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 18,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Trouvez des logements\nautour de vous',
+                            style: AppTextStyles.bodyXS.copyWith(
+                              color: Colors.white.withAlpha(200),
+                              height: 1.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Map icon
+                    Container(
+                      width: 72,
+                      height: 72,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withAlpha(20),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white.withAlpha(50),
+                          width: 1.5,
+                        ),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Icon(
+                            PhosphorIcons.mapTrifold(PhosphorIconsStyle.fill),
+                            size: 32,
+                            color: Colors.white,
+                          ),
+                          Positioned(
+                            right: 14,
+                            top: 12,
+                            child: Container(
+                              width: 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: Colors.greenAccent,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Arrow hint
+              Positioned(
+                right: 16,
+                bottom: 16,
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withAlpha(25),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    PhosphorIcons.arrowUpRight(PhosphorIconsStyle.bold),
+                    size: 14,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DotGridPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.white.withAlpha(18)
+      ..style = PaintingStyle.fill;
+    const spacing = 18.0;
+    for (double x = 0; x < size.width; x += spacing) {
+      for (double y = 0; y < size.height; y += spacing) {
+        canvas.drawCircle(Offset(x, y), 1.5, paint);
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter _) => false;
 }
 
 // ── Data classes ────────────────────────────────────────────────────────────

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:arenda/app/app.dart';
 import 'package:arenda/app/core/services/app_initalizer.dart';
 import 'package:arenda/app/core/services/platform/error_handler_service.dart';

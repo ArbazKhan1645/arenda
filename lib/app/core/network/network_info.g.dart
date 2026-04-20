@@ -16,15 +16,15 @@ final class NetworkInfoProvider
     extends $FunctionalProvider<NetworkInfo, NetworkInfo, NetworkInfo>
     with $Provider<NetworkInfo> {
   NetworkInfoProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'networkInfoProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'networkInfoProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$networkInfoHash();

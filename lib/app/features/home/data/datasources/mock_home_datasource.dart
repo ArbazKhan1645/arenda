@@ -42,27 +42,33 @@ abstract final class MockHomeDataSource {
       media: const [
         // Video tour comes first
         ListingMediaItem(
-          url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+          url:
+              'https://paojjkvecolzqnoejexy.supabase.co/storage/v1/object/public/demo/12517889_3840_2160_25fps.mp4',
           type: ListingMediaType.video,
-          thumbnailUrl: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=900&q=80',
+          thumbnailUrl:
+              'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=900&q=80',
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
       ],
       host: const ListingHost(
         id: 'h1',
         name: 'Kwame Asante',
-        avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        avatarUrl:
+            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
         isSuperhost: true,
       ),
       location: const ListingLocation(
@@ -71,7 +77,8 @@ abstract final class MockHomeDataSource {
         country: 'Ghana',
         latitude: 5.6377,
         longitude: -0.1501,
-        landmarkNote: 'Located 5 minutes from Accra Mall, turn left at the Woodin fabric shop on the main East Legon road. The compound has a green gate with a "Horizon Residences" sign.',
+        landmarkNote:
+            'Located 5 minutes from Accra Mall, turn left at the Woodin fabric shop on the main East Legon road. The compound has a green gate with a "Horizon Residences" sign.',
       ),
       price: const ListingPrice(
         perNight: 120,
@@ -89,7 +96,16 @@ abstract final class MockHomeDataSource {
         bathrooms: 3,
         propertyType: 'Penthouse',
         powerType: 'Solar Backup',
-        amenities: ['wifi', 'pool', 'kitchen', 'parking', 'ac', 'gym', 'security', 'generator'],
+        amenities: [
+          'wifi',
+          'pool',
+          'kitchen',
+          'parking',
+          'ac',
+          'gym',
+          'security',
+          'generator',
+        ],
       ),
       rating: 4.96,
       reviewCount: 88,
@@ -97,7 +113,12 @@ abstract final class MockHomeDataSource {
       isFeatured: true,
       isNew: false,
       isPhysicallyVetted: true,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'High-Speed WiFi', 'CCTV'],
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'High-Speed WiFi',
+        'CCTV',
+      ],
     ),
 
     ListingEntity(
@@ -107,22 +128,26 @@ abstract final class MockHomeDataSource {
           'A chic, fully furnished studio apartment in the heart of Cantonments — Accra\'s diplomatic quarter. The space features contemporary décor, premium finishes, and all the comforts needed for a short or extended stay.\n\nSwim in the communal pool, work from the high-speed fibre internet, and enjoy easy access to Osu Oxford Street restaurants and the Accra city centre.',
       media: const [
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
       ],
       host: const ListingHost(
         id: 'h2',
         name: 'Abena Osei',
-        avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
+        avatarUrl:
+            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
         isSuperhost: true,
       ),
       location: const ListingLocation(
@@ -131,7 +156,8 @@ abstract final class MockHomeDataSource {
         country: 'Ghana',
         latitude: 5.5754,
         longitude: -0.1888,
-        landmarkNote: 'On the Cantonments road opposite the American Embassy. Enter through the blue metal gate — ask the security guard for "Unit 4B". There\'s a yellow Melcom shop 100m before the entrance.',
+        landmarkNote:
+            'On the Cantonments road opposite the American Embassy. Enter through the blue metal gate — ask the security guard for "Unit 4B". There\'s a yellow Melcom shop 100m before the entrance.',
       ),
       price: const ListingPrice(
         perNight: 65,
@@ -149,7 +175,15 @@ abstract final class MockHomeDataSource {
         bathrooms: 1,
         propertyType: 'Studio',
         powerType: 'Generator Backup',
-        amenities: ['wifi', 'pool', 'kitchen', 'ac', 'parking', 'washer', 'security'],
+        amenities: [
+          'wifi',
+          'pool',
+          'kitchen',
+          'ac',
+          'parking',
+          'washer',
+          'security',
+        ],
       ),
       rating: 4.89,
       reviewCount: 112,
@@ -157,7 +191,11 @@ abstract final class MockHomeDataSource {
       isFeatured: true,
       isNew: false,
       isPhysicallyVetted: true,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'High-Speed WiFi'],
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'High-Speed WiFi',
+      ],
     ),
 
     ListingEntity(
@@ -167,26 +205,31 @@ abstract final class MockHomeDataSource {
           'Stunning detached villa perfect for families and corporate groups. Set within a secure gated estate in Airport Ridge, this property offers the ideal blend of comfort, space, and privacy.\n\nThe villa comes with a landscaped garden with outdoor BBQ, spacious living and dining areas, fully equipped kitchen, and a dedicated housekeeper service. Airport Ridge is Accra\'s prime location — 10 minutes from Kotoka International Airport.',
       media: const [
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
       ],
       host: const ListingHost(
         id: 'h3',
         name: 'Emmanuel Darko',
-        avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+        avatarUrl:
+            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
         isSuperhost: false,
       ),
       location: const ListingLocation(
@@ -195,7 +238,8 @@ abstract final class MockHomeDataSource {
         country: 'Ghana',
         latitude: 5.6052,
         longitude: -0.1717,
-        landmarkNote: 'Inside Airport Ridge Estate, Gate B. Take the second turning after the Shell petrol station on the Liberation Road. Tell security at the main gate you are visiting "Villa 12 — Green Valley."',
+        landmarkNote:
+            'Inside Airport Ridge Estate, Gate B. Take the second turning after the Shell petrol station on the Liberation Road. Tell security at the main gate you are visiting "Villa 12 — Green Valley."',
       ),
       price: const ListingPrice(
         perNight: 195,
@@ -213,7 +257,17 @@ abstract final class MockHomeDataSource {
         bathrooms: 4,
         propertyType: 'Villa',
         powerType: 'Generator Backup',
-        amenities: ['wifi', 'kitchen', 'parking', 'ac', 'bbq', 'garden', 'security', 'generator', 'housekeeper'],
+        amenities: [
+          'wifi',
+          'kitchen',
+          'parking',
+          'ac',
+          'bbq',
+          'garden',
+          'security',
+          'generator',
+          'housekeeper',
+        ],
       ),
       rating: 4.83,
       reviewCount: 45,
@@ -221,7 +275,12 @@ abstract final class MockHomeDataSource {
       isFeatured: true,
       isNew: false,
       isPhysicallyVetted: true,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'CCTV', 'Gated Estate'],
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'CCTV',
+        'Gated Estate',
+      ],
     ),
 
     // ── LAGOS, NIGERIA ───────────────────────────────────────────────────────
@@ -233,23 +292,28 @@ abstract final class MockHomeDataSource {
       media: const [
         // Video tour of the property
         ListingMediaItem(
-          url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+          url:
+              'https://paojjkvecolzqnoejexy.supabase.co/storage/v1/object/public/demo/6466244-uhd_2160_4096_25fps.mp4',
           type: ListingMediaType.video,
-          thumbnailUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80',
+          thumbnailUrl:
+              'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80',
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1522708323590-d24dbb2b4358?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1522708323590-d24dbb2b4358?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
       ],
       host: const ListingHost(
         id: 'h4',
         name: 'Chidi Okonkwo',
-        avatarUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
+        avatarUrl:
+            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
         isSuperhost: true,
       ),
       location: const ListingLocation(
@@ -258,7 +322,8 @@ abstract final class MockHomeDataSource {
         country: 'Nigeria',
         latitude: 6.4281,
         longitude: 3.4219,
-        landmarkNote: 'On Adeola Odeku Street, directly opposite GTBank VI branch. Look for the "Seaview Towers" signage — take the elevator to floor 14. Call the host upon arrival for seamless access.',
+        landmarkNote:
+            'On Adeola Odeku Street, directly opposite GTBank VI branch. Look for the "Seaview Towers" signage — take the elevator to floor 14. Call the host upon arrival for seamless access.',
       ),
       price: const ListingPrice(
         perNight: 140,
@@ -276,7 +341,17 @@ abstract final class MockHomeDataSource {
         bathrooms: 2,
         propertyType: 'Shortlet',
         powerType: 'Solar Backup',
-        amenities: ['wifi', 'kitchen', 'ac', 'parking', 'gym', 'pool', 'security', 'generator', 'concierge'],
+        amenities: [
+          'wifi',
+          'kitchen',
+          'ac',
+          'parking',
+          'gym',
+          'pool',
+          'security',
+          'generator',
+          'concierge',
+        ],
       ),
       rating: 4.95,
       reviewCount: 73,
@@ -284,7 +359,13 @@ abstract final class MockHomeDataSource {
       isFeatured: true,
       isNew: false,
       isPhysicallyVetted: true,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'High-Speed WiFi', 'CCTV', 'Concierge'],
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'High-Speed WiFi',
+        'CCTV',
+        'Concierge',
+      ],
     ),
 
     ListingEntity(
@@ -294,22 +375,26 @@ abstract final class MockHomeDataSource {
           'Clean, secure, and stylishly furnished 1-bedroom apartment in the popular Lekki Phase 1 area. Ideal for solo travellers and couples who want a home-away-from-home experience without breaking the bank.\n\nFully air-conditioned, 24-hour security with CCTV, reliable generator backup, and fast WiFi. Walking distance to Lekki market, popular eateries, and easily accessible via BRT.',
       media: const [
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
       ],
       host: const ListingHost(
         id: 'h5',
         name: 'Funmi Adeyemi',
-        avatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80',
+        avatarUrl:
+            'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80',
         isSuperhost: false,
       ),
       location: const ListingLocation(
@@ -318,7 +403,8 @@ abstract final class MockHomeDataSource {
         country: 'Nigeria',
         latitude: 6.4468,
         longitude: 3.4739,
-        landmarkNote: 'Hakeem Dickson Street, off Admiralty Way. The building is painted cream and brown — look for "Sunrise Court" written above the entrance. It is 2 houses after the Access Bank ATM on that street.',
+        landmarkNote:
+            'Hakeem Dickson Street, off Admiralty Way. The building is painted cream and brown — look for "Sunrise Court" written above the entrance. It is 2 houses after the Access Bank ATM on that street.',
       ),
       price: const ListingPrice(
         perNight: 55,
@@ -336,7 +422,15 @@ abstract final class MockHomeDataSource {
         bathrooms: 1,
         propertyType: 'Apartment',
         powerType: 'Generator Backup',
-        amenities: ['wifi', 'kitchen', 'ac', 'parking', 'security', 'generator', 'washer'],
+        amenities: [
+          'wifi',
+          'kitchen',
+          'ac',
+          'parking',
+          'security',
+          'generator',
+          'washer',
+        ],
       ),
       rating: 4.78,
       reviewCount: 91,
@@ -354,26 +448,31 @@ abstract final class MockHomeDataSource {
           'Premium 3-bedroom serviced duplex on the quiet and prestigious Ikoyi crescent. Designed specifically for long-stay business travellers and diplomatic guests, the property features dedicated office space, seamless 200Mbps fibre internet, and full hotel-grade housekeeping.\n\nPrepared breakfast is available on request. The host manages a portfolio of 12 verified properties and is available 24/7 via the app.',
       media: const [
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1566073771259-470aff8a6e32?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1566073771259-470aff8a6e32?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
       ],
       host: const ListingHost(
         id: 'h6',
         name: 'Tolu Balogun',
-        avatarUrl: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=200&q=80',
+        avatarUrl:
+            'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=200&q=80',
         isSuperhost: true,
       ),
       location: const ListingLocation(
@@ -382,7 +481,8 @@ abstract final class MockHomeDataSource {
         country: 'Nigeria',
         latitude: 6.4553,
         longitude: 3.4335,
-        landmarkNote: 'Joseph Street, Old Ikoyi. GPS is often inaccurate here — use this instead: from Awolowo Road, turn into Glover Road, take the second left after the Total petrol station. The duplex is the cream-coloured building with black iron gates, number 14.',
+        landmarkNote:
+            'Joseph Street, Old Ikoyi. GPS is often inaccurate here — use this instead: from Awolowo Road, turn into Glover Road, take the second left after the Total petrol station. The duplex is the cream-coloured building with black iron gates, number 14.',
       ),
       price: const ListingPrice(
         perNight: 185,
@@ -400,7 +500,18 @@ abstract final class MockHomeDataSource {
         bathrooms: 3,
         propertyType: 'Duplex',
         powerType: 'Solar Backup',
-        amenities: ['wifi', 'kitchen', 'ac', 'parking', 'gym', 'security', 'generator', 'housekeeper', 'workspace', 'breakfast'],
+        amenities: [
+          'wifi',
+          'kitchen',
+          'ac',
+          'parking',
+          'gym',
+          'security',
+          'generator',
+          'housekeeper',
+          'workspace',
+          'breakfast',
+        ],
       ),
       rating: 4.97,
       reviewCount: 58,
@@ -408,7 +519,13 @@ abstract final class MockHomeDataSource {
       isFeatured: true,
       isNew: false,
       isPhysicallyVetted: true,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'High-Speed WiFi', 'CCTV', 'Gated Estate'],
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'High-Speed WiFi',
+        'CCTV',
+        'Gated Estate',
+      ],
     ),
 
     // ── DAKAR, SENEGAL ───────────────────────────────────────────────────────
@@ -420,27 +537,33 @@ abstract final class MockHomeDataSource {
       media: const [
         // Video tour of the beachfront property
         ListingMediaItem(
-          url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+          url:
+              'https://paojjkvecolzqnoejexy.supabase.co/storage/v1/object/public/demo/14643006_1920_1080_100fps%20(1).mp4',
           type: ListingMediaType.video,
-          thumbnailUrl: 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=900&q=80',
+          thumbnailUrl:
+              'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=900&q=80',
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
       ],
       host: const ListingHost(
         id: 'h7',
         name: 'Mariama Diallo',
-        avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+        avatarUrl:
+            'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
         isSuperhost: true,
       ),
       location: const ListingLocation(
@@ -449,7 +572,8 @@ abstract final class MockHomeDataSource {
         country: 'Senegal',
         latitude: 14.7456,
         longitude: -17.5102,
-        landmarkNote: 'Route de la Corniche-Ouest, Almadies. Coming from the Radisson Blu direction, pass the Club Med roundabout and continue 800m. Look for the orange building on the right, just before Plage des Almadies sign.',
+        landmarkNote:
+            'Route de la Corniche-Ouest, Almadies. Coming from the Radisson Blu direction, pass the Club Med roundabout and continue 800m. Look for the orange building on the right, just before Plage des Almadies sign.',
       ),
       price: const ListingPrice(
         perNight: 85,
@@ -467,7 +591,16 @@ abstract final class MockHomeDataSource {
         bathrooms: 2,
         propertyType: 'Apartment',
         powerType: 'Solar Backup',
-        amenities: ['wifi', 'kitchen', 'ac', 'beach_access', 'parking', 'security', 'solar', 'breakfast'],
+        amenities: [
+          'wifi',
+          'kitchen',
+          'ac',
+          'beach_access',
+          'parking',
+          'security',
+          'solar',
+          'breakfast',
+        ],
       ),
       rating: 4.92,
       reviewCount: 66,
@@ -475,7 +608,12 @@ abstract final class MockHomeDataSource {
       isFeatured: true,
       isNew: false,
       isPhysicallyVetted: true,
-      verificationBadges: ['24/7 Power', 'Physically Vetted', 'High-Speed WiFi', 'Beach Access'],
+      verificationBadges: [
+        '24/7 Power',
+        'Physically Vetted',
+        'High-Speed WiFi',
+        'Beach Access',
+      ],
     ),
 
     // ── ABIDJAN, IVORY COAST ─────────────────────────────────────────────────
@@ -486,22 +624,26 @@ abstract final class MockHomeDataSource {
           'Prestigious fully-serviced 2-bedroom apartment in Le Plateau — the commercial and financial heart of Abidjan. Overlooking the Ébrié Lagoon, this high-floor unit offers exceptional views and world-class amenities.\n\nMinutes from the financial district, major embassies, and the Plateau business hub. Air France and corporate guests regularly choose this property for its proximity to the airport and reliability of service.',
       media: const [
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
         ListingMediaItem(
-          url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80',
+          url:
+              'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80',
           type: ListingMediaType.image,
         ),
       ],
       host: const ListingHost(
         id: 'h8',
         name: 'Kouamé Yao',
-        avatarUrl: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=200&q=80',
+        avatarUrl:
+            'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=200&q=80',
         isSuperhost: false,
       ),
       location: const ListingLocation(
@@ -510,7 +652,8 @@ abstract final class MockHomeDataSource {
         country: 'Ivory Coast',
         latitude: 5.3209,
         longitude: -4.0167,
-        landmarkNote: 'Avenue Botreau-Roussel, Le Plateau. Take the blue bridge from Cocody — the building is on your right after you pass SGBCI bank. It\'s a grey tower with "Résidence Lagune" in gold lettering.',
+        landmarkNote:
+            'Avenue Botreau-Roussel, Le Plateau. Take the blue bridge from Cocody — the building is on your right after you pass SGBCI bank. It\'s a grey tower with "Résidence Lagune" in gold lettering.',
       ),
       price: const ListingPrice(
         perNight: 100,
@@ -528,7 +671,16 @@ abstract final class MockHomeDataSource {
         bathrooms: 2,
         propertyType: 'Apartment',
         powerType: 'Generator Backup',
-        amenities: ['wifi', 'kitchen', 'ac', 'parking', 'gym', 'security', 'generator', 'concierge'],
+        amenities: [
+          'wifi',
+          'kitchen',
+          'ac',
+          'parking',
+          'gym',
+          'security',
+          'generator',
+          'concierge',
+        ],
       ),
       rating: 4.85,
       reviewCount: 39,

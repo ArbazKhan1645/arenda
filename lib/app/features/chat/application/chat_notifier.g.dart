@@ -15,15 +15,15 @@ final chatProvider = ChatNotifierProvider._();
 final class ChatNotifierProvider
     extends $NotifierProvider<ChatNotifier, ChatState> {
   ChatNotifierProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'chatProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'chatProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$chatNotifierHash();
@@ -49,8 +49,14 @@ abstract class _$ChatNotifier extends $Notifier<ChatState> {
   @override
   void runBuild() {
     final ref = this.ref as $Ref<ChatState, ChatState>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<ChatState, ChatState>, ChatState, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<ChatState, ChatState>,
+              ChatState,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }
@@ -61,15 +67,15 @@ final conversationProvider = ConversationNotifierProvider._();
 final class ConversationNotifierProvider
     extends $NotifierProvider<ConversationNotifier, ConversationState> {
   ConversationNotifierProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'conversationProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'conversationProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$conversationNotifierHash();
@@ -96,11 +102,14 @@ abstract class _$ConversationNotifier extends $Notifier<ConversationState> {
   @override
   void runBuild() {
     final ref = this.ref as $Ref<ConversationState, ConversationState>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<ConversationState, ConversationState>,
-        ConversationState,
-        Object?,
-        Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<ConversationState, ConversationState>,
+              ConversationState,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

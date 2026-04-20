@@ -62,8 +62,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
 
     if (_usePhone) {
       // Phone → OTP screen
-      final identifier =
-          '+225${_phoneCtrl.text.trim().replaceAll(' ', '')}';
+      final identifier = '+225${_phoneCtrl.text.trim().replaceAll(' ', '')}';
       context.push(
         AppRoutes.otp,
         extra: OtpArgs(
@@ -75,7 +74,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
       );
     } else {
       // Email + password → direct sign up
-      final success = await ref.read(authProvider.notifier).signUp(
+      final success = await ref
+          .read(authProvider.notifier)
+          .signUp(
             email: _emailCtrl.text.trim(),
             name: _nameCtrl.text.trim(),
             password: _passwordCtrl.text,
@@ -88,8 +89,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
   Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
     final isLoading = authState is AuthLoading;
-    final errorMessage =
-        (!_usePhone && authState is AuthError) ? authState.message : null;
+    final errorMessage = (!_usePhone && authState is AuthError)
+        ? authState.message
+        : null;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -115,51 +117,48 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
 
                 // Brand mark
                 Row(
-                      children: [
-                        Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            color: AppColors.primary,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.primary.withAlpha(60),
-                                blurRadius: 16,
-                                offset: const Offset(0, 6),
-                              ),
-                            ],
+                  children: [
+                    Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.primary.withAlpha(60),
+                            blurRadius: 16,
+                            offset: const Offset(0, 6),
                           ),
-                          child: Icon(
-                            PhosphorIcons.house(PhosphorIconsStyle.fill),
-                            size: 22,
-                            color: Colors.white,
+                        ],
+                      ),
+                      child: Icon(
+                        PhosphorIcons.house(PhosphorIconsStyle.fill),
+                        size: 22,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'arenda',
+                          style: AppTextStyles.h3.copyWith(
+                            color: AppColors.primary,
+                            letterSpacing: -0.5,
                           ),
                         ),
-                        const SizedBox(width: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'arenda',
-                              style: AppTextStyles.h3.copyWith(
-                                color: AppColors.primary,
-                                letterSpacing: -0.5,
-                              ),
-                            ),
-                            Text(
-                              'Rejoignez 1000+ voyageurs en CI',
-                              style: AppTextStyles.bodyXS.copyWith(
-                                color: AppColors.textSecondary,
-                              ),
-                            ),
-                          ],
+                        Text(
+                          'Rejoignez 1000+ voyageurs en CI',
+                          style: AppTextStyles.bodyXS.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
                         ),
                       ],
-                    )
-                    .animate()
-                    .fadeIn(duration: 400.ms)
-                    .slideY(begin: 0.2, end: 0),
+                    ),
+                  ],
+                ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.2, end: 0),
 
                 const SizedBox(height: AppDimensions.space2XL),
 
@@ -171,72 +170,65 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                 const SizedBox(height: AppDimensions.spaceSM),
 
                 Text(
-                      _usePhone
-                          ? 'Votre numéro CI, votre identité sur arenda.'
-                          : 'Créez votre compte avec un e-mail et un mot de passe.',
-                      style: AppTextStyles.bodyMD.copyWith(
-                        color: AppColors.textSecondary,
-                      ),
-                    )
-                    .animate(delay: 100.ms)
-                    .fadeIn(duration: 400.ms),
+                  _usePhone
+                      ? 'Votre numéro CI, votre identité sur arenda.'
+                      : 'Créez votre compte avec un e-mail et un mot de passe.',
+                  style: AppTextStyles.bodyMD.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ).animate(delay: 100.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.space2XL),
 
                 // Tab switcher
                 Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius:
-                            BorderRadius.circular(AppDimensions.radiusMD),
+                  decoration: BoxDecoration(
+                    color: AppColors.surface,
+                    borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
+                  ),
+                  child: TabBar(
+                    controller: _tabController,
+                    dividerColor: Colors.transparent,
+                    indicator: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusMD - 2,
                       ),
-                      child: TabBar(
-                        controller: _tabController,
-                        dividerColor: Colors.transparent,
-                        indicator: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(
-                            AppDimensions.radiusMD - 2,
-                          ),
-                        ),
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        labelColor: Colors.white,
-                        unselectedLabelColor: AppColors.textSecondary,
-                        labelStyle: AppTextStyles.labelMD,
-                        unselectedLabelStyle: AppTextStyles.bodyMD,
-                        padding: const EdgeInsets.all(4),
-                        tabs: const [
-                          Tab(text: '🇨🇮  Numéro CI'),
-                          Tab(text: '✉️  E-mail'),
-                        ],
-                      ),
-                    )
-                    .animate(delay: 120.ms)
-                    .fadeIn(duration: 400.ms),
+                    ),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    labelColor: Colors.white,
+                    unselectedLabelColor: AppColors.textSecondary,
+                    labelStyle: AppTextStyles.labelMD,
+                    unselectedLabelStyle: AppTextStyles.bodyMD,
+                    padding: const EdgeInsets.all(4),
+                    tabs: const [
+                      Tab(text: 'Numéro CI'),
+                      Tab(text: 'E-mail'),
+                    ],
+                  ),
+                ).animate(delay: 120.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceXXL),
 
                 // Full name (always shown)
                 AppTextField(
-                      controller: _nameCtrl,
-                      label: 'Nom complet',
-                      hint: 'Votre nom complet',
-                      textInputAction: TextInputAction.next,
-                      prefixIcon: Icon(
-                        PhosphorIcons.user(),
-                        size: 18,
-                        color: AppColors.textSecondary,
-                      ),
-                      validator: (v) {
-                        if (v == null || v.trim().isEmpty) {
-                          return 'Le nom est requis';
-                        }
-                        if (v.trim().length < 2) return 'Nom trop court';
-                        return null;
-                      },
-                    )
-                    .animate(delay: 160.ms)
-                    .fadeIn(duration: 400.ms),
+                  controller: _nameCtrl,
+                  label: 'Nom complet',
+                  hint: 'Votre nom complet',
+                  textInputAction: TextInputAction.next,
+                  prefixIcon: Icon(
+                    PhosphorIcons.user(),
+                    size: 18,
+                    color: AppColors.textSecondary,
+                  ),
+                  validator: (v) {
+                    if (v == null || v.trim().isEmpty) {
+                      return 'Le nom est requis';
+                    }
+                    if (v.trim().length < 2) return 'Nom trop court';
+                    return null;
+                  },
+                ).animate(delay: 160.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceLG),
 
@@ -270,25 +262,23 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                 const SizedBox(height: AppDimensions.spaceMD),
 
                 Row(
-                      children: [
-                        Icon(
-                          PhosphorIcons.shieldCheck(PhosphorIconsStyle.fill),
-                          size: 14,
-                          color: AppColors.primary,
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          _usePhone
-                              ? 'Vérification par code OTP envoyé par SMS'
-                              : 'Vos données sont chiffrées et sécurisées',
-                          style: AppTextStyles.bodyXS.copyWith(
-                            color: AppColors.textSecondary,
-                          ),
-                        ),
-                      ],
-                    )
-                    .animate(delay: 200.ms)
-                    .fadeIn(duration: 400.ms),
+                  children: [
+                    Icon(
+                      PhosphorIcons.shieldCheck(PhosphorIconsStyle.fill),
+                      size: 14,
+                      color: AppColors.primary,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      _usePhone
+                          ? 'Vérification par code OTP envoyé par SMS'
+                          : 'Vos données sont chiffrées et sécurisées',
+                      style: AppTextStyles.bodyXS.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ).animate(delay: 200.ms).fadeIn(duration: 400.ms),
 
                 // Error (email path only)
                 if (errorMessage != null) ...[
@@ -297,8 +287,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                     padding: const EdgeInsets.all(AppDimensions.spaceMD),
                     decoration: BoxDecoration(
                       color: AppColors.errorLight,
-                      borderRadius:
-                          BorderRadius.circular(AppDimensions.radiusMD),
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusMD,
+                      ),
                     ),
                     child: Row(
                       children: [
@@ -311,8 +302,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                         Expanded(
                           child: Text(
                             errorMessage,
-                            style: AppTextStyles.bodyXS
-                                .copyWith(color: AppColors.error),
+                            style: AppTextStyles.bodyXS.copyWith(
+                              color: AppColors.error,
+                            ),
                           ),
                         ),
                       ],
@@ -323,27 +315,21 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                 const SizedBox(height: AppDimensions.space2XL),
 
                 AppButton(
-                      label: _usePhone
-                          ? 'Recevoir le code'
-                          : 'Créer mon compte',
-                      onPressed: _submit,
-                      isLoading: isLoading,
-                    )
-                    .animate(delay: 240.ms)
-                    .fadeIn(duration: 400.ms),
+                  label: _usePhone ? 'Recevoir le code' : 'Créer mon compte',
+                  onPressed: _submit,
+                  isLoading: isLoading,
+                ).animate(delay: 240.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceLG),
 
                 Text(
-                      'En créant un compte, vous acceptez nos Conditions d\'utilisation et notre Politique de confidentialité.',
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.bodyXS.copyWith(
-                        color: AppColors.textTertiary,
-                        height: 1.6,
-                      ),
-                    )
-                    .animate(delay: 260.ms)
-                    .fadeIn(duration: 400.ms),
+                  'En créant un compte, vous acceptez nos Conditions d\'utilisation et notre Politique de confidentialité.',
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.bodyXS.copyWith(
+                    color: AppColors.textTertiary,
+                    height: 1.6,
+                  ),
+                ).animate(delay: 260.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceXXL),
 
@@ -352,8 +338,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                   children: [
                     Text(
                       'Déjà un compte ? ',
-                      style: AppTextStyles.bodyMD
-                          .copyWith(color: AppColors.textSecondary),
+                      style: AppTextStyles.bodyMD.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                     GestureDetector(
                       onTap: () => context.go(AppRoutes.login),
@@ -400,24 +387,10 @@ class _CIPhoneField extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 decoration: BoxDecoration(
                   color: AppColors.surface,
-                  borderRadius:
-                      BorderRadius.circular(AppDimensions.radiusMD),
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
                   border: Border.all(color: AppColors.border),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text('🇨🇮', style: TextStyle(fontSize: 20)),
-                    const SizedBox(width: 6),
-                    Text('+225', style: AppTextStyles.labelMD),
-                    const SizedBox(width: 4),
-                    Icon(
-                      PhosphorIcons.caretDown(),
-                      size: 12,
-                      color: AppColors.textSecondary,
-                    ),
-                  ],
-                ),
+                child: Center(child: const _CIFlag()),
               ),
               const SizedBox(width: AppDimensions.spaceSM),
               Expanded(
@@ -432,8 +405,9 @@ class _CIPhoneField extends StatelessWidget {
                   style: AppTextStyles.bodyMD,
                   decoration: InputDecoration(
                     hintText: '07 00 00 00 00',
-                    hintStyle: AppTextStyles.bodyMD
-                        .copyWith(color: AppColors.textTertiary),
+                    hintStyle: AppTextStyles.bodyMD.copyWith(
+                      color: AppColors.textTertiary,
+                    ),
                   ),
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) {
@@ -533,4 +507,43 @@ class _EmailPasswordFields extends StatelessWidget {
       ],
     );
   }
+}
+
+// ── CI flag widget (CustomPainter — works on all platforms) ─────────────────
+
+class _CIFlag extends StatelessWidget {
+  const _CIFlag();
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(3),
+      child: CustomPaint(size: const Size(28, 20), painter: _CIFlagPainter()),
+    );
+  }
+}
+
+class _CIFlagPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width / 3;
+    // Orange stripe
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, w, size.height),
+      Paint()..color = const Color(0xFFF77F00),
+    );
+    // White stripe
+    canvas.drawRect(
+      Rect.fromLTWH(w, 0, w, size.height),
+      Paint()..color = Colors.white,
+    );
+    // Green stripe
+    canvas.drawRect(
+      Rect.fromLTWH(w * 2, 0, w, size.height),
+      Paint()..color = const Color(0xFF009A44),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

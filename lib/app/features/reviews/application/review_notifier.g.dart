@@ -15,15 +15,15 @@ final reviewProvider = ReviewNotifierProvider._();
 final class ReviewNotifierProvider
     extends $NotifierProvider<ReviewNotifier, ReviewState> {
   ReviewNotifierProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'reviewProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'reviewProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$reviewNotifierHash();
@@ -49,8 +49,14 @@ abstract class _$ReviewNotifier extends $Notifier<ReviewState> {
   @override
   void runBuild() {
     final ref = this.ref as $Ref<ReviewState, ReviewState>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<ReviewState, ReviewState>, ReviewState, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<ReviewState, ReviewState>,
+              ReviewState,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

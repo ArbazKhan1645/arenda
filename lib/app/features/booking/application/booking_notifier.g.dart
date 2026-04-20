@@ -15,15 +15,15 @@ final bookingProvider = BookingNotifierProvider._();
 final class BookingNotifierProvider
     extends $NotifierProvider<BookingNotifier, BookingState> {
   BookingNotifierProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'bookingProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'bookingProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$bookingNotifierHash();
@@ -49,11 +49,14 @@ abstract class _$BookingNotifier extends $Notifier<BookingState> {
   @override
   void runBuild() {
     final ref = this.ref as $Ref<BookingState, BookingState>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<BookingState, BookingState>,
-        BookingState,
-        Object?,
-        Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<BookingState, BookingState>,
+              BookingState,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

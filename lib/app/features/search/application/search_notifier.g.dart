@@ -15,15 +15,15 @@ final searchProvider = SearchNotifierProvider._();
 final class SearchNotifierProvider
     extends $NotifierProvider<SearchNotifier, SearchState> {
   SearchNotifierProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'searchProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'searchProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$searchNotifierHash();
@@ -41,7 +41,7 @@ final class SearchNotifierProvider
   }
 }
 
-String _$searchNotifierHash() => r'a14da6a256173b650936522b9bb06f668f2075b9';
+String _$searchNotifierHash() => r'671cbce7638278ff74f2f2a9b094de7a85775c3c';
 
 abstract class _$SearchNotifier extends $Notifier<SearchState> {
   SearchState build();
@@ -49,8 +49,14 @@ abstract class _$SearchNotifier extends $Notifier<SearchState> {
   @override
   void runBuild() {
     final ref = this.ref as $Ref<SearchState, SearchState>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<SearchState, SearchState>, SearchState, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<SearchState, SearchState>,
+              SearchState,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

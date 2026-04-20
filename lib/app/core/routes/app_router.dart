@@ -13,6 +13,7 @@ import '../../features/home/presentation/screens/main_shell.dart';
 import '../../features/search/presentation/screens/search_screen.dart';
 import '../../features/search/presentation/screens/search_results_screen.dart';
 import '../../features/search/presentation/screens/filters_screen.dart';
+import '../../features/search/presentation/screens/map_search_screen.dart';
 import '../../features/listing/presentation/screens/listing_detail_screen.dart';
 import '../../features/listing/presentation/screens/landmark_navigation_screen.dart';
 import '../../features/booking/presentation/screens/booking_screen.dart';
@@ -144,6 +145,13 @@ GoRouter appRouter(Ref ref) {
         path: AppRoutes.filters,
         pageBuilder: (context, state) =>
             _slideFromBottom(state, const FiltersScreen()),
+      ),
+
+      // ── Map Search ────────────────────────────────────────────────────────
+      GoRoute(
+        path: AppRoutes.mapSearch,
+        pageBuilder: (context, state) =>
+            _slideFromBottom(state, const MapSearchScreen()),
       ),
 
       // ── Booking ────────────────────────────────────────────────────────

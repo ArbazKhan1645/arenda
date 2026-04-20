@@ -15,15 +15,15 @@ final homeProvider = HomeNotifierProvider._();
 final class HomeNotifierProvider
     extends $NotifierProvider<HomeNotifier, HomeState> {
   HomeNotifierProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'homeProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'homeProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$homeNotifierHash();
@@ -49,8 +49,14 @@ abstract class _$HomeNotifier extends $Notifier<HomeState> {
   @override
   void runBuild() {
     final ref = this.ref as $Ref<HomeState, HomeState>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<HomeState, HomeState>, HomeState, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<HomeState, HomeState>,
+              HomeState,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }
