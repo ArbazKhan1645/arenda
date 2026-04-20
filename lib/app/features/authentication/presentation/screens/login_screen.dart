@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,25 +21,50 @@ class LoginScreen extends ConsumerStatefulWidget {
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends ConsumerState<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen>
+    with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final _emailCtrl = TextEditingController();
+  final _phoneCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
+
+  // true = phone login (CI), false = email login
+  bool _usePhone = false;
+
+  late final TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      if (!_tabController.indexIsChanging) {
+        setState(() => _usePhone = _tabController.index == 0);
+      }
+    });
+  }
 
   @override
   void dispose() {
+    _tabController.dispose();
     _emailCtrl.dispose();
+    _phoneCtrl.dispose();
     _passwordCtrl.dispose();
     super.dispose();
   }
 
   Future<void> _submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
+    final identifier = _usePhone
+        ? '+225${_phoneCtrl.text.trim().replaceAll(' ', '')}'
+        : _emailCtrl.text.trim();
     final success = await ref
         .read(authProvider.notifier)
-        .signIn(_emailCtrl.text.trim(), _passwordCtrl.text);
+        .signIn(identifier, _passwordCtrl.text);
     if (success && mounted) context.go(AppRoutes.home);
   }
+
+  void _continueAsGuest() => context.go(AppRoutes.home);
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +85,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppDimensions.paddingPage,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.paddingPage),
           child: Form(
             key: _formKey,
             child: Column(
@@ -72,92 +95,84 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                 // Header
                 Text(
-                  'Welcome back',
+                  'Bon retour',
                   style: AppTextStyles.h1,
                 ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.2, end: 0),
 
                 const SizedBox(height: AppDimensions.spaceSM),
 
                 Text(
-                  'Sign in to continue your journey',
-                  style: AppTextStyles.bodyLG.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
-                ).animate(delay: 100.ms).fadeIn(duration: 400.ms),
+                  'Connectez-vous pour continuer',
+                  style: AppTextStyles.bodyLG.copyWith(color: AppColors.textSecondary),
+                ).animate(delay: 80.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.space2XL),
 
-                // Demo hint
+                // Phone / Email tab toggle
                 Container(
-                  padding: const EdgeInsets.all(AppDimensions.spaceMD),
                   decoration: BoxDecoration(
-                    color: AppColors.primarySurface,
+                    color: AppColors.surface,
                     borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-                    border: Border.all(color: AppColors.primaryLight),
                   ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        PhosphorIcons.info(),
-                        size: 16,
-                        color: AppColors.primary,
-                      ),
-                      const SizedBox(width: AppDimensions.spaceSM),
-                      Expanded(
-                        child: Text(
-                          'Demo: demo@arenda.com / demo1234',
-                          style: AppTextStyles.bodyXS.copyWith(
-                            color: AppColors.primaryDark,
-                          ),
-                        ),
-                      ),
+                  child: TabBar(
+                    controller: _tabController,
+                    dividerColor: Colors.transparent,
+                    indicator: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(AppDimensions.radiusMD - 2),
+                    ),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    labelColor: Colors.white,
+                    unselectedLabelColor: AppColors.textSecondary,
+                    labelStyle: AppTextStyles.labelMD,
+                    unselectedLabelStyle: AppTextStyles.bodyMD,
+                    padding: const EdgeInsets.all(4),
+                    tabs: const [
+                      Tab(text: '🇨🇮  Numéro CI'),
+                      Tab(text: '✉️  E-mail'),
                     ],
                   ),
-                ).animate(delay: 150.ms).fadeIn(duration: 400.ms),
+                ).animate(delay: 140.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceXXL),
 
-                // Email
-                AppTextField(
-                  controller: _emailCtrl,
-                  label: 'Email address',
-                  hint: 'you@example.com',
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  prefixIcon: Icon(
-                    PhosphorIcons.envelope(),
-                    size: 18,
-                    color: AppColors.textSecondary,
-                  ),
-                  validator: (v) {
-                    if (v == null || v.trim().isEmpty) {
-                      return 'Email is required';
-                    }
-                    if (!v.contains('@')) return 'Enter a valid email';
-                    return null;
-                  },
-                ).animate(delay: 200.ms).fadeIn(duration: 400.ms),
+                // Phone field (Ivory Coast)
+                if (_usePhone) ...[
+                  _PhoneField(
+                    controller: _phoneCtrl,
+                  ).animate().fadeIn(duration: 300.ms),
+                ] else ...[
+                  AppTextField(
+                    controller: _emailCtrl,
+                    label: 'Adresse e-mail',
+                    hint: 'vous@exemple.com',
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    prefixIcon: Icon(PhosphorIcons.envelope(), size: 18, color: AppColors.textSecondary),
+                    validator: (v) {
+                      if (v == null || v.trim().isEmpty) return 'L\'e-mail est requis';
+                      if (!v.contains('@')) return 'Entrez un e-mail valide';
+                      return null;
+                    },
+                  ).animate().fadeIn(duration: 300.ms),
+                ],
 
                 const SizedBox(height: AppDimensions.spaceLG),
 
                 // Password
                 AppTextField(
                   controller: _passwordCtrl,
-                  label: 'Password',
-                  hint: 'Enter your password',
+                  label: 'Mot de passe',
+                  hint: 'Entrez votre mot de passe',
                   obscureText: true,
                   textInputAction: TextInputAction.done,
                   onSubmitted: (_) => _submit(),
-                  prefixIcon: Icon(
-                    PhosphorIcons.lock(),
-                    size: 18,
-                    color: AppColors.textSecondary,
-                  ),
+                  prefixIcon: Icon(PhosphorIcons.lock(), size: 18, color: AppColors.textSecondary),
                   validator: (v) {
-                    if (v == null || v.isEmpty) return 'Password is required';
+                    if (v == null || v.isEmpty) return 'Le mot de passe est requis';
                     return null;
                   },
-                ).animate(delay: 250.ms).fadeIn(duration: 400.ms),
+                ).animate(delay: 40.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceSM),
 
@@ -167,10 +182,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   child: TextButton(
                     onPressed: () {},
                     child: Text(
-                      'Forgot password?',
-                      style: AppTextStyles.labelMD.copyWith(
-                        color: AppColors.primary,
-                      ),
+                      'Mot de passe oublié ?',
+                      style: AppTextStyles.labelMD.copyWith(color: AppColors.primary),
                     ),
                   ),
                 ),
@@ -182,24 +195,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     padding: const EdgeInsets.all(AppDimensions.spaceMD),
                     decoration: BoxDecoration(
                       color: AppColors.errorLight,
-                      borderRadius: BorderRadius.circular(
-                        AppDimensions.radiusMD,
-                      ),
+                      borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
                     ),
                     child: Row(
                       children: [
-                        Icon(
-                          PhosphorIcons.warningCircle(),
-                          size: 16,
-                          color: AppColors.error,
-                        ),
+                        Icon(PhosphorIcons.warningCircle(), size: 16, color: AppColors.error),
                         const SizedBox(width: AppDimensions.spaceSM),
                         Expanded(
                           child: Text(
                             errorMessage,
-                            style: AppTextStyles.bodyXS.copyWith(
-                              color: AppColors.error,
-                            ),
+                            style: AppTextStyles.bodyXS.copyWith(color: AppColors.error),
                           ),
                         ),
                       ],
@@ -211,50 +216,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                 // Login button
                 AppButton(
-                  label: 'Continue',
+                  label: 'Se connecter',
                   onPressed: _submit,
                   isLoading: isLoading,
-                ).animate(delay: 300.ms).fadeIn(duration: 400.ms),
+                ).animate(delay: 200.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceLG),
 
-                // Divider
-                Row(
-                  children: [
-                    const Expanded(child: Divider(color: AppColors.border)),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppDimensions.spaceMD,
-                      ),
-                      child: Text(
-                        'or',
-                        style: AppTextStyles.bodyMD.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ),
-                    const Expanded(child: Divider(color: AppColors.border)),
-                  ],
-                ),
-
-                const SizedBox(height: AppDimensions.spaceLG),
-
-                // Social logins
-                _SocialButton(
-                  faIcon: FontAwesomeIcons.google,
-                  iconColor: const Color(0xFF4285F4),
-                  label: 'Continue with Google',
-                  onTap: () {},
-                ).animate(delay: 350.ms).fadeIn(duration: 400.ms),
-
-                const SizedBox(height: AppDimensions.spaceMD),
-
-                _SocialButton(
-                  faIcon: FontAwesomeIcons.apple,
-                  iconColor: Colors.black,
-                  label: 'Continue with Apple',
-                  onTap: () {},
-                ).animate(delay: 400.ms).fadeIn(duration: 400.ms),
+                // Continue as guest
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: _continueAsGuest,
+                    child: Text('Continuer sans inscription'),
+                  ),
+                ).animate(delay: 250.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.space2XL),
 
@@ -263,15 +239,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account? ",
-                      style: AppTextStyles.bodyMD.copyWith(
-                        color: AppColors.textSecondary,
-                      ),
+                      'Pas encore de compte ? ',
+                      style: AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
                     ),
                     GestureDetector(
                       onTap: () => context.go(AppRoutes.signup),
                       child: Text(
-                        'Sign up',
+                        'S\'inscrire',
                         style: AppTextStyles.labelMD.copyWith(
                           color: AppColors.primary,
                           decoration: TextDecoration.underline,
@@ -280,7 +254,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     ),
                   ],
-                ).animate(delay: 450.ms).fadeIn(duration: 400.ms),
+                ).animate(delay: 300.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceXXL),
               ],
@@ -292,46 +266,66 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 }
 
-class _SocialButton extends StatelessWidget {
-  const _SocialButton({
-    required this.faIcon,
-    required this.iconColor,
-    required this.label,
-    required this.onTap,
-  });
+// ── Phone field with CI prefix ────────────────────────────────────────────────
 
-  final IconData faIcon;
-  final Color iconColor;
-  final String label;
-  final VoidCallback onTap;
+class _PhoneField extends StatelessWidget {
+  const _PhoneField({required this.controller});
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: AppDimensions.buttonHeight,
-      width: double.infinity,
-      child: OutlinedButton(
-        onPressed: onTap,
-        style: OutlinedButton.styleFrom(
-          side: const BorderSide(color: AppColors.border, width: 1.5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Numéro de téléphone',
+          style: AppTextStyles.labelMD,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        const SizedBox(height: 6),
+        Row(
           children: [
-            FaIcon(faIcon, size: 20, color: iconColor),
+            // Country prefix badge
+            Container(
+              height: 52,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                color: AppColors.surface,
+                borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: Row(
+                children: [
+                  const Text('🇨🇮', style: TextStyle(fontSize: 18)),
+                  const SizedBox(width: 6),
+                  Text('+225', style: AppTextStyles.labelMD),
+                ],
+              ),
+            ),
             const SizedBox(width: AppDimensions.spaceSM),
-            Text(
-              label,
-              style: AppTextStyles.buttonLG.copyWith(
-                color: AppColors.textPrimary,
+            Expanded(
+              child: TextFormField(
+                controller: controller,
+                keyboardType: TextInputType.phone,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                ],
+                style: AppTextStyles.bodyMD,
+                decoration: InputDecoration(
+                  hintText: '07 00 00 00 00',
+                  hintStyle: AppTextStyles.bodyMD.copyWith(color: AppColors.textTertiary),
+                ),
+                validator: (v) {
+                  if (v == null || v.trim().isEmpty) return 'Le numéro est requis';
+                  if (v.trim().length < 8) return 'Numéro invalide';
+                  return null;
+                },
               ),
             ),
           ],
         ),
-      ),
+      ],
     );
   }
 }

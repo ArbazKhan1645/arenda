@@ -13,7 +13,13 @@
       "Bash(python fix_icons2.py)",
       "Bash(grep -v \"FontAwesomeIcons\\\\|PhosphorIcons\\\\|PhosphorIconsStyle\\\\|//\\\\|^\\\\s*//\")",
       "Bash(python fix_icons3.py)",
-      "Bash(python -c ':*)"
+      "Bash(python -c ':*)",
+      "Bash(python fix_search.py)",
+      "Bash(grep -rn \"pricePerNight\\\\|totalPrice\\\\|\\\\\\\\\\\\$\\\\${\" lib/app/features/home/presentation/widgets/ lib/app/features/wishlist/ lib/app/features/profile/presentation/screens/booking_history_screen.dart --include=\"*.dart\" -l)",
+      "Bash(grep -n \"pricePerNight\\\\|totalPrice\\\\|\\\\\\\\\\\\$\\\\${\" lib/app/features/home/presentation/widgets/listing_card_widget.dart lib/app/features/wishlist/presentation/screens/wishlist_screen.dart)",
+      "Bash(grep -n \"pricePerNight\\\\|totalPrice\\\\|night\\\\|\\\\\\\\\\\\$\\\\${\" lib/app/features/wishlist/presentation/screens/wishlist_screen.dart lib/app/features/profile/presentation/screens/booking_history_screen.dart lib/app/features/home/presentation/screens/home_screen.dart)",
+      "Bash(python patch_cfa.py)",
+      "Bash(rm patch_cfa.py)"
     ]
   }
 }

@@ -146,7 +146,7 @@ class ListingCardWidget extends ConsumerWidget {
                       children: [
                         if (listing.discountPercent > 0) ...[
                           Text(
-                            '\$${listing.pricePerNight.toInt()}',
+                            'CFA ${(listing.pricePerNight * 600).toInt()}',
                             style: AppTextStyles.bodyMD.copyWith(
                               color: AppColors.textTertiary,
                               decoration: TextDecoration.lineThrough,
@@ -154,16 +154,16 @@ class ListingCardWidget extends ConsumerWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            '\$${listing.discountedPrice.toInt()}',
+                            'CFA ${(listing.discountedPrice * 600).toInt()}',
                             style: AppTextStyles.priceMD,
                           ),
                         ] else
                           Text(
-                            '\$${listing.pricePerNight.toInt()}',
+                            'CFA ${(listing.pricePerNight * 600).toInt()}',
                             style: AppTextStyles.priceMD,
                           ),
                         Text(
-                          ' / night',
+                          ' / nuit',
                           style: AppTextStyles.bodyMD.copyWith(
                             color: AppColors.textSecondary,
                           ),

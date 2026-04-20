@@ -164,7 +164,7 @@ class _WishlistCard extends StatelessWidget {
                     AppRatingBar(rating: listing.rating),
                     const SizedBox(height: 6),
                     Text(
-                      '\$${listing.pricePerNight.toInt()}',
+                      'CFA ${(listing.pricePerNight * 600).toInt()}',
                       style: AppTextStyles.priceMD.copyWith(
                         color: AppColors.primary,
                       ),

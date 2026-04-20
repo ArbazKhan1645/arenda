@@ -376,7 +376,7 @@ class _FeaturedCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  ' · \$${(listing.pricePerNight as double).toInt()}/night',
+                  ' · CFA ${((listing.pricePerNight as double) * 600).toInt()}/nuit',
                   style: AppTextStyles.bodyXS,
                 ),
               ],

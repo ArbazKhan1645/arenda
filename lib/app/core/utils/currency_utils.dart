@@ -10,14 +10,17 @@ abstract final class CurrencyUtils {
     'GBP': _CurrencyMeta(symbol: '£',   name: 'British Pound',       ratePerUSD: 0.79,  decimals: 0),
   };
 
+  /// Default currency for Ivory Coast market.
+  static const String defaultCurrency = 'XOF';
+
   /// All supported currencies as label → code pairs for dropdowns.
   static const List<(String label, String code)> supportedCurrencies = [
-    ('🇬🇭 Ghana Cedi (GHS)', 'GHS'),
-    ('🇳🇬 Nigerian Naira (NGN)', 'NGN'),
-    ('🌍 West African CFA (XOF)', 'XOF'),
-    ('🇺🇸 US Dollar (USD)', 'USD'),
+    ('🇨🇮 Franc CFA (XOF)', 'XOF'),
+    ('🇺🇸 Dollar US (USD)', 'USD'),
     ('🇪🇺 Euro (EUR)', 'EUR'),
-    ('🇬🇧 Pound Sterling (GBP)', 'GBP'),
+    ('🇬🇧 Livre Sterling (GBP)', 'GBP'),
+    ('🇬🇭 Cedi Ghanéen (GHS)', 'GHS'),
+    ('🇳🇬 Naira Nigérian (NGN)', 'NGN'),
   ];
 
   /// Symbol for the given currency code. Falls back to '\$'.

@@ -55,12 +55,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   ];
 
   static final _categories = [
-    _Category('Apartments', PhosphorIcons.buildings()),
+    _Category('Appartements', PhosphorIcons.buildings()),
     _Category('Villas', PhosphorIcons.house(PhosphorIconsStyle.fill)),
     _Category('Shortlets', PhosphorIcons.bed()),
-    _Category('Beachfront', PhosphorIcons.umbrella()),
-    _Category('Luxury', PhosphorIcons.star(PhosphorIconsStyle.fill)),
-    _Category('Budget', PhosphorIcons.piggyBank()),
+    _Category('Bord de mer', PhosphorIcons.umbrella()),
+    _Category('Luxe', PhosphorIcons.star(PhosphorIconsStyle.fill)),
+    _Category('Economique', PhosphorIcons.piggyBank()),
   ];
 
   void _goToResults(String query) {
@@ -97,7 +97,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                          'Where to?',
+                          'Ou sojourner ?',
                           style: AppTextStyles.displayMD.copyWith(
                             fontWeight: FontWeight.w800,
                             letterSpacing: -0.5,
@@ -108,7 +108,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                         .slideY(begin: 0.2, end: 0),
                     const SizedBox(height: 4),
                     Text(
-                      'Find your perfect stay across West Africa',
+                      'Trouvez votre logement ideal en Cote d Ivoire',
                       style: AppTextStyles.bodyMD.copyWith(
                         color: AppColors.textSecondary,
                       ),
@@ -136,7 +136,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   AppDimensions.paddingPage,
                   AppDimensions.spaceLG,
                 ),
-                child: Text('Popular destinations', style: AppTextStyles.h3),
+                child: Text('Villes populaires', style: AppTextStyles.h3),
               ).animate(delay: 180.ms).fadeIn(duration: 400.ms),
             ),
 
@@ -173,7 +173,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   AppDimensions.paddingPage,
                   AppDimensions.spaceLG,
                 ),
-                child: Text('Explore by type', style: AppTextStyles.h3),
+                child: Text('Explorer par type', style: AppTextStyles.h3),
               ).animate(delay: 400.ms).fadeIn(duration: 400.ms),
             ),
 
@@ -243,7 +243,7 @@ class _SearchBar extends StatelessWidget {
         onSubmitted: onSubmitted,
         style: AppTextStyles.bodyMD,
         decoration: InputDecoration(
-          hintText: 'Search city, area or property...',
+          hintText: 'Ville, quartier ou propriete...',
           hintStyle: AppTextStyles.bodyMD.copyWith(
             color: AppColors.textTertiary,
           ),

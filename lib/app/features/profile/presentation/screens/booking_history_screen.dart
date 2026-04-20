@@ -226,7 +226,7 @@ class _TripCard extends StatelessWidget {
                           icon: PhosphorIcons.moon(),
                           label: 'Duration',
                           value:
-                              '${booking.nights} night${booking.nights > 1 ? 's' : ''}',
+                              '${booking.nights} nuit${booking.nights > 1 ? 's' : ''}',
                         ),
                       ),
                       Container(
@@ -239,7 +239,7 @@ class _TripCard extends StatelessWidget {
                         child: _InfoCell(
                           icon: PhosphorIcons.currencyDollar(),
                           label: 'Total',
-                          value: '\$${booking.totalPrice.toInt()}',
+                          value: 'CFA ${(booking.totalPrice * 600).toInt()}',
                           valueColor: AppColors.primary,
                         ),
                       ),

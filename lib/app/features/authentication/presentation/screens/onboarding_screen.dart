@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_dimensions.dart';
@@ -20,45 +20,36 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final _pageController = PageController();
   int _currentPage = 0;
 
+  // 3 slides as requested by client
   static final _pages = [
     _OnboardingPage(
       image: 'assets/images/onboarding/onboarding_1.jpg',
-      badge: 'West Africa\'s #1 rental platform',
-      title: 'Verified shortlets\nacross West Africa',
-      subtitle: 'Every listing is physically vetted by our team. Find trusted apartments, villas and shortlets in Accra, Lagos, Dakar and beyond.',
+      badge: 'Plateforme N°1 en Côte d\'Ivoire',
+      title: 'Logements vérifiés\nen Côte d\'Ivoire',
+      subtitle: 'Chaque annonce est vérifiée physiquement par notre équipe. Trouvez des appartements, villas et shortlets de confiance à Abidjan, Yamoussoukro, San Pedro et plus encore.',
       highlights: [
-        _Highlight(icon: PhosphorIcons.sealCheck(PhosphorIconsStyle.fill), label: 'Physically vetted properties'),
-        _Highlight(icon: PhosphorIcons.shield(PhosphorIconsStyle.fill), label: 'Trusted & verified hosts'),
+        _Highlight(icon: PhosphorIcons.sealCheck(PhosphorIconsStyle.fill), label: 'Propriétés vérifiées sur place'),
+        _Highlight(icon: PhosphorIcons.shield(PhosphorIconsStyle.fill), label: 'Hôtes certifiés & fiables'),
       ],
     ),
     _OnboardingPage(
       image: 'assets/images/onboarding/onboarding_2.jpg',
-      badge: 'Pay the way you know',
-      title: 'Mobile Money\npayments built in',
-      subtitle: 'Pay with MTN MoMo, Orange Money, Wave or bank transfer. Your funds are held in escrow until check-in.',
+      badge: 'Payez comme vous le souhaitez',
+      title: 'Paiements Mobile\nMoney intégrés',
+      subtitle: 'Payez avec Orange Money, MTN MoMo, Wave ou virement bancaire. Vos fonds sont sécurisés en séquestre jusqu\'à l\'arrivée.',
       highlights: [
-        _Highlight(icon: PhosphorIcons.lock(PhosphorIconsStyle.fill), label: 'Escrow payment protection'),
-        _Highlight(icon: PhosphorIcons.deviceMobile(), label: 'MTN MoMo · Orange · Wave'),
+        _Highlight(icon: PhosphorIcons.lock(PhosphorIconsStyle.fill), label: 'Protection par séquestre'),
+        _Highlight(icon: PhosphorIcons.deviceMobile(), label: 'Orange · MTN · Wave · CIB'),
       ],
     ),
     _OnboardingPage(
       image: 'assets/images/onboarding/onboarding_3.jpg',
-      badge: 'No more "near the big tree"',
-      title: 'Navigate by\nlandmark directions',
-      subtitle: 'GPS coordinates alone won\'t cut it. Every listing includes local landmark directions so you always find your way.',
+      badge: 'Votre sécurité avant tout',
+      title: 'Invités vérifiés\n& séjours sûrs',
+      subtitle: 'CNI, passeport — tous les voyageurs vérifient leur identité avant l\'arrivée. Les hôtes sont contrôlés. Votre sécurité est notre priorité.',
       highlights: [
-        _Highlight(icon: PhosphorIcons.mapPin(PhosphorIconsStyle.fill), label: 'Landmark-based navigation'),
-        _Highlight(icon: PhosphorIcons.mapTrifold(), label: 'Local directions from hosts'),
-      ],
-    ),
-    _OnboardingPage(
-      image: 'assets/images/onboarding/onboarding_4.jpg',
-      badge: 'You\'re protected',
-      title: 'ID-verified guests\n& trusted stays',
-      subtitle: 'Ghana Card, NIN, Voter ID — all guests verify before check-in. Hosts are vetted. Your safety comes first.',
-      highlights: [
-        _Highlight(icon: PhosphorIcons.identificationCard(), label: 'Government ID verification'),
-        _Highlight(icon: PhosphorIcons.headset(PhosphorIconsStyle.fill), label: '24/7 guest support'),
+        _Highlight(icon: PhosphorIcons.identificationCard(), label: 'Vérification d\'identité officielle'),
+        _Highlight(icon: PhosphorIcons.headset(PhosphorIconsStyle.fill), label: 'Support 24h/24 & 7j/7'),
       ],
     ),
   ];
@@ -80,6 +71,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
   }
 
+  void _continueAsGuest() {
+    context.go(AppRoutes.home);
+  }
+
   @override
   Widget build(BuildContext context) {
     final isLast = _currentPage == _pages.length - 1;
@@ -93,9 +88,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             controller: _pageController,
             itemCount: _pages.length,
             onPageChanged: (i) => setState(() => _currentPage = i),
-            itemBuilder: (context, index) {
-              return _OnboardingPageView(page: _pages[index]);
-            },
+            itemBuilder: (context, index) =>
+                _OnboardingPageView(page: _pages[index]),
           ),
 
           // Bottom overlay
@@ -110,7 +104,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   end: Alignment.bottomCenter,
                   colors: [
                     Colors.transparent,
-                    Colors.black.withAlpha(220),
+                    Colors.black.withAlpha(230),
                   ],
                 ),
               ),
@@ -128,7 +122,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withAlpha(200),
+                      color: AppColors.primary.withAlpha(210),
                       borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
                     ),
                     child: Text(
@@ -148,16 +142,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       color: Colors.white,
                       height: 1.15,
                     ),
-                  ).animate(key: ValueKey(_currentPage)).fadeIn(duration: 400.ms).slideY(begin: 0.2, end: 0),
+                  ).animate(key: ValueKey(_currentPage))
+                      .fadeIn(duration: 400.ms)
+                      .slideY(begin: 0.2, end: 0),
 
                   const SizedBox(height: AppDimensions.spaceMD),
 
                   Text(
                     _pages[_currentPage].subtitle,
                     style: AppTextStyles.bodyLG.copyWith(
-                      color: Colors.white.withAlpha(204),
+                      color: Colors.white.withAlpha(200),
                     ),
-                  ).animate(key: ValueKey('sub$_currentPage')).fadeIn(duration: 400.ms, delay: 100.ms),
+                  ).animate(key: ValueKey('sub$_currentPage'))
+                      .fadeIn(duration: 400.ms, delay: 100.ms),
 
                   const SizedBox(height: AppDimensions.spaceLG),
 
@@ -184,7 +181,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                     ).toList(),
-                  ).animate(key: ValueKey('chips$_currentPage')).fadeIn(duration: 400.ms, delay: 200.ms),
+                  ).animate(key: ValueKey('chips$_currentPage'))
+                      .fadeIn(duration: 400.ms, delay: 200.ms),
 
                   const SizedBox(height: AppDimensions.spaceXXL),
 
@@ -202,10 +200,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           expansionFactor: 3,
                         ),
                       ),
-
                       const Spacer(),
-
-                      // Next / Get Started button
+                      // Next / Commencer button
                       SizedBox(
                         width: isLast ? 180 : 56,
                         height: 56,
@@ -222,7 +218,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           child: isLast
                               ? Text(
-                                  'Get Started',
+                                  'Commencer',
                                   style: AppTextStyles.buttonLG.copyWith(color: Colors.white),
                                 )
                               : Icon(PhosphorIcons.arrowRight(PhosphorIconsStyle.bold), color: Colors.white),
@@ -231,18 +227,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ],
                   ),
 
-                  if (!isLast) ...[
-                    const SizedBox(height: AppDimensions.spaceLG),
-                    Center(
-                      child: TextButton(
-                        onPressed: () => context.go(AppRoutes.login),
-                        child: Text(
-                          'Skip',
-                          style: AppTextStyles.bodyMD.copyWith(color: Colors.white70),
+                  const SizedBox(height: AppDimensions.spaceMD),
+
+                  // Continue as guest
+                  Center(
+                    child: TextButton(
+                      onPressed: _continueAsGuest,
+                      child: Text(
+                        'Continuer sans inscription',
+                        style: AppTextStyles.bodyMD.copyWith(
+                          color: Colors.white70,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.white38,
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ],
               ),
             ),
@@ -276,7 +276,6 @@ class _OnboardingPage {
     required this.subtitle,
     required this.highlights,
   });
-
   final String image;
   final String badge;
   final String title;

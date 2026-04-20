@@ -10,13 +10,33 @@ class MainShell extends StatelessWidget {
 
   final Widget child;
 
+  // 4 tabs: Explore, Maps (was Search), Inbox, Profile
+  // Wishlists and Trips removed per client request
   static final _tabs = [
-    _TabItem(icon: PhosphorIcons.compass(), activeIcon: PhosphorIcons.compass(PhosphorIconsStyle.fill), label: 'Explore', path: AppRoutes.home),
-    _TabItem(icon: PhosphorIcons.magnifyingGlass(), activeIcon: PhosphorIcons.magnifyingGlass(PhosphorIconsStyle.bold), label: 'Search', path: AppRoutes.search),
-    _TabItem(icon: PhosphorIcons.heart(), activeIcon: PhosphorIcons.heart(PhosphorIconsStyle.fill), label: 'Wishlists', path: AppRoutes.wishlist),
-    _TabItem(icon: PhosphorIcons.suitcase(), activeIcon: PhosphorIcons.suitcase(PhosphorIconsStyle.fill), label: 'Trips', path: AppRoutes.trips),
-    _TabItem(icon: PhosphorIcons.chatCircle(), activeIcon: PhosphorIcons.chatCircle(PhosphorIconsStyle.fill), label: 'Inbox', path: AppRoutes.inbox),
-    _TabItem(icon: PhosphorIcons.user(), activeIcon: PhosphorIcons.user(PhosphorIconsStyle.fill), label: 'Profile', path: AppRoutes.profile),
+    _TabItem(
+      icon: PhosphorIcons.compass(),
+      activeIcon: PhosphorIcons.compass(PhosphorIconsStyle.fill),
+      label: 'Explorer',
+      path: AppRoutes.home,
+    ),
+    _TabItem(
+      icon: PhosphorIcons.mapTrifold(),
+      activeIcon: PhosphorIcons.mapTrifold(PhosphorIconsStyle.fill),
+      label: 'Maps',
+      path: AppRoutes.search,
+    ),
+    _TabItem(
+      icon: PhosphorIcons.chatCircle(),
+      activeIcon: PhosphorIcons.chatCircle(PhosphorIconsStyle.fill),
+      label: 'Messages',
+      path: AppRoutes.inbox,
+    ),
+    _TabItem(
+      icon: PhosphorIcons.user(),
+      activeIcon: PhosphorIcons.user(PhosphorIconsStyle.fill),
+      label: 'Profil',
+      path: AppRoutes.profile,
+    ),
   ];
 
   int _currentIndex(BuildContext context) {
@@ -73,9 +93,8 @@ class MainShell extends StatelessWidget {
                           tab.label,
                           style: TextStyle(
                             fontSize: 10,
-                            fontWeight: isActive
-                                ? FontWeight.w600
-                                : FontWeight.w400,
+                            fontWeight:
+                                isActive ? FontWeight.w600 : FontWeight.w400,
                             color: isActive
                                 ? AppColors.primary
                                 : isDark
@@ -103,7 +122,6 @@ class _TabItem {
     required this.label,
     required this.path,
   });
-
   final IconData icon;
   final IconData activeIcon;
   final String label;
