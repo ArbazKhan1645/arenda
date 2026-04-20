@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../features/authentication/presentation/screens/splash_screen.dart';
+// No initial resolution screen needed
 import '../../features/authentication/presentation/screens/onboarding_screen.dart';
 import '../../features/authentication/presentation/screens/login_screen.dart';
 import '../../features/authentication/presentation/screens/signup_screen.dart';
@@ -40,18 +41,17 @@ part 'app_router.g.dart';
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
+final initialRouteProvider = Provider<String>((ref) => throw UnimplementedError());
+
 @Riverpod(keepAlive: true)
 GoRouter appRouter(Ref ref) {
+  final initialLocation = ref.read(initialRouteProvider);
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: AppRoutes.splash,
+    initialLocation: initialLocation,
     debugLogDiagnostics: false,
     routes: [
       // ── Auth ───────────────────────────────────────────────────────────
-      GoRoute(
-        path: AppRoutes.splash,
-        builder: (context, state) => const SplashScreen(),
-      ),
       GoRoute(
         path: AppRoutes.onboarding,
         builder: (context, state) => const OnboardingScreen(),

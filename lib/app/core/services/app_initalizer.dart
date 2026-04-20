@@ -1,4 +1,7 @@
+import 'package:arenda/app/core/routes/app_routes.dart';
 import 'package:arenda/app/core/services/local/cache_service.dart';
+import 'package:arenda/app/features/authentication/data/datasources/mock_auth_datasource.dart';
+
 import 'package:arenda/app/core/services/local/storage_service.dart';
 import 'package:arenda/app/core/services/supabase/supabase_init_service.dart';
 import 'package:flutter/foundation.dart';
@@ -14,11 +17,13 @@ class AppInitResult {
   final StorageService storageService;
   final SupabaseService supabaseService;
   final CacheService cacheService;
+  final String initialRoute;
 
   const AppInitResult({
     required this.storageService,
     required this.supabaseService,
     required this.cacheService,
+    required this.initialRoute,
   });
 
   /// Converts initialized services into Riverpod ProviderScope overrides
@@ -51,12 +56,20 @@ class AppInitializer {
     // ── 5. Cache (synchronous init, no await needed) ──────────────────────────
     final cacheService = _initCache();
 
+    // ── 6. Determine Initial Route ────────────────────────────────────────────
+    final currentUser = await MockAuthDataSource.getCurrentUser();
+    final hasSeenOnboarding = await MockAuthDataSource.isOnboarded();
+    final initialRoute = currentUser != null
+        ? AppRoutes.home
+        : (hasSeenOnboarding ? AppRoutes.login : AppRoutes.onboarding);
+
     debugPrint('[AppInitializer] ✓ All services initialized');
 
     return AppInitResult(
       storageService: storageService,
       supabaseService: supabaseService,
       cacheService: cacheService,
+      initialRoute: initialRoute,
     );
   }
 
