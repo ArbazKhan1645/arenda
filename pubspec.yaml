@@ -103,44 +103,44 @@ flutter:
 fonts:
   - family: JosefinSans
     fonts:
-      - asset: assets/josefans_fonts/JosefinSans-Thin.ttf
+      - asset: assets/fonts/JosefinSans-Thin.ttf
         weight: 100
-      - asset: assets/josefans_fonts/JosefinSans-ThinItalic.ttf
+      - asset: assets/fonts/JosefinSans-ThinItalic.ttf
         weight: 100
         style: italic
 
-      - asset: assets/josefans_fonts/JosefinSans-ExtraLight.ttf
+      - asset: assets/fonts/JosefinSans-ExtraLight.ttf
         weight: 200
-      - asset: assets/josefans_fonts/JosefinSans-ExtraLightItalic.ttf
+      - asset: assets/fonts/JosefinSans-ExtraLightItalic.ttf
         weight: 200
         style: italic
 
-      - asset: assets/josefans_fonts/JosefinSans-Light.ttf
+      - asset: assets/fonts/JosefinSans-Light.ttf
         weight: 300
-      - asset: assets/josefans_fonts/JosefinSans-LightItalic.ttf
+      - asset: assets/fonts/JosefinSans-LightItalic.ttf
         weight: 300
         style: italic
 
-      - asset: assets/josefans_fonts/JosefinSans-Regular.ttf
+      - asset: assets/fonts/JosefinSans-Regular.ttf
         weight: 400
-      - asset: assets/josefans_fonts/JosefinSans-Italic.ttf
+      - asset: assets/fonts/JosefinSans-Italic.ttf
         weight: 400
         style: italic
 
-      - asset: assets/josefans_fonts/JosefinSans-Medium.ttf
+      - asset: assets/fonts/JosefinSans-Medium.ttf
         weight: 500
-      - asset: assets/josefans_fonts/JosefinSans-MediumItalic.ttf
+      - asset: assets/fonts/JosefinSans-MediumItalic.ttf
         weight: 500
         style: italic
 
-      - asset: assets/josefans_fonts/JosefinSans-SemiBold.ttf
+      - asset: assets/fonts/JosefinSans-SemiBold.ttf
         weight: 600
-      - asset: assets/josefans_fonts/JosefinSans-SemiBoldItalic.ttf
+      - asset: assets/fonts/JosefinSans-SemiBoldItalic.ttf
         weight: 600
         style: italic
 
-      - asset: assets/josefans_fonts/JosefinSans-Bold.ttf
+      - asset: assets/fonts/JosefinSans-Bold.ttf
         weight: 700
-      - asset: assets/josefans_fonts/JosefinSans-BoldItalic.ttf
+      - asset: assets/fonts/JosefinSans-BoldItalic.ttf
         weight: 700
         style: italic
