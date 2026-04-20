@@ -198,42 +198,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                 },
               ).animate(delay: 160.ms).fadeIn(duration: 400.ms),
 
-              const SizedBox(height: AppDimensions.spaceMD),
-
-              // Demo hint badge
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.surface,
-                    borderRadius: BorderRadius.circular(
-                      AppDimensions.radiusFull,
-                    ),
-                    border: Border.all(color: AppColors.border),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        PhosphorIcons.info(),
-                        size: 13,
-                        color: AppColors.textTertiary,
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Code démo : 123456',
-                        style: AppTextStyles.bodyXS.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ).animate(delay: 200.ms).fadeIn(duration: 400.ms),
-
               // Error
               if (hasError) ...[
                 const SizedBox(height: AppDimensions.spaceMD),

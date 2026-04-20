@@ -146,13 +146,6 @@ GoRouter appRouter(Ref ref) {
             _slideFromBottom(state, const FiltersScreen()),
       ),
 
-      // ── Map Search ────────────────────────────────────────────────────────
-      GoRoute(
-        path: AppRoutes.mapSearch,
-        pageBuilder: (context, state) =>
-            _slideFromBottom(state, const MapSearchScreen()),
-      ),
-
       // ── Booking ────────────────────────────────────────────────────────
       GoRoute(
         path: AppRoutes.booking,
@@ -207,6 +200,13 @@ GoRouter appRouter(Ref ref) {
         path: AppRoutes.bookingHistory,
         pageBuilder: (context, state) =>
             _slideFromRight(state, const BookingHistoryScreen()),
+      ),
+
+      // ── Map Search ────────────────────────────────────────────────────────
+      GoRoute(
+        path: AppRoutes.mapSearch,
+        pageBuilder: (context, state) =>
+            _slideFromBottom(state, const MapSearchScreen()),
       ),
 
       // ── Chat ───────────────────────────────────────────────────────────

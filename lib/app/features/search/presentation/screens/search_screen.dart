@@ -543,23 +543,6 @@ class _MapPreviewBanner extends StatelessWidget {
                   ],
                 ),
               ),
-              // Arrow hint
-              Positioned(
-                right: 16,
-                bottom: 16,
-                child: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(25),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(
-                    PhosphorIcons.arrowUpRight(PhosphorIconsStyle.bold),
-                    size: 14,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
             ],
           ),
         ),

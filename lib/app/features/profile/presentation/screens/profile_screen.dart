@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -77,17 +76,17 @@ class ProfileScreen extends ConsumerWidget {
                   ],
                 ),
             ],
-          ).animate().fadeIn(duration: 400.ms),
+          ),
 
           const SizedBox(height: AppDimensions.spaceXXL),
 
           // ID verification status card
-          _IdVerificationCard().animate(delay: 100.ms).fadeIn(duration: 400.ms),
+          _IdVerificationCard(),
 
           const SizedBox(height: AppDimensions.spaceXXL),
 
           // Become a Host CTA
-          _BecomeHostCard().animate(delay: 150.ms).fadeIn(duration: 400.ms),
+          _BecomeHostCard(),
 
           const SizedBox(height: AppDimensions.spaceXXL),
           const Divider(),
@@ -170,7 +169,7 @@ class ProfileScreen extends ConsumerWidget {
               await ref.read(authProvider.notifier).signOut();
               if (context.mounted) context.go(AppRoutes.login);
             },
-          ).animate(delay: 600.ms).fadeIn(duration: 400.ms),
+          ),
 
           const SizedBox(height: AppDimensions.space4XL),
         ],
