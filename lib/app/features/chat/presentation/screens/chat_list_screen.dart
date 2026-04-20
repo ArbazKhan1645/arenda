@@ -4,14 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_avatar.dart';
-import '../../../../shared/widgets/app_shimmer.dart';
-import '../../application/chat_notifier.dart';
-import '../../domain/entities/conversation_entity.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_avatar.dart';
+import 'package:arenda/app/shared/widgets/app_shimmer.dart';
+import 'package:arenda/app/features/chat/application/chat_notifier.dart';
+import 'package:arenda/app/features/chat/domain/entities/conversation_entity.dart';
 
 class ChatListScreen extends ConsumerWidget {
   const ChatListScreen({super.key});
@@ -61,7 +61,7 @@ class _HeaderSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Messages", style: AppTextStyles.h2),
+              Text('Messages', style: AppTextStyles.h2),
               Icon(PhosphorIcons.dotsThreeVertical()),
             ],
           ),
@@ -76,7 +76,7 @@ class _HeaderSection extends StatelessWidget {
             ),
             child: const TextField(
               decoration: InputDecoration(
-                hintText: "Search conversations...",
+                hintText: 'Search conversations...',
                 prefixIcon: Icon(Icons.search),
                 border: InputBorder.none,
               ),
@@ -86,13 +86,13 @@ class _HeaderSection extends StatelessWidget {
           const SizedBox(height: 14),
 
           /// Filters
-          SingleChildScrollView(
+          const SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: const [
-                _FilterChip(label: "All", selected: true),
-                _FilterChip(label: "Unread"),
-                _FilterChip(label: "Active"),
+              children: [
+                _FilterChip(label: 'All', selected: true),
+                _FilterChip(label: 'Unread'),
+                _FilterChip(label: 'Active'),
               ],
             ),
           ),
@@ -211,7 +211,6 @@ class _ConversationCard extends StatelessWidget {
                     AppAvatar(
                       imageUrl: conversation.otherUserAvatarUrl,
                       name: conversation.otherUserName,
-                      size: AppDimensions.avatarMD,
                     ),
                     if (conversation.unreadCount > 0)
                       Positioned(

@@ -4,13 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_image.dart';
-import '../../../booking/application/booking_notifier.dart';
-import '../../../booking/domain/entities/booking_entity.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_image.dart';
+import 'package:arenda/app/features/booking/application/booking_notifier.dart';
+import 'package:arenda/app/features/booking/domain/entities/booking_entity.dart';
 
 class BookingHistoryScreen extends ConsumerStatefulWidget {
   const BookingHistoryScreen({super.key});
@@ -73,7 +73,6 @@ class _BookingHistoryScreenState extends ConsumerState<BookingHistoryScreen>
                   labelColor: AppColors.primary,
                   unselectedLabelColor: AppColors.textSecondary,
                   indicatorColor: AppColors.primary,
-                  indicatorWeight: 2,
                   tabs: const [
                     Tab(text: 'Upcoming'),
                     Tab(text: 'Completed'),
@@ -167,7 +166,6 @@ class _TripCard extends StatelessWidget {
                             url: booking.listingThumbnail,
                             height: 170,
                             width: double.infinity,
-                            fit: BoxFit.cover,
                           ),
                           // Status pill over image
                           Positioned(
@@ -471,7 +469,7 @@ class _EmptyTrips extends StatelessWidget {
                       width: 110,
                       height: 110,
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
@@ -569,24 +567,24 @@ class _EmptyTrips extends StatelessWidget {
           const SizedBox(height: AppDimensions.spaceLG),
 
           // Destination chips
-          Row(
+          const Row(
                 children: [
                   _DestinationChip(
                     city: 'Lagos',
                     tag: 'Trending',
-                    tagColor: const Color(0xFFEC4899),
+                    tagColor: Color(0xFFEC4899),
                   ),
-                  const SizedBox(width: AppDimensions.spaceSM),
+                  SizedBox(width: AppDimensions.spaceSM),
                   _DestinationChip(
                     city: 'Accra',
                     tag: 'Popular',
                     tagColor: AppColors.primary,
                   ),
-                  const SizedBox(width: AppDimensions.spaceSM),
+                  SizedBox(width: AppDimensions.spaceSM),
                   _DestinationChip(
                     city: 'Nairobi',
                     tag: 'New',
-                    tagColor: const Color(0xFF6366F1),
+                    tagColor: Color(0xFF6366F1),
                   ),
                 ],
               )

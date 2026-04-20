@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../home/data/datasources/mock_home_datasource.dart';
-import 'search_state.dart';
+import 'package:arenda/app/features/home/data/datasources/mock_home_datasource.dart';
+import 'package:arenda/app/features/search/application/search_state.dart';
 
 part 'search_notifier.g.dart';
 

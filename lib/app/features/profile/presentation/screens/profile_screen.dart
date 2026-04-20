@@ -4,14 +4,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_avatar.dart';
-import '../../../../shared/widgets/app_button.dart';
-import '../../../authentication/application/auth_notifier.dart';
-import '../../../authentication/application/auth_state.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_avatar.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
+import 'package:arenda/app/features/authentication/application/auth_notifier.dart';
+import 'package:arenda/app/features/authentication/application/auth_state.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -95,7 +95,7 @@ class ProfileScreen extends ConsumerWidget {
 
           /// 🔥 NEW MODERN MENU SECTION
           _ProfileSection(
-            title: "Account",
+            title: 'Account',
             children: [
               _ModernMenuItem(
                 icon: PhosphorIcons.user(),
@@ -118,7 +118,7 @@ class ProfileScreen extends ConsumerWidget {
           const SizedBox(height: 20),
 
           _ProfileSection(
-            title: "Hosting",
+            title: 'Hosting',
             children: [
               _ModernMenuItem(
                 icon: PhosphorIcons.chatCircle(),
@@ -136,7 +136,7 @@ class ProfileScreen extends ConsumerWidget {
           const SizedBox(height: 20),
 
           _ProfileSection(
-            title: "Support",
+            title: 'Support',
             children: [
               _ModernMenuItem(
                 icon: PhosphorIcons.shield(),
@@ -200,7 +200,7 @@ class _IdVerificationCard extends StatelessWidget {
             ),
             child: Icon(
               PhosphorIcons.identificationCard(),
-              color: Color(0xFFE65100),
+              color: const Color(0xFFE65100),
               size: 24,
             ),
           ),
@@ -252,7 +252,7 @@ class _BecomeHostCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppDimensions.spaceLG),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [AppColors.primary, AppColors.primaryDark],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,

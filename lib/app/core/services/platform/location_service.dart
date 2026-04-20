@@ -543,7 +543,6 @@ class LocationService implements ILocationService {
       return AndroidSettings(
         accuracy: _mapAccuracy(accuracy),
         distanceFilter: distanceFilterMeters,
-        forceLocationManager: false, // Use FusedLocationProvider
         intervalDuration: const Duration(seconds: 5),
         // Android 12+ foreground service notification
         foregroundNotificationConfig: const ForegroundNotificationConfig(
@@ -557,7 +556,6 @@ class LocationService implements ILocationService {
         accuracy: _mapAccuracy(accuracy),
         activityType: ActivityType.automotiveNavigation,
         distanceFilter: distanceFilterMeters,
-        pauseLocationUpdatesAutomatically: false,
         showBackgroundLocationIndicator: true,
       );
     }
@@ -677,8 +675,5 @@ final currentLocationProvider = FutureProvider<LocationResult>((ref) async {
 /// Stream provider for continuous updates
 final locationStreamProvider = StreamProvider<LocationResult>((ref) {
   final service = ref.watch(locationServiceProvider);
-  return service.getLocationStream(
-    accuracy: LocationAccuracy.high,
-    distanceFilterMeters: 10,
-  );
+  return service.getLocationStream();
 });

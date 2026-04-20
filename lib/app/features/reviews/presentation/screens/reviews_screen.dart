@@ -3,16 +3,16 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_avatar.dart';
-import '../../../../shared/widgets/app_button.dart';
-import '../../../../shared/widgets/app_rating_bar.dart';
-import '../../../../shared/widgets/app_shimmer.dart';
-import '../../../home/domain/entities/review_entity.dart';
-import '../../application/review_notifier.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_avatar.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
+import 'package:arenda/app/shared/widgets/app_rating_bar.dart';
+import 'package:arenda/app/shared/widgets/app_shimmer.dart';
+import 'package:arenda/app/features/home/domain/entities/review_entity.dart';
+import 'package:arenda/app/features/reviews/application/review_notifier.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ReviewsScreen extends ConsumerStatefulWidget {
@@ -86,26 +86,26 @@ class _ReviewTileShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
             AppShimmer(width: 44, height: 44, borderRadius: 22),
-            const SizedBox(width: AppDimensions.spaceMD),
+            SizedBox(width: AppDimensions.spaceMD),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppShimmer(width: 120, height: 14, borderRadius: 4),
-                const SizedBox(height: 4),
+                SizedBox(height: 4),
                 AppShimmer(width: 80, height: 12, borderRadius: 4),
               ],
             ),
           ],
         ),
-        const SizedBox(height: AppDimensions.spaceMD),
+        SizedBox(height: AppDimensions.spaceMD),
         AppShimmer(width: double.infinity, height: 12, borderRadius: 4),
-        const SizedBox(height: 6),
+        SizedBox(height: 6),
         AppShimmer(width: 200, height: 12, borderRadius: 4),
       ],
     );
@@ -289,7 +289,6 @@ class _ReviewTile extends StatelessWidget {
                 AppAvatar(
                   imageUrl: review.userAvatarUrl,
                   name: review.userName,
-                  size: AppDimensions.avatarMD,
                 ),
                 const SizedBox(width: AppDimensions.spaceMD),
                 Expanded(
@@ -307,7 +306,7 @@ class _ReviewTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                AppRatingBar(rating: review.rating.toDouble(), size: 14),
+                AppRatingBar(rating: review.rating.toDouble()),
               ],
             ),
             const SizedBox(height: AppDimensions.spaceMD),

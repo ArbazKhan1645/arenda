@@ -5,11 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../application/auth_notifier.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/features/authentication/application/auth_notifier.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -246,7 +246,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           dotColor: Colors.white38,
                           dotHeight: 8,
                           dotWidth: 8,
-                          expansionFactor: 3,
                         ),
                       ),
                       const Spacer(),

@@ -3,11 +3,11 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_button.dart';
-import '../../application/review_notifier.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
+import 'package:arenda/app/features/reviews/application/review_notifier.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class AddReviewScreen extends ConsumerStatefulWidget {
@@ -55,7 +55,9 @@ class _AddReviewScreenState extends ConsumerState<AddReviewScreen> {
       _error = null;
     });
 
-    await ref.read(reviewProvider.notifier).addReview(
+    await ref
+        .read(reviewProvider.notifier)
+        .addReview(
           listingId: widget.listingId,
           rating: _rating,
           comment: _commentController.text.trim(),
@@ -80,9 +82,10 @@ class _AddReviewScreenState extends ConsumerState<AddReviewScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ── Rating Stars ────────────────────────────────────────────
-            Text('Your rating', style: AppTextStyles.h3)
-                .animate()
-                .fadeIn(duration: 400.ms),
+            Text(
+              'Your rating',
+              style: AppTextStyles.h3,
+            ).animate().fadeIn(duration: 400.ms),
             const SizedBox(height: AppDimensions.spaceLG),
             _StarSelector(
               rating: _rating,
@@ -110,14 +113,16 @@ class _AddReviewScreenState extends ConsumerState<AddReviewScreen> {
             const SizedBox(height: AppDimensions.space3XL),
 
             // ── Comment ─────────────────────────────────────────────────
-            Text('Your experience', style: AppTextStyles.h3)
-                .animate(delay: 150.ms)
-                .fadeIn(duration: 400.ms),
+            Text(
+              'Your experience',
+              style: AppTextStyles.h3,
+            ).animate(delay: 150.ms).fadeIn(duration: 400.ms),
             const SizedBox(height: AppDimensions.spaceSM),
             Text(
               'Tell other guests what made this stay special.',
-              style:
-                  AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
+              style: AppTextStyles.bodyMD.copyWith(
+                color: AppColors.textSecondary,
+              ),
             ).animate(delay: 180.ms).fadeIn(duration: 400.ms),
             const SizedBox(height: AppDimensions.spaceLG),
             TextFormField(
@@ -128,24 +133,24 @@ class _AddReviewScreenState extends ConsumerState<AddReviewScreen> {
               decoration: InputDecoration(
                 hintText:
                     'Share details about the location, cleanliness, host communication…',
-                hintStyle: AppTextStyles.bodyMD
-                    .copyWith(color: AppColors.textTertiary),
+                hintStyle: AppTextStyles.bodyMD.copyWith(
+                  color: AppColors.textTertiary,
+                ),
                 contentPadding: const EdgeInsets.all(AppDimensions.spaceLG),
                 border: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(AppDimensions.radiusLG),
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
                   borderSide: const BorderSide(color: AppColors.border),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(AppDimensions.radiusLG),
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
                   borderSide: const BorderSide(color: AppColors.border),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(AppDimensions.radiusLG),
-                  borderSide: BorderSide(
-                      color: AppColors.primary, width: 1.5),
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
+                  borderSide: const BorderSide(
+                    color: AppColors.primary,
+                    width: 1.5,
+                  ),
                 ),
                 filled: true,
                 fillColor: Theme.of(context).colorScheme.surface,
@@ -157,13 +162,13 @@ class _AddReviewScreenState extends ConsumerState<AddReviewScreen> {
               const SizedBox(height: AppDimensions.spaceMD),
               Row(
                 children: [
-                  Icon(PhosphorIcons.info(),
-                      size: 16, color: AppColors.error),
+                  Icon(PhosphorIcons.info(), size: 16, color: AppColors.error),
                   const SizedBox(width: AppDimensions.spaceXS),
                   Text(
                     _error!,
-                    style: AppTextStyles.bodySM
-                        .copyWith(color: AppColors.error),
+                    style: AppTextStyles.bodySM.copyWith(
+                      color: AppColors.error,
+                    ),
                   ),
                 ],
               ).animate().fadeIn(duration: 200.ms),
@@ -172,15 +177,13 @@ class _AddReviewScreenState extends ConsumerState<AddReviewScreen> {
             const SizedBox(height: AppDimensions.space3XL),
 
             // ── Category Ratings ─────────────────────────────────────────
-            Text('Category ratings', style: AppTextStyles.h3)
-                .animate(delay: 250.ms)
-                .fadeIn(duration: 400.ms),
+            Text(
+              'Category ratings',
+              style: AppTextStyles.h3,
+            ).animate(delay: 250.ms).fadeIn(duration: 400.ms),
             const SizedBox(height: AppDimensions.spaceLG),
             ..._CategoryRow.categories.asMap().entries.map(
-              (e) => _CategoryRow(
-                label: e.value,
-                delay: 280 + e.key * 40,
-              ),
+              (e) => _CategoryRow(label: e.value, delay: 280 + e.key * 40),
             ),
 
             const SizedBox(height: AppDimensions.space4XL),
@@ -269,32 +272,34 @@ class _CategoryRowState extends State<_CategoryRow> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppDimensions.spaceLG),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(widget.label, style: AppTextStyles.bodyLG),
-          Row(
-            children: List.generate(5, (i) {
-              final star = i + 1;
-              return GestureDetector(
-                onTap: () => setState(() => _value = star),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 4),
-                  child: Icon(
-                    star <= _value
-                        ? PhosphorIcons.star(PhosphorIconsStyle.fill)
-                        : PhosphorIcons.star(PhosphorIconsStyle.fill),
-                    size: 24,
-                    color: star <= _value ? AppColors.star : AppColors.border,
-                  ),
-                ),
-              );
-            }),
+          padding: const EdgeInsets.only(bottom: AppDimensions.spaceLG),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(widget.label, style: AppTextStyles.bodyLG),
+              Row(
+                children: List.generate(5, (i) {
+                  final star = i + 1;
+                  return GestureDetector(
+                    onTap: () => setState(() => _value = star),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 4),
+                      child: Icon(
+                        star <= _value
+                            ? PhosphorIcons.star(PhosphorIconsStyle.fill)
+                            : PhosphorIcons.star(PhosphorIconsStyle.fill),
+                        size: 24,
+                        color: star <= _value
+                            ? AppColors.star
+                            : AppColors.border,
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ],
           ),
-        ],
-      ),
-    )
+        )
         .animate(delay: Duration(milliseconds: widget.delay))
         .fadeIn(duration: 400.ms)
         .slideX(begin: 0.05, end: 0, duration: 400.ms);

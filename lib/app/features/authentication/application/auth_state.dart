@@ -1,4 +1,4 @@
-import '../domain/entities/user_entity.dart';
+import 'package:arenda/app/features/authentication/domain/entities/user_entity.dart';
 
 sealed class AuthState {
   const AuthState();

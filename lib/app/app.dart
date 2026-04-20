@@ -1,9 +1,8 @@
 import 'package:arenda/app/core/routes/app_router.dart';
 import 'package:arenda/app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ArendaApp extends ConsumerStatefulWidget {
   const ArendaApp({super.key});
@@ -30,7 +29,6 @@ class _ArendaAppState extends ConsumerState<ArendaApp> {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       darkTheme: AppTheme.light,
-      themeMode: ThemeMode.system,
       routerConfig: router,
     );
   }

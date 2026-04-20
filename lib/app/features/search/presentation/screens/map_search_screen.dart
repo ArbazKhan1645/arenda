@@ -6,12 +6,12 @@ import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../application/map_search_notifier.dart';
-import '../../../home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/features/search/application/map_search_notifier.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
 
 class MapSearchScreen extends ConsumerStatefulWidget {
   const MapSearchScreen({super.key});
@@ -268,7 +268,7 @@ class _ViewOnMapTab extends StatelessWidget {
         // Map
         FlutterMap(
           mapController: mapController,
-          options: MapOptions(
+          options: const MapOptions(
             initialCenter: kDemoUserLocation,
             initialZoom: 5.0,
             minZoom: 3,
@@ -481,7 +481,6 @@ class _NearestMeTab extends StatelessWidget {
                     borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
                     border: Border.all(
                       color: AppColors.primary.withAlpha(40),
-                      width: 1,
                     ),
                   ),
                   child: Row(
@@ -489,7 +488,7 @@ class _NearestMeTab extends StatelessWidget {
                       Container(
                         width: 40,
                         height: 40,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.primary,
                           shape: BoxShape.circle,
                         ),
@@ -576,7 +575,7 @@ class _LoadingView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
+          const SizedBox(
             width: 48,
             height: 48,
             child: CircularProgressIndicator(

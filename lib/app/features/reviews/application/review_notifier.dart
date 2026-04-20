@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../home/data/datasources/mock_home_datasource.dart';
-import '../../home/domain/entities/review_entity.dart';
+import 'package:arenda/app/features/home/data/datasources/mock_home_datasource.dart';
+import 'package:arenda/app/features/home/domain/entities/review_entity.dart';
 
 part 'review_notifier.g.dart';
 
@@ -29,7 +29,7 @@ final class ReviewError extends ReviewState {
   final String message;
 }
 
-@Riverpod(keepAlive: false)
+@Riverpod()
 class ReviewNotifier extends _$ReviewNotifier {
   @override
   ReviewState build() => const ReviewLoading();

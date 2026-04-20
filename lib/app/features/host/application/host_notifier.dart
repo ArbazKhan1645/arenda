@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../home/data/datasources/mock_home_datasource.dart';
-import '../../home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/home/data/datasources/mock_home_datasource.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
 
 part 'host_notifier.g.dart';
 
@@ -66,7 +66,7 @@ class PayoutMethod {
 
 // ── Notifier ───────────────────────────────────────────────────────────────
 
-@Riverpod(keepAlive: false)
+@Riverpod()
 class HostNotifier extends _$HostNotifier {
   @override
   HostState build() => const HostLoading();

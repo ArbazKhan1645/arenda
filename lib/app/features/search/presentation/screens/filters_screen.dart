@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_button.dart';
-import '../../application/search_notifier.dart';
-import '../../application/search_state.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
+import 'package:arenda/app/features/search/application/search_notifier.dart';
+import 'package:arenda/app/features/search/application/search_state.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FiltersScreen extends ConsumerStatefulWidget {
@@ -39,9 +39,10 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
         actions: [
           TextButton(
             onPressed: () => setState(() => _filters = const SearchFilters()),
-            child: Text('Clear all',
-                style:
-                    AppTextStyles.labelMD.copyWith(color: AppColors.primary)),
+            child: Text(
+              'Clear all',
+              style: AppTextStyles.labelMD.copyWith(color: AppColors.primary),
+            ),
           ),
         ],
       ),
@@ -53,12 +54,12 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
           const SizedBox(height: AppDimensions.spaceSM),
           Text(
             '\$${_filters.minPrice.toInt()} – \$${_filters.maxPrice.toInt()} / night',
-            style:
-                AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ),
           RangeSlider(
             values: RangeValues(_filters.minPrice, _filters.maxPrice),
-            min: 0,
             max: 1000,
             divisions: 100,
             activeColor: AppColors.primary,
@@ -66,8 +67,12 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
               '\$${_filters.minPrice.toInt()}',
               '\$${_filters.maxPrice.toInt()}',
             ),
-            onChanged: (v) => setState(() => _filters =
-                _filters.copyWith(minPrice: v.start, maxPrice: v.end)),
+            onChanged: (v) => setState(
+              () => _filters = _filters.copyWith(
+                minPrice: v.start,
+                maxPrice: v.end,
+              ),
+            ),
           ),
 
           const Divider(height: AppDimensions.space2XL),
@@ -77,11 +82,17 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
             label: 'Bedrooms',
             value: _filters.minBedrooms,
             onDecrement: _filters.minBedrooms > 0
-                ? () => setState(() => _filters =
-                    _filters.copyWith(minBedrooms: _filters.minBedrooms - 1))
+                ? () => setState(
+                    () => _filters = _filters.copyWith(
+                      minBedrooms: _filters.minBedrooms - 1,
+                    ),
+                  )
                 : null,
-            onIncrement: () => setState(() => _filters =
-                _filters.copyWith(minBedrooms: _filters.minBedrooms + 1)),
+            onIncrement: () => setState(
+              () => _filters = _filters.copyWith(
+                minBedrooms: _filters.minBedrooms + 1,
+              ),
+            ),
           ),
 
           const Divider(height: AppDimensions.spaceXXL),
@@ -91,11 +102,17 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
             label: 'Bathrooms',
             value: _filters.minBathrooms,
             onDecrement: _filters.minBathrooms > 0
-                ? () => setState(() => _filters =
-                    _filters.copyWith(minBathrooms: _filters.minBathrooms - 1))
+                ? () => setState(
+                    () => _filters = _filters.copyWith(
+                      minBathrooms: _filters.minBathrooms - 1,
+                    ),
+                  )
                 : null,
-            onIncrement: () => setState(() => _filters =
-                _filters.copyWith(minBathrooms: _filters.minBathrooms + 1)),
+            onIncrement: () => setState(
+              () => _filters = _filters.copyWith(
+                minBathrooms: _filters.minBathrooms + 1,
+              ),
+            ),
           ),
 
           const Divider(height: AppDimensions.spaceXXL),
@@ -105,11 +122,17 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
             label: 'Guests',
             value: _filters.minGuests,
             onDecrement: _filters.minGuests > 1
-                ? () => setState(() => _filters =
-                    _filters.copyWith(minGuests: _filters.minGuests - 1))
+                ? () => setState(
+                    () => _filters = _filters.copyWith(
+                      minGuests: _filters.minGuests - 1,
+                    ),
+                  )
                 : null,
-            onIncrement: () => setState(() => _filters =
-                _filters.copyWith(minGuests: _filters.minGuests + 1)),
+            onIncrement: () => setState(
+              () => _filters = _filters.copyWith(
+                minGuests: _filters.minGuests + 1,
+              ),
+            ),
           ),
 
           const Divider(height: AppDimensions.spaceXXL),
@@ -122,8 +145,10 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Superhost', style: AppTextStyles.h4),
-                  Text('Stay with top-rated hosts',
-                      style: AppTextStyles.bodySM),
+                  Text(
+                    'Stay with top-rated hosts',
+                    style: AppTextStyles.bodySM,
+                  ),
                 ],
               ),
               Switch(

@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-
 Future<void> main() async {
   // ──  Register error hooks BEFORE everything else ──────────────────
   final errorHandler = createAndRegisterErrorHandler();
@@ -18,7 +17,7 @@ Future<void> main() async {
       // ensureInitialized must be called in the same zone as runApp
       final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
       FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-      SystemChrome.setEnabledSystemUIMode(
+      await SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.manual,
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
       );

@@ -5,18 +5,18 @@ import 'package:go_router/go_router.dart';
 import 'package:video_player/video_player.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_avatar.dart';
-import '../../../../shared/widgets/app_button.dart';
-import '../../../../shared/widgets/app_image.dart';
-import '../../../../shared/widgets/app_rating_bar.dart';
-import '../../../home/data/datasources/mock_home_datasource.dart';
-import '../../../home/domain/entities/listing_entity.dart';
-import '../../../home/domain/entities/review_entity.dart';
-import '../../../wishlist/application/wishlist_notifier.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_avatar.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
+import 'package:arenda/app/shared/widgets/app_image.dart';
+import 'package:arenda/app/shared/widgets/app_rating_bar.dart';
+import 'package:arenda/app/features/home/data/datasources/mock_home_datasource.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/home/domain/entities/review_entity.dart';
+import 'package:arenda/app/features/wishlist/application/wishlist_notifier.dart';
 
 class ListingDetailScreen extends ConsumerStatefulWidget {
   const ListingDetailScreen({super.key, required this.listingId});
@@ -58,14 +58,12 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
     if (index >= media.length || !media[index].isVideo) return;
     if (_videoControllers.containsKey(index)) return;
 
-    final ctrl = VideoPlayerController.networkUrl(
-      Uri.parse(media[index].url),
-    );
+    final ctrl = VideoPlayerController.networkUrl(Uri.parse(media[index].url));
     _videoControllers[index] = ctrl;
     await ctrl.initialize();
     if (!mounted) return;
     setState(() => _initializedVideos.add(index));
-    if (index == _currentMediaIndex) ctrl.play();
+    if (index == _currentMediaIndex) await ctrl.play();
   }
 
   void _onPageChanged(int i) {
@@ -119,9 +117,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
         fit: StackFit.expand,
         children: [
           AppImage(url: item.effectiveThumbnail),
-          const Center(
-            child: CircularProgressIndicator(color: Colors.white),
-          ),
+          const Center(child: CircularProgressIndicator(color: Colors.white)),
         ],
       );
     }
@@ -515,9 +511,7 @@ class _DescriptionSection extends StatelessWidget {
                 ),
               ),
               Icon(
-                showFull
-                    ? PhosphorIcons.caretUp()
-                    : PhosphorIcons.caretDown(),
+                showFull ? PhosphorIcons.caretUp() : PhosphorIcons.caretDown(),
                 size: 20,
               ),
             ],
@@ -565,7 +559,7 @@ class _AmenitiesSection extends StatelessWidget {
         const SizedBox(height: AppDimensions.spaceSM),
         GridView.builder(
           shrinkWrap: true,
-          padding: EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -625,7 +619,11 @@ class _ReviewsSection extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(PhosphorIcons.star(PhosphorIconsStyle.fill), size: 18, color: AppColors.star),
+                Icon(
+                  PhosphorIcons.star(PhosphorIconsStyle.fill),
+                  size: 18,
+                  color: AppColors.star,
+                ),
                 const SizedBox(width: 4),
                 Text('$rating · $reviewCount reviews', style: AppTextStyles.h3),
               ],
@@ -712,7 +710,7 @@ class _MapSection extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
-                child: AppImage(
+                child: const AppImage(
                   url:
                       'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=900&q=80',
                   width: double.infinity,
@@ -835,19 +833,31 @@ class _VerificationBadges extends StatelessWidget {
   final List<String> badges;
 
   static final _badgeMeta = {
-    '24/7 Power': (icon: PhosphorIcons.lightning(), color: Color(0xFFFFC107)),
+    '24/7 Power': (
+      icon: PhosphorIcons.lightning(),
+      color: const Color(0xFFFFC107),
+    ),
     'Physically Vetted': (
       icon: PhosphorIcons.sealCheck(PhosphorIconsStyle.fill),
-      color: Color(0xFF22C55E),
+      color: const Color(0xFF22C55E),
     ),
-    'High-Speed WiFi': (icon: PhosphorIcons.wifiHigh(), color: Color(0xFF14B8A6)),
-    'CCTV': (icon: PhosphorIcons.video(), color: Color(0xFF6366F1)),
-    'Gated Estate': (icon: PhosphorIcons.lock(), color: Color(0xFF0D9488)),
+    'High-Speed WiFi': (
+      icon: PhosphorIcons.wifiHigh(),
+      color: const Color(0xFF14B8A6),
+    ),
+    'CCTV': (icon: PhosphorIcons.video(), color: const Color(0xFF6366F1)),
+    'Gated Estate': (
+      icon: PhosphorIcons.lock(),
+      color: const Color(0xFF0D9488),
+    ),
     'Beach Access': (
       icon: PhosphorIcons.umbrella(),
-      color: Color(0xFF0EA5E9),
+      color: const Color(0xFF0EA5E9),
     ),
-    'Concierge': (icon: PhosphorIcons.bellSimple(), color: Color(0xFFEC4899)),
+    'Concierge': (
+      icon: PhosphorIcons.bellSimple(),
+      color: const Color(0xFFEC4899),
+    ),
   };
 
   @override

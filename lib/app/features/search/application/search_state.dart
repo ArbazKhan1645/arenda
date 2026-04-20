@@ -1,4 +1,4 @@
-import '../../home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
 
 class SearchFilters {
   const SearchFilters({
@@ -40,17 +40,16 @@ class SearchFilters {
     List<String>? selectedAmenities,
     bool? instantBook,
     bool? superhost,
-  }) =>
-      SearchFilters(
-        minPrice: minPrice ?? this.minPrice,
-        maxPrice: maxPrice ?? this.maxPrice,
-        minBedrooms: minBedrooms ?? this.minBedrooms,
-        minBathrooms: minBathrooms ?? this.minBathrooms,
-        minGuests: minGuests ?? this.minGuests,
-        selectedAmenities: selectedAmenities ?? this.selectedAmenities,
-        instantBook: instantBook ?? this.instantBook,
-        superhost: superhost ?? this.superhost,
-      );
+  }) => SearchFilters(
+    minPrice: minPrice ?? this.minPrice,
+    maxPrice: maxPrice ?? this.maxPrice,
+    minBedrooms: minBedrooms ?? this.minBedrooms,
+    minBathrooms: minBathrooms ?? this.minBathrooms,
+    minGuests: minGuests ?? this.minGuests,
+    selectedAmenities: selectedAmenities ?? this.selectedAmenities,
+    instantBook: instantBook ?? this.instantBook,
+    superhost: superhost ?? this.superhost,
+  );
 }
 
 sealed class SearchState {
@@ -89,15 +88,14 @@ final class SearchLoaded extends SearchState {
     DateTime? checkIn,
     DateTime? checkOut,
     int? guests,
-  }) =>
-      SearchLoaded(
-        results: results ?? this.results,
-        query: query ?? this.query,
-        filters: filters ?? this.filters,
-        checkIn: checkIn ?? this.checkIn,
-        checkOut: checkOut ?? this.checkOut,
-        guests: guests ?? this.guests,
-      );
+  }) => SearchLoaded(
+    results: results ?? this.results,
+    query: query ?? this.query,
+    filters: filters ?? this.filters,
+    checkIn: checkIn ?? this.checkIn,
+    checkOut: checkOut ?? this.checkOut,
+    guests: guests ?? this.guests,
+  );
 }
 
 final class SearchError extends SearchState {

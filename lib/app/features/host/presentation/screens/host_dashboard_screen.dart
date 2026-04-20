@@ -3,15 +3,15 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_button.dart';
-import '../../../../shared/widgets/app_image.dart';
-import '../../../../shared/widgets/app_shimmer.dart';
-import '../../../home/domain/entities/listing_entity.dart';
-import '../../application/host_notifier.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
+import 'package:arenda/app/shared/widgets/app_image.dart';
+import 'package:arenda/app/shared/widgets/app_shimmer.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/host/application/host_notifier.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class HostDashboardScreen extends ConsumerStatefulWidget {
@@ -65,18 +65,18 @@ class _HostDashboardScreenState extends ConsumerState<HostDashboardScreen> {
 class _LoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(AppDimensions.paddingPage),
+    return const Padding(
+      padding: EdgeInsets.all(AppDimensions.paddingPage),
       child: Column(
         children: [
           AppShimmer(width: double.infinity, height: 140, borderRadius: 16),
-          const SizedBox(height: AppDimensions.spaceXXL),
+          SizedBox(height: AppDimensions.spaceXXL),
           AppShimmer(width: double.infinity, height: 20, borderRadius: 4),
-          const SizedBox(height: AppDimensions.spaceMD),
+          SizedBox(height: AppDimensions.spaceMD),
           AppShimmer(width: 200, height: 16, borderRadius: 4),
-          const SizedBox(height: AppDimensions.spaceXXL),
+          SizedBox(height: AppDimensions.spaceXXL),
           AppShimmer(width: double.infinity, height: 120, borderRadius: 12),
-          const SizedBox(height: AppDimensions.spaceLG),
+          SizedBox(height: AppDimensions.spaceLG),
           AppShimmer(width: double.infinity, height: 120, borderRadius: 12),
         ],
       ),

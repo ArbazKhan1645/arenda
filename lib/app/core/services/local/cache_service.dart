@@ -44,11 +44,7 @@ class _CacheEntry {
   final DateTime createdAt;
   final Duration? ttl;
 
-  _CacheEntry({
-    required this.data,
-    required this.createdAt,
-    this.ttl,
-  });
+  _CacheEntry({required this.data, required this.createdAt, this.ttl});
 
   bool get isExpired {
     if (ttl == null) return false;
@@ -56,18 +52,18 @@ class _CacheEntry {
   }
 
   Map<String, dynamic> toJson() => {
-        'data': data,
-        'createdAt': createdAt.toIso8601String(),
-        'ttlMs': ttl?.inMilliseconds,
-      };
+    'data': data,
+    'createdAt': createdAt.toIso8601String(),
+    'ttlMs': ttl?.inMilliseconds,
+  };
 
   factory _CacheEntry.fromJson(Map<String, dynamic> json) => _CacheEntry(
-        data: json['data'],
-        createdAt: DateTime.parse(json['createdAt'] as String),
-        ttl: json['ttlMs'] != null
-            ? Duration(milliseconds: json['ttlMs'] as int)
-            : null,
-      );
+    data: json['data'],
+    createdAt: DateTime.parse(json['createdAt'] as String),
+    ttl: json['ttlMs'] != null
+        ? Duration(milliseconds: json['ttlMs'] as int)
+        : null,
+  );
 }
 
 class CacheStats {
@@ -94,7 +90,8 @@ class CacheStats {
   }
 
   @override
-  String toString() => 'CacheStats(mem: $memoryEntries, disk: $diskEntries, '
+  String toString() =>
+      'CacheStats(mem: $memoryEntries, disk: $diskEntries, '
       'hits: ${memoryHits + diskHits}, misses: $misses, '
       'hitRate: ${(hitRate * 100).toStringAsFixed(1)}%)';
 }
@@ -221,11 +218,7 @@ class CacheService implements ICacheService {
     Duration? ttl,
     bool diskPersist = true,
   }) async {
-    final entry = _CacheEntry(
-      data: value,
-      createdAt: DateTime.now(),
-      ttl: ttl,
-    );
+    final entry = _CacheEntry(data: value, createdAt: DateTime.now(), ttl: ttl);
 
     // Memory: LRU eviction when full
     if (_memCache.length >= maxMemoryEntries && !_memCache.containsKey(key)) {
@@ -509,11 +502,13 @@ extension CacheServiceX on CacheService {
     final cached = await get<T>(key);
 
     // Trigger background refresh regardless of staleness
-    fetch().then((fresh) async {
-      await set(key, fresh, ttl: ttl);
-    }).catchError((Object e) {
-      debugPrint('[CacheService] staleWhileRevalidate bg error ($key): $e');
-    });
+    await fetch()
+        .then((fresh) async {
+          await set(key, fresh, ttl: ttl);
+        })
+        .catchError((Object e) {
+          debugPrint('[CacheService] staleWhileRevalidate bg error ($key): $e');
+        });
 
     return cached;
   }
@@ -525,10 +520,7 @@ extension CacheServiceX on CacheService {
 
 /// Singleton cache service — auto-disposed
 final cacheServiceProvider = Provider<CacheService>((ref) {
-  final service = CacheService(
-    maxMemoryEntries: 200,
-    diskCacheDirName: 'app_cache',
-  );
+  final service = CacheService();
   ref.onDispose(service.dispose);
   return service;
 });

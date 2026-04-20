@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
 
 part 'wishlist_notifier.g.dart';
 
@@ -18,6 +18,5 @@ class WishlistNotifier extends _$WishlistNotifier {
     }
   }
 
-  bool isWishlisted(String listingId) =>
-      state.any((l) => l.id == listingId);
+  bool isWishlisted(String listingId) => state.any((l) => l.id == listingId);
 }

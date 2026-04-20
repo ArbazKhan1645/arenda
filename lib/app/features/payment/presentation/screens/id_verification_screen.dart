@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_button.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 // ── ID Type Model ──────────────────────────────────────────────────────────
@@ -205,7 +205,7 @@ class _StepSelectId extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _StepIndicator(current: 0, total: 4),
+          const _StepIndicator(current: 0, total: 4),
           const SizedBox(height: AppDimensions.spaceXXL),
           Text(
             'Select your ID type',
@@ -348,7 +348,6 @@ class _StepUploadPhoto extends StatelessWidget {
                 border: Border.all(
                   color: isUploaded ? AppColors.success : AppColors.border,
                   width: 2,
-                  style: BorderStyle.solid,
                 ),
               ),
               child: Column(
@@ -412,7 +411,7 @@ class _StepSelfie extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _StepIndicator(current: 3, total: 4),
+          const _StepIndicator(current: 3, total: 4),
           const SizedBox(height: AppDimensions.spaceXXL),
           Text(
             'Take a selfie',

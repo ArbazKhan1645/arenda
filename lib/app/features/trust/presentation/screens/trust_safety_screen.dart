@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_button.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class TrustSafetyScreen extends StatelessWidget {
@@ -25,9 +25,7 @@ class TrustSafetyScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           // ── Hero ──────────────────────────────────────────────────
-          SliverToBoxAdapter(
-            child: _Hero().animate().fadeIn(duration: 500.ms),
-          ),
+          SliverToBoxAdapter(child: _Hero().animate().fadeIn(duration: 500.ms)),
 
           SliverPadding(
             padding: const EdgeInsets.all(AppDimensions.paddingPage),
@@ -58,17 +56,17 @@ class TrustSafetyScreen extends StatelessWidget {
 
                 const SizedBox(height: AppDimensions.spaceLG),
                 ..._idPoints.asMap().entries.map(
-                  (e) => _BulletPoint(
-                    text: e.value,
-                    delay: 230 + e.key * 50,
-                  ),
+                  (e) => _BulletPoint(text: e.value, delay: 230 + e.key * 50),
                 ),
 
                 const SizedBox(height: AppDimensions.space2XL),
                 AppButton(
                   label: 'Verify my ID now',
                   variant: AppButtonVariant.outline,
-                  prefixIcon: Icon(PhosphorIcons.identificationCard(), size: 18),
+                  prefixIcon: Icon(
+                    PhosphorIcons.identificationCard(),
+                    size: 18,
+                  ),
                   onPressed: () => context.push(AppRoutes.idVerification),
                 ).animate(delay: 380.ms).fadeIn(duration: 400.ms),
 
@@ -84,9 +82,7 @@ class TrustSafetyScreen extends StatelessWidget {
                 ).animate(delay: 400.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.spaceLG),
-                _VettingCard()
-                    .animate(delay: 440.ms)
-                    .fadeIn(duration: 400.ms),
+                _VettingCard().animate(delay: 440.ms).fadeIn(duration: 400.ms),
 
                 const SizedBox(height: AppDimensions.space2XL),
                 ..._vettingPoints.asMap().entries.map(
@@ -133,9 +129,7 @@ class TrustSafetyScreen extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(
-                    height:
-                        MediaQuery.of(context).padding.bottom + 32),
+                SizedBox(height: MediaQuery.of(context).padding.bottom + 32),
               ]),
             ),
           ),
@@ -240,10 +234,30 @@ class _EscrowTimeline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const steps = [
-      (icon: '💳', title: 'Guest pays', desc: 'You pay via MoMo or Bank Transfer. Funds go into secure escrow — not to the host yet.'),
-      (icon: '🔒', title: 'Funds held safely', desc: 'Money is held by our payment partner (Flutterwave / Paystack) until you check in.'),
-      (icon: '🏠', title: 'You check in', desc: 'Arrive at the property. If everything matches the listing, your stay continues.'),
-      (icon: '✅', title: 'Host receives payment', desc: '24–48 hours after check-in, funds are released to the host automatically.'),
+      (
+        icon: '💳',
+        title: 'Guest pays',
+        desc:
+            'You pay via MoMo or Bank Transfer. Funds go into secure escrow — not to the host yet.',
+      ),
+      (
+        icon: '🔒',
+        title: 'Funds held safely',
+        desc:
+            'Money is held by our payment partner (Flutterwave / Paystack) until you check in.',
+      ),
+      (
+        icon: '🏠',
+        title: 'You check in',
+        desc:
+            'Arrive at the property. If everything matches the listing, your stay continues.',
+      ),
+      (
+        icon: '✅',
+        title: 'Host receives payment',
+        desc:
+            '24–48 hours after check-in, funds are released to the host automatically.',
+      ),
     ];
 
     return Column(
@@ -264,8 +278,10 @@ class _EscrowTimeline extends StatelessWidget {
                     border: Border.all(color: AppColors.primary),
                   ),
                   child: Center(
-                    child: Text(e.value.icon,
-                        style: const TextStyle(fontSize: 18)),
+                    child: Text(
+                      e.value.icon,
+                      style: const TextStyle(fontSize: 18),
+                    ),
                   ),
                 ),
                 if (!isLast)
@@ -287,8 +303,10 @@ class _EscrowTimeline extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       e.value.desc,
-                      style: AppTextStyles.bodyMD
-                          .copyWith(color: AppColors.textSecondary, height: 1.5),
+                      style: AppTextStyles.bodyMD.copyWith(
+                        color: AppColors.textSecondary,
+                        height: 1.5,
+                      ),
                     ),
                   ],
                 ),
@@ -321,14 +339,19 @@ class _VettingCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Physically Vetted',
-                    style: AppTextStyles.labelMD
-                        .copyWith(color: AppColors.success)),
+                Text(
+                  'Physically Vetted',
+                  style: AppTextStyles.labelMD.copyWith(
+                    color: AppColors.success,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'Look for this badge on listings. It means our team has personally visited and verified the property.',
-                  style: AppTextStyles.bodyXS
-                      .copyWith(color: AppColors.textSecondary, height: 1.5),
+                  style: AppTextStyles.bodyXS.copyWith(
+                    color: AppColors.textSecondary,
+                    height: 1.5,
+                  ),
                 ),
               ],
             ),
@@ -363,8 +386,7 @@ class _PaymentMethodsGrid extends StatelessWidget {
             (m) => Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
-                borderRadius:
-                    BorderRadius.circular(AppDimensions.radiusMD),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
                 border: Border.all(color: AppColors.border),
               ),
               child: Row(
@@ -398,29 +420,34 @@ class _BulletPoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppDimensions.spaceMD),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 6),
-            child: Container(
-              width: 8,
-              height: 8,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-            ),
+          padding: const EdgeInsets.only(bottom: AppDimensions.spaceMD),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 6),
+                child: Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: color,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+              const SizedBox(width: AppDimensions.spaceMD),
+              Expanded(
+                child: Text(
+                  text,
+                  style: AppTextStyles.bodyMD.copyWith(
+                    color: AppColors.textSecondary,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: AppDimensions.spaceMD),
-          Expanded(
-            child: Text(
-              text,
-              style: AppTextStyles.bodyMD
-                  .copyWith(color: AppColors.textSecondary, height: 1.5),
-            ),
-          ),
-        ],
-      ),
-    )
+        )
         .animate(delay: Duration(milliseconds: delay))
         .fadeIn(duration: 350.ms)
         .slideX(begin: 0.04, end: 0, duration: 350.ms);

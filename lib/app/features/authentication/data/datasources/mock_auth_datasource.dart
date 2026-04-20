@@ -1,8 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../authentication/domain/entities/user_entity.dart';
-import '../../../../core/errors/app_exception.dart';
-import '../../../../core/services/local/storage_service.dart';
+import 'package:arenda/app/features/authentication/domain/entities/user_entity.dart';
+import 'package:arenda/app/core/errors/app_exception.dart';
+import 'package:arenda/app/core/services/local/storage_service.dart';
 
 abstract final class MockAuthDataSource {
   static const _kLoggedInEmail = 'arenda_logged_in_email';
@@ -22,8 +22,7 @@ abstract final class MockAuthDataSource {
         bio:
             'Passionné de voyage et de découverte. J\'adore explorer les trésors cachés de la Côte d\'Ivoire.',
         location: 'Abidjan, Côte d\'Ivoire',
-        joinedAt: DateTime(2023, 6, 1),
-        isSuperhost: false,
+        joinedAt: DateTime(2023, 6),
       ),
     ),
     // Also support phone number login for CI
@@ -38,8 +37,7 @@ abstract final class MockAuthDataSource {
         phone: '+225 07 00 00 00 00',
         bio: 'Passionné de voyage et de découverte.',
         location: 'Abidjan, Côte d\'Ivoire',
-        joinedAt: DateTime(2023, 6, 1),
-        isSuperhost: false,
+        joinedAt: DateTime(2023, 6),
       ),
     ),
   };

@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../data/datasources/mock_home_datasource.dart';
-import 'home_state.dart';
+import 'package:arenda/app/features/home/data/datasources/mock_home_datasource.dart';
+import 'package:arenda/app/features/home/application/home_state.dart';
 
 part 'home_notifier.g.dart';
 

@@ -1,8 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../domain/entities/booking_entity.dart';
-import '../../home/domain/entities/listing_entity.dart';
-import 'booking_state.dart';
+import 'package:arenda/app/features/booking/domain/entities/booking_entity.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/booking/application/booking_state.dart';
 
 part 'booking_notifier.g.dart';
 

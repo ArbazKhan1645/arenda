@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../data/datasources/mock_auth_datasource.dart';
-import '../domain/entities/user_entity.dart';
-import 'auth_state.dart';
+import 'package:arenda/app/features/authentication/data/datasources/mock_auth_datasource.dart';
+import 'package:arenda/app/features/authentication/domain/entities/user_entity.dart';
+import 'package:arenda/app/features/authentication/application/auth_state.dart';
 
 part 'auth_notifier.g.dart';
 
@@ -110,7 +110,7 @@ class AuthNotifier extends _$AuthNotifier {
   Future<void> markOnboarded() => MockAuthDataSource.markOnboarded();
 
   UserEntity? get currentUser => switch (state) {
-        AuthAuthenticated(:final user) => user,
-        _ => null,
-      };
+    AuthAuthenticated(:final user) => user,
+    _ => null,
+  };
 }

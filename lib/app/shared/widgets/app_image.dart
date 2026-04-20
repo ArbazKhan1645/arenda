@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import '../../core/theme/app_colors.dart';
-import 'app_shimmer.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/shared/widgets/app_shimmer.dart';
 
 class AppImage extends StatelessWidget {
   const AppImage({

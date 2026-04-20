@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
 
 class AppShimmer extends StatelessWidget {
   const AppShimmer({
@@ -50,7 +50,9 @@ class ListingCardShimmer extends StatelessWidget {
             height: AppDimensions.listingCardImageHeight,
             decoration: BoxDecoration(
               color: AppColors.shimmerBase,
-              borderRadius: BorderRadius.circular(AppDimensions.listingCardRadius),
+              borderRadius: BorderRadius.circular(
+                AppDimensions.listingCardRadius,
+              ),
             ),
           ),
           const SizedBox(height: AppDimensions.spaceMD),
@@ -120,7 +122,9 @@ class ChatTileShimmer extends StatelessWidget {
                     width: 140,
                     decoration: BoxDecoration(
                       color: AppColors.shimmerBase,
-                      borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusSM,
+                      ),
                     ),
                   ),
                   const SizedBox(height: AppDimensions.spaceXS),
@@ -129,7 +133,9 @@ class ChatTileShimmer extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: AppColors.shimmerBase,
-                      borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusSM,
+                      ),
                     ),
                   ),
                 ],

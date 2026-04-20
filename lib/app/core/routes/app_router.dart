@@ -2,46 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-// No initial resolution screen needed
-import '../../features/authentication/presentation/screens/onboarding_screen.dart';
-import '../../features/authentication/presentation/screens/login_screen.dart';
-import '../../features/authentication/presentation/screens/signup_screen.dart';
-import '../../features/authentication/presentation/screens/otp_screen.dart';
-import '../../features/authentication/presentation/screens/reset_password_screen.dart';
-import '../../features/home/presentation/screens/home_screen.dart';
-import '../../features/home/presentation/screens/main_shell.dart';
-import '../../features/search/presentation/screens/search_screen.dart';
-import '../../features/search/presentation/screens/search_results_screen.dart';
-import '../../features/search/presentation/screens/filters_screen.dart';
-import '../../features/search/presentation/screens/map_search_screen.dart';
-import '../../features/listing/presentation/screens/listing_detail_screen.dart';
-import '../../features/listing/presentation/screens/landmark_navigation_screen.dart';
-import '../../features/booking/presentation/screens/booking_screen.dart';
-import '../../features/booking/presentation/screens/booking_confirmation_screen.dart';
-import '../../features/wishlist/presentation/screens/wishlist_screen.dart';
-import '../../features/profile/presentation/screens/profile_screen.dart';
-import '../../features/profile/presentation/screens/edit_profile_screen.dart';
-import '../../features/profile/presentation/screens/booking_history_screen.dart';
-import '../../features/chat/presentation/screens/chat_list_screen.dart';
-import '../../features/chat/presentation/screens/conversation_screen.dart';
-import '../../features/reviews/presentation/screens/reviews_screen.dart';
-import '../../features/reviews/presentation/screens/add_review_screen.dart';
-import '../../features/payment/presentation/screens/payment_screen.dart';
-import '../../features/payment/presentation/screens/id_verification_screen.dart';
-import '../../features/trust/presentation/screens/trust_safety_screen.dart';
-import '../../features/host/presentation/screens/host_dashboard_screen.dart';
-import '../../features/host/presentation/screens/host_create_listing_screen.dart';
-import '../../features/host/presentation/screens/payout_preferences_screen.dart';
-import '../../features/host/presentation/screens/become_host_screen.dart';
-import 'app_routes.dart';
-
+import 'package:arenda/app/features/authentication/presentation/screens/onboarding_screen.dart';
+import 'package:arenda/app/features/authentication/presentation/screens/login_screen.dart';
+import 'package:arenda/app/features/authentication/presentation/screens/signup_screen.dart';
+import 'package:arenda/app/features/authentication/presentation/screens/otp_screen.dart';
+import 'package:arenda/app/features/authentication/presentation/screens/reset_password_screen.dart';
+import 'package:arenda/app/features/home/presentation/screens/home_screen.dart';
+import 'package:arenda/app/features/home/presentation/screens/main_shell.dart';
+import 'package:arenda/app/features/search/presentation/screens/search_screen.dart';
+import 'package:arenda/app/features/search/presentation/screens/search_results_screen.dart';
+import 'package:arenda/app/features/search/presentation/screens/filters_screen.dart';
+import 'package:arenda/app/features/search/presentation/screens/map_search_screen.dart';
+import 'package:arenda/app/features/listing/presentation/screens/listing_detail_screen.dart';
+import 'package:arenda/app/features/listing/presentation/screens/landmark_navigation_screen.dart';
+import 'package:arenda/app/features/booking/presentation/screens/booking_screen.dart';
+import 'package:arenda/app/features/booking/presentation/screens/booking_confirmation_screen.dart';
+import 'package:arenda/app/features/wishlist/presentation/screens/wishlist_screen.dart';
+import 'package:arenda/app/features/profile/presentation/screens/profile_screen.dart';
+import 'package:arenda/app/features/profile/presentation/screens/edit_profile_screen.dart';
+import 'package:arenda/app/features/profile/presentation/screens/booking_history_screen.dart';
+import 'package:arenda/app/features/chat/presentation/screens/chat_list_screen.dart';
+import 'package:arenda/app/features/chat/presentation/screens/conversation_screen.dart';
+import 'package:arenda/app/features/reviews/presentation/screens/reviews_screen.dart';
+import 'package:arenda/app/features/reviews/presentation/screens/add_review_screen.dart';
+import 'package:arenda/app/features/payment/presentation/screens/payment_screen.dart';
+import 'package:arenda/app/features/payment/presentation/screens/id_verification_screen.dart';
+import 'package:arenda/app/features/trust/presentation/screens/trust_safety_screen.dart';
+import 'package:arenda/app/features/host/presentation/screens/host_dashboard_screen.dart';
+import 'package:arenda/app/features/host/presentation/screens/host_create_listing_screen.dart';
+import 'package:arenda/app/features/host/presentation/screens/payout_preferences_screen.dart';
+import 'package:arenda/app/features/host/presentation/screens/become_host_screen.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
 part 'app_router.g.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
-final initialRouteProvider = Provider<String>((ref) => throw UnimplementedError());
+final initialRouteProvider = Provider<String>(
+  (ref) => throw UnimplementedError(),
+);
 
 @Riverpod(keepAlive: true)
 GoRouter appRouter(Ref ref) {
@@ -49,7 +48,6 @@ GoRouter appRouter(Ref ref) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: initialLocation,
-    debugLogDiagnostics: false,
     routes: [
       // ── Auth ───────────────────────────────────────────────────────────
       GoRoute(
@@ -126,7 +124,9 @@ GoRouter appRouter(Ref ref) {
         pageBuilder: (context, state) {
           final id = state.pathParameters['listingId']!;
           return _slideFromRight(
-              state, LandmarkNavigationScreen(listingId: id));
+            state,
+            LandmarkNavigationScreen(listingId: id),
+          );
         },
       ),
 
@@ -135,8 +135,7 @@ GoRouter appRouter(Ref ref) {
         path: AppRoutes.searchResults,
         pageBuilder: (context, state) {
           final query = state.pathParameters['query']!;
-          return _slideFromRight(
-              state, SearchResultsScreen(query: query));
+          return _slideFromRight(state, SearchResultsScreen(query: query));
         },
       ),
 
@@ -159,8 +158,7 @@ GoRouter appRouter(Ref ref) {
         path: AppRoutes.booking,
         pageBuilder: (context, state) {
           final listingId = state.pathParameters['listingId']!;
-          return _slideFromBottom(
-              state, BookingScreen(listingId: listingId));
+          return _slideFromBottom(state, BookingScreen(listingId: listingId));
         },
       ),
       GoRoute(
@@ -193,7 +191,9 @@ GoRouter appRouter(Ref ref) {
         pageBuilder: (context, state) {
           final returnRoute = state.extra as String?;
           return _slideFromRight(
-              state, IdVerificationScreen(returnRoute: returnRoute));
+            state,
+            IdVerificationScreen(returnRoute: returnRoute),
+          );
         },
       ),
 
@@ -214,8 +214,7 @@ GoRouter appRouter(Ref ref) {
         path: AppRoutes.conversation,
         pageBuilder: (context, state) {
           final id = state.pathParameters['id']!;
-          return _slideFromRight(
-              state, ConversationScreen(conversationId: id));
+          return _slideFromRight(state, ConversationScreen(conversationId: id));
         },
       ),
 
@@ -267,36 +266,32 @@ GoRouter appRouter(Ref ref) {
   );
 }
 
-CustomTransitionPage<void> _slideFromRight(
-    GoRouterState state, Widget child) {
+CustomTransitionPage<void> _slideFromRight(GoRouterState state, Widget child) {
   return CustomTransitionPage<void>(
     key: state.pageKey,
     child: child,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       return SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(1.0, 0.0),
-          end: Offset.zero,
-        ).animate(CurvedAnimation(
-            parent: animation, curve: Curves.easeOutCubic)),
+        position: Tween<Offset>(begin: const Offset(1.0, 0.0), end: Offset.zero)
+            .animate(
+              CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
+            ),
         child: child,
       );
     },
   );
 }
 
-CustomTransitionPage<void> _slideFromBottom(
-    GoRouterState state, Widget child) {
+CustomTransitionPage<void> _slideFromBottom(GoRouterState state, Widget child) {
   return CustomTransitionPage<void>(
     key: state.pageKey,
     child: child,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       return SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(0.0, 1.0),
-          end: Offset.zero,
-        ).animate(CurvedAnimation(
-            parent: animation, curve: Curves.easeOutCubic)),
+        position: Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero)
+            .animate(
+              CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
+            ),
         child: child,
       );
     },

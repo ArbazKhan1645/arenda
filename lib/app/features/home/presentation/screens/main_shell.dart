@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
 
 class MainShell extends StatefulWidget {
   const MainShell({super.key, required this.child});
@@ -16,9 +16,9 @@ class MainShell extends StatefulWidget {
 class _MainShellState extends State<MainShell> {
   static const _tabs = [
     _TabItem(label: 'Explorer', path: AppRoutes.home),
-    _TabItem(label: 'Maps',     path: AppRoutes.search),
+    _TabItem(label: 'Maps', path: AppRoutes.search),
     _TabItem(label: 'Messages', path: AppRoutes.inbox),
-    _TabItem(label: 'Profil',   path: AppRoutes.profile),
+    _TabItem(label: 'Profil', path: AppRoutes.profile),
   ];
 
   GoRouter? _router;
@@ -57,20 +57,24 @@ class _MainShellState extends State<MainShell> {
   }
 
   IconData _icon(int i, {required bool active}) => switch (i) {
-        0 => active
-            ? PhosphorIcons.compass(PhosphorIconsStyle.fill)
-            : PhosphorIcons.compass(),
-        1 => active
-            ? PhosphorIcons.mapTrifold(PhosphorIconsStyle.fill)
-            : PhosphorIcons.mapTrifold(),
-        2 => active
-            ? PhosphorIcons.chatCircle(PhosphorIconsStyle.fill)
-            : PhosphorIcons.chatCircle(),
-        3 => active
-            ? PhosphorIcons.user(PhosphorIconsStyle.fill)
-            : PhosphorIcons.user(),
-        _ => PhosphorIcons.compass(),
-      };
+    0 =>
+      active
+          ? PhosphorIcons.compass(PhosphorIconsStyle.fill)
+          : PhosphorIcons.compass(),
+    1 =>
+      active
+          ? PhosphorIcons.mapTrifold(PhosphorIconsStyle.fill)
+          : PhosphorIcons.mapTrifold(),
+    2 =>
+      active
+          ? PhosphorIcons.chatCircle(PhosphorIconsStyle.fill)
+          : PhosphorIcons.chatCircle(),
+    3 =>
+      active
+          ? PhosphorIcons.user(PhosphorIconsStyle.fill)
+          : PhosphorIcons.user(),
+    _ => PhosphorIcons.compass(),
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +102,8 @@ class _MainShellState extends State<MainShell> {
                 final color = isActive
                     ? AppColors.primary
                     : isDark
-                        ? AppColors.darkTextSecondary
-                        : AppColors.textSecondary;
+                    ? AppColors.darkTextSecondary
+                    : AppColors.textSecondary;
 
                 return Expanded(
                   child: GestureDetector(
@@ -108,14 +112,19 @@ class _MainShellState extends State<MainShell> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(_icon(i, active: isActive), size: 22, color: color),
+                        Icon(
+                          _icon(i, active: isActive),
+                          size: 22,
+                          color: color,
+                        ),
                         const SizedBox(height: 2),
                         Text(
                           _tabs[i].label,
                           style: TextStyle(
                             fontSize: 10,
-                            fontWeight:
-                                isActive ? FontWeight.w600 : FontWeight.w400,
+                            fontWeight: isActive
+                                ? FontWeight.w600
+                                : FontWeight.w400,
                             color: color,
                           ),
                         ),

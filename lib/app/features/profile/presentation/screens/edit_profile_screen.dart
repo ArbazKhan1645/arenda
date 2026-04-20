@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../shared/widgets/app_button.dart';
-import '../../../../shared/widgets/app_text_field.dart';
-import '../../../authentication/application/auth_notifier.dart';
-import '../../../authentication/application/auth_state.dart';
-import '../../application/profile_notifier.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
+import 'package:arenda/app/shared/widgets/app_text_field.dart';
+import 'package:arenda/app/features/authentication/application/auth_notifier.dart';
+import 'package:arenda/app/features/authentication/application/auth_state.dart';
+import 'package:arenda/app/features/profile/application/profile_notifier.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
@@ -49,14 +49,18 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   Future<void> _save() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-    await ref.read(authProvider.notifier).updateProfile(UserEntity(
-          email: (ref.read(authProvider) as AuthAuthenticated).user.email,
-          id: (ref.read(authProvider) as AuthAuthenticated).user.id,
-          name: _nameCtrl.text.trim(),
-          phone: _phoneCtrl.text.trim(),
-          bio: _bioCtrl.text.trim(),
-          location: _locationCtrl.text.trim(),
-        ));
+    await ref
+        .read(authProvider.notifier)
+        .updateProfile(
+          UserEntity(
+            email: (ref.read(authProvider) as AuthAuthenticated).user.email,
+            id: (ref.read(authProvider) as AuthAuthenticated).user.id,
+            name: _nameCtrl.text.trim(),
+            phone: _phoneCtrl.text.trim(),
+            bio: _bioCtrl.text.trim(),
+            location: _locationCtrl.text.trim(),
+          ),
+        );
     if (mounted) context.pop();
   }
 
@@ -79,12 +83,15 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   Container(
                     width: AppDimensions.avatarXL,
                     height: AppDimensions.avatarXL,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColors.primaryLight,
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(PhosphorIcons.user(),
-                        size: 48, color: AppColors.primary),
+                    child: Icon(
+                      PhosphorIcons.user(),
+                      size: 48,
+                      color: AppColors.primary,
+                    ),
                   ),
                   Positioned(
                     bottom: 0,
@@ -97,8 +104,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.white, width: 2),
                       ),
-                      child: Icon(PhosphorIcons.camera(),
-                          size: 16, color: Colors.white),
+                      child: Icon(
+                        PhosphorIcons.camera(),
+                        size: 16,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
@@ -109,8 +119,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               controller: _nameCtrl,
               label: 'Full name',
               textInputAction: TextInputAction.next,
-              prefixIcon: Icon(PhosphorIcons.user(),
-                  size: 18, color: AppColors.textSecondary),
+              prefixIcon: Icon(
+                PhosphorIcons.user(),
+                size: 18,
+                color: AppColors.textSecondary,
+              ),
               validator: (v) =>
                   v == null || v.trim().isEmpty ? 'Name required' : null,
             ),
@@ -120,8 +133,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               label: 'Phone number',
               keyboardType: TextInputType.phone,
               textInputAction: TextInputAction.next,
-              prefixIcon: Icon(PhosphorIcons.phone(),
-                  size: 18, color: AppColors.textSecondary),
+              prefixIcon: Icon(
+                PhosphorIcons.phone(),
+                size: 18,
+                color: AppColors.textSecondary,
+              ),
             ),
             const SizedBox(height: AppDimensions.spaceLG),
             AppTextField(
@@ -130,8 +146,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               hint: 'Tell us about yourself...',
               maxLines: 3,
               textInputAction: TextInputAction.next,
-              prefixIcon: Icon(PhosphorIcons.info(),
-                  size: 18, color: AppColors.textSecondary),
+              prefixIcon: Icon(
+                PhosphorIcons.info(),
+                size: 18,
+                color: AppColors.textSecondary,
+              ),
             ),
             const SizedBox(height: AppDimensions.spaceLG),
             AppTextField(
@@ -139,8 +158,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               label: 'Location',
               hint: 'City, Country',
               textInputAction: TextInputAction.done,
-              prefixIcon: Icon(PhosphorIcons.mapPin(),
-                  size: 18, color: AppColors.textSecondary),
+              prefixIcon: Icon(
+                PhosphorIcons.mapPin(),
+                size: 18,
+                color: AppColors.textSecondary,
+              ),
             ),
             const SizedBox(height: AppDimensions.space2XL),
             AppButton(

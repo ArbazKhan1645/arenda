@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'app_colors.dart';
-import 'app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
 
 abstract final class AppTheme {
   static ThemeData get light => _buildTheme(Brightness.light);
@@ -153,11 +153,11 @@ abstract final class AppTheme {
             : AppColors.textSecondary,
         type: BottomNavigationBarType.fixed,
         elevation: 0,
-        selectedLabelStyle: TextStyle(
+        selectedLabelStyle: const TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: TextStyle(
+        unselectedLabelStyle: const TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.w500,
         ),
@@ -171,7 +171,7 @@ abstract final class AppTheme {
             borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
           ),
           elevation: 0,
-          textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -182,13 +182,13 @@ abstract final class AppTheme {
             borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
           ),
           side: const BorderSide(color: AppColors.border, width: 1.5),
-          textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: AppColors.primary,
-          textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(

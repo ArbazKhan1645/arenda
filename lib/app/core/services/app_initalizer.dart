@@ -77,7 +77,7 @@ class AppInitializer {
 
   static Future<void> _loadEnv() async {
     try {
-      await dotenv.load(fileName: '.env');
+      await dotenv.load();
       debugPrint('[AppInitializer] ✓ .env loaded');
     } catch (_) {
       // .env missing is acceptable in CI / release builds using --dart-define
@@ -120,10 +120,7 @@ class AppInitializer {
   }
 
   static CacheService _initCache() {
-    final service = CacheService(
-      maxMemoryEntries: 200,
-      diskCacheDirName: 'arenda_cache',
-    );
+    final service = CacheService(diskCacheDirName: 'arenda_cache');
     debugPrint('[AppInitializer] ✓ CacheService ready');
     return service;
   }

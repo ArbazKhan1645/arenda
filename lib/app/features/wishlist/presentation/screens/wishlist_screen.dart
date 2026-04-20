@@ -1,16 +1,17 @@
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_image.dart';
-import '../../../../shared/widgets/app_rating_bar.dart';
-import '../../application/wishlist_notifier.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_image.dart';
+import 'package:arenda/app/shared/widgets/app_rating_bar.dart';
+import 'package:arenda/app/features/wishlist/application/wishlist_notifier.dart';
 
 class WishlistScreen extends ConsumerWidget {
   const WishlistScreen({super.key});
@@ -89,7 +90,7 @@ class _WishlistCard extends StatelessWidget {
     required this.onRemove,
   });
 
-  final dynamic listing;
+  final ListingEntity listing;
   final VoidCallback onTap;
   final VoidCallback onRemove;
 
@@ -122,7 +123,6 @@ class _WishlistCard extends StatelessWidget {
                 url: listing.thumbnailUrl,
                 width: 110,
                 height: 110,
-                fit: BoxFit.cover,
               ),
             ),
             Expanded(
@@ -210,7 +210,7 @@ class _EmptyWishlist extends StatelessWidget {
             Container(
                   width: 100,
                   height: 100,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,

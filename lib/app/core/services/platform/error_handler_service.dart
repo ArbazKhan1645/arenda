@@ -13,11 +13,8 @@ class AppError {
   final ErrorSource source;
   final DateTime timestamp;
 
-  AppError({
-    required this.error,
-    required this.source,
-    this.stackTrace,
-  }) : timestamp = DateTime.now();
+  AppError({required this.error, required this.source, this.stackTrace})
+    : timestamp = DateTime.now();
 
   @override
   String toString() =>
@@ -65,11 +62,7 @@ class ErrorHandlerService implements IErrorHandlerService {
 
       // 2. In release: report to your crash service
       if (!kDebugMode) {
-        report(
-          details.exception,
-          details.stack,
-          source: ErrorSource.flutter,
-        );
+        report(details.exception, details.stack, source: ErrorSource.flutter);
       }
     };
 
@@ -93,7 +86,7 @@ class ErrorHandlerService implements IErrorHandlerService {
 
   @override
   void onZoneError(Object error, StackTrace stack) {
-    report(error, stack, source: ErrorSource.zone);
+    report(error, stack);
   }
 
   // ── Unified report method ─────────────────────────────────────────────────
@@ -104,11 +97,7 @@ class ErrorHandlerService implements IErrorHandlerService {
     StackTrace? stack, {
     ErrorSource source = ErrorSource.zone,
   }) {
-    final appError = AppError(
-      error: error,
-      stackTrace: stack,
-      source: source,
-    );
+    final appError = AppError(error: error, stackTrace: stack, source: source);
 
     _log(appError);
     _sendToCrashService(appError);

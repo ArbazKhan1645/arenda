@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
 
 class AppTextField extends StatefulWidget {
   const AppTextField({
@@ -100,7 +100,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 child: widget.prefixIcon,
               )
             : null,
-        prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+        prefixIconConstraints: const BoxConstraints(),
         suffixIcon: widget.obscureText
             ? IconButton(
                 icon: Icon(
@@ -111,12 +111,12 @@ class _AppTextFieldState extends State<AppTextField> {
                 onPressed: () => setState(() => _obscure = !_obscure),
               )
             : widget.suffixIcon != null
-                ? Padding(
-                    padding: const EdgeInsets.only(right: AppDimensions.spaceLG),
-                    child: widget.suffixIcon,
-                  )
-                : null,
-        suffixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+            ? Padding(
+                padding: const EdgeInsets.only(right: AppDimensions.spaceLG),
+                child: widget.suffixIcon,
+              )
+            : null,
+        suffixIconConstraints: const BoxConstraints(),
       ),
     );
   }

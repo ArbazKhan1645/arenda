@@ -3,15 +3,15 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_shimmer.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_shimmer.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import '../../application/search_notifier.dart';
-import '../../application/search_state.dart';
-import '../../../home/presentation/widgets/listing_card_widget.dart';
+import 'package:arenda/app/features/search/application/search_notifier.dart';
+import 'package:arenda/app/features/search/application/search_state.dart';
+import 'package:arenda/app/features/home/presentation/widgets/listing_card_widget.dart';
 
 class SearchResultsScreen extends ConsumerStatefulWidget {
   const SearchResultsScreen({super.key, required this.query});
@@ -76,8 +76,7 @@ class _SearchResultsScreenState extends ConsumerState<SearchResultsScreen> {
               clipBehavior: Clip.none,
               children: [
                 Icon(PhosphorIcons.slidersHorizontal()),
-                if (searchState is SearchLoaded &&
-                    searchState.filters.isActive)
+                if (searchState is SearchLoaded && searchState.filters.isActive)
                   Positioned(
                     top: -2,
                     right: -2,
@@ -102,9 +101,10 @@ class _SearchResultsScreenState extends ConsumerState<SearchResultsScreen> {
       ),
       body: switch (searchState) {
         SearchLoading() => _LoadingView(),
-        SearchLoaded(:final results, :final query) => results.isEmpty
-            ? _EmptyView(query: query)
-            : _ResultsView(results: results),
+        SearchLoaded(:final results, :final query) =>
+          results.isEmpty
+              ? _EmptyView(query: query)
+              : _ResultsView(results: results),
         SearchError(:final message) => _ErrorView(message: message),
         SearchIdle() => _LoadingView(),
       },
@@ -170,7 +170,7 @@ class _EmptyView extends StatelessWidget {
             Container(
               width: 80,
               height: 80,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.primarySurface,
                 shape: BoxShape.circle,
               ),
@@ -189,8 +189,9 @@ class _EmptyView extends StatelessWidget {
             const SizedBox(height: AppDimensions.spaceSM),
             Text(
               'Try a different location or adjust your filters',
-              style: AppTextStyles.bodyMD
-                  .copyWith(color: AppColors.textSecondary),
+              style: AppTextStyles.bodyMD.copyWith(
+                color: AppColors.textSecondary,
+              ),
               textAlign: TextAlign.center,
             ),
           ],

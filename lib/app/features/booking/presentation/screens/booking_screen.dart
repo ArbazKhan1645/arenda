@@ -4,16 +4,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_button.dart';
-import '../../../../shared/widgets/app_image.dart';
-import '../../../home/data/datasources/mock_home_datasource.dart';
-import '../../../home/domain/entities/listing_entity.dart';
-import '../../application/booking_notifier.dart';
-import '../../application/booking_state.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
+import 'package:arenda/app/shared/widgets/app_image.dart';
+import 'package:arenda/app/features/home/data/datasources/mock_home_datasource.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/booking/application/booking_notifier.dart';
+import 'package:arenda/app/features/booking/application/booking_state.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class BookingScreen extends ConsumerStatefulWidget {
@@ -318,10 +318,7 @@ class _TripDateRow extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
-              PhosphorIcons.caretRight(),
-              color: AppColors.textSecondary,
-            ),
+            Icon(PhosphorIcons.caretRight(), color: AppColors.textSecondary),
           ],
         ),
       ),
@@ -482,7 +479,7 @@ class _BookingBottomBar extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
-        border: Border(top: BorderSide(color: AppColors.border)),
+        border: const Border(top: BorderSide(color: AppColors.border)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

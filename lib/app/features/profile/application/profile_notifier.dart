@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../authentication/application/auth_notifier.dart';
-import '../../authentication/application/auth_state.dart';
-import '../../authentication/domain/entities/user_entity.dart';
+import 'package:arenda/app/features/authentication/application/auth_notifier.dart';
+import 'package:arenda/app/features/authentication/application/auth_state.dart';
+import 'package:arenda/app/features/authentication/domain/entities/user_entity.dart';
 part 'profile_notifier.g.dart';
 
 sealed class ProfileState {

@@ -3,12 +3,12 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_avatar.dart';
-import '../../application/chat_notifier.dart';
-import '../../domain/entities/conversation_entity.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_avatar.dart';
+import 'package:arenda/app/features/chat/application/chat_notifier.dart';
+import 'package:arenda/app/features/chat/domain/entities/conversation_entity.dart';
 
 class ConversationScreen extends ConsumerStatefulWidget {
   const ConversationScreen({super.key, required this.conversationId});
@@ -127,7 +127,7 @@ class _ModernAppBar extends StatelessWidget implements PreferredSizeWidget {
               const SizedBox(height: 2),
 
               Text(
-                "Online",
+                'Online',
                 style: AppTextStyles.caption.copyWith(color: Colors.green),
               ),
             ],
@@ -254,10 +254,10 @@ class _ModernInput extends StatelessWidget {
               child: TextField(
                 controller: controller,
                 maxLines: null,
-                decoration: InputDecoration(
-                  hintText: "Type a message...",
+                decoration: const InputDecoration(
+                  hintText: 'Type a message...',
                   border: InputBorder.none,
-                  contentPadding: const EdgeInsets.symmetric(
+                  contentPadding: EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 12,
                   ),

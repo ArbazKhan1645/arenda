@@ -4,11 +4,11 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_button.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 // ── Payment Method Model ───────────────────────────────────────────────────
@@ -128,8 +128,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
   }
 
   void _showSnack(String msg) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(msg)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
   }
 
   @override
@@ -166,9 +165,10 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
             const SizedBox(height: AppDimensions.spaceXXL),
 
             // ── Payment Methods ────────────────────────────────────────
-            Text('Payment method', style: AppTextStyles.h3)
-                .animate(delay: 120.ms)
-                .fadeIn(duration: 400.ms),
+            Text(
+              'Payment method',
+              style: AppTextStyles.h3,
+            ).animate(delay: 120.ms).fadeIn(duration: 400.ms),
             const SizedBox(height: AppDimensions.spaceLG),
 
             ..._methods.asMap().entries.map(
@@ -192,12 +192,12 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
                       methodLabel: _current.label,
                     )
                   : _current.requiresBankDetails
-                      ? _BankFields(
-                          key: const ValueKey('bank'),
-                          bankCtrl: _bankNameCtrl,
-                          accountCtrl: _accountCtrl,
-                        )
-                      : const SizedBox.shrink(key: ValueKey('none')),
+                  ? _BankFields(
+                      key: const ValueKey('bank'),
+                      bankCtrl: _bankNameCtrl,
+                      accountCtrl: _accountCtrl,
+                    )
+                  : const SizedBox.shrink(key: ValueKey('none')),
             ),
 
             const SizedBox(height: AppDimensions.space3XL),
@@ -205,8 +205,9 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
             // ── Terms note ─────────────────────────────────────────────
             Text(
               'By proceeding, you agree to our Terms of Service. Your payment is held in secure escrow and released to the host 24 hours after check-in.',
-              style: AppTextStyles.bodyXS
-                  .copyWith(color: AppColors.textSecondary),
+              style: AppTextStyles.bodyXS.copyWith(
+                color: AppColors.textSecondary,
+              ),
               textAlign: TextAlign.center,
             ).animate(delay: 400.ms).fadeIn(duration: 400.ms),
 
@@ -233,12 +234,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
   }
 
   String _localDisplay(double amount, String code) {
-    final symbols = {
-      'GHS': '₵',
-      'NGN': '₦',
-      'XOF': 'CFA ',
-      'USD': '\$',
-    };
+    final symbols = {'GHS': '₵', 'NGN': '₦', 'XOF': 'CFA ', 'USD': '\$'};
     final sym = symbols[code] ?? '\$';
     return '$sym${amount.toStringAsFixed(0)}';
   }
@@ -278,14 +274,16 @@ class _EscrowBanner extends StatelessWidget {
               children: [
                 Text(
                   'Escrow-Protected Payment',
-                  style: AppTextStyles.labelMD
-                      .copyWith(color: AppColors.primaryDark),
+                  style: AppTextStyles.labelMD.copyWith(
+                    color: AppColors.primaryDark,
+                  ),
                 ),
                 const SizedBox(height: 3),
                 Text(
                   'Your funds are held securely and only released to the host 24–48 hours after you check in.',
-                  style: AppTextStyles.bodyXS
-                      .copyWith(color: AppColors.primaryDark),
+                  style: AppTextStyles.bodyXS.copyWith(
+                    color: AppColors.primaryDark,
+                  ),
                 ),
               ],
             ),
@@ -362,11 +360,7 @@ class _OrderSummary extends StatelessWidget {
   }
 
   String _localStr() {
-    final symbols = {
-      'GHS': '₵',
-      'NGN': '₦',
-      'XOF': 'CFA ',
-    };
+    final symbols = {'GHS': '₵', 'NGN': '₦', 'XOF': 'CFA '};
     final sym = symbols[localCurrency] ?? '';
     return '$sym${localTotal.toStringAsFixed(0)}';
   }
@@ -392,14 +386,19 @@ class _SummaryRow extends StatelessWidget {
     final style = isBold
         ? AppTextStyles.labelLG
         : isSubtle
-            ? AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary)
-            : AppTextStyles.bodyMD;
+        ? AppTextStyles.bodyMD.copyWith(color: AppColors.textSecondary)
+        : AppTextStyles.bodyMD;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: Text(label, style: style, maxLines: 1, overflow: TextOverflow.ellipsis),
+          child: Text(
+            label,
+            style: style,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         if (value.isNotEmpty)
           Text(
@@ -459,8 +458,9 @@ class _MethodTile extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     method.sublabel,
-                    style: AppTextStyles.bodyXS
-                        .copyWith(color: AppColors.textSecondary),
+                    style: AppTextStyles.bodyXS.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
                   ),
                 ],
               ),
@@ -478,8 +478,7 @@ class _MethodTile extends StatelessWidget {
                 color: isSelected ? method.color : Colors.transparent,
               ),
               child: isSelected
-                  ? Icon(PhosphorIcons.check(),
-                      size: 14, color: Colors.white)
+                  ? Icon(PhosphorIcons.check(), size: 14, color: Colors.white)
                   : null,
             ),
           ],
@@ -523,14 +522,18 @@ class _PhoneField extends StatelessWidget {
         const SizedBox(height: AppDimensions.spaceSM),
         Row(
           children: [
-            Icon(PhosphorIcons.info(),
-                size: 14, color: AppColors.textSecondary),
+            Icon(
+              PhosphorIcons.info(),
+              size: 14,
+              color: AppColors.textSecondary,
+            ),
             const SizedBox(width: 4),
             Expanded(
               child: Text(
                 'A payment prompt will be sent to this number.',
-                style: AppTextStyles.bodyXS
-                    .copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.bodyXS.copyWith(
+                  color: AppColors.textSecondary,
+                ),
               ),
             ),
           ],
@@ -585,8 +588,7 @@ class _BankFields extends StatelessWidget {
         const SizedBox(height: AppDimensions.spaceSM),
         Text(
           'We will initiate the transfer after ID verification is complete.',
-          style:
-              AppTextStyles.bodyXS.copyWith(color: AppColors.textSecondary),
+          style: AppTextStyles.bodyXS.copyWith(color: AppColors.textSecondary),
         ),
       ],
     );

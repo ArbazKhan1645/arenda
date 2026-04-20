@@ -3,12 +3,12 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import '../../application/search_notifier.dart';
+import 'package:arenda/app/features/search/application/search_notifier.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -433,16 +433,16 @@ class _MapPreviewBanner extends StatelessWidget {
             children: [
               // Gradient background
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      const Color(0xFF0F3460),
+                      Color(0xFF0F3460),
                       AppColors.primary,
-                      const Color(0xFF16213E),
+                      Color(0xFF16213E),
                     ],
-                    stops: const [0.0, 0.5, 1.0],
+                    stops: [0.0, 0.5, 1.0],
                   ),
                 ),
               ),

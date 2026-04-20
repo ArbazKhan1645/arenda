@@ -1,6 +1,6 @@
-import '../../domain/entities/category_entity.dart';
-import '../../domain/entities/listing_entity.dart';
-import '../../domain/entities/review_entity.dart';
+import 'package:arenda/app/features/home/domain/entities/category_entity.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/home/domain/entities/review_entity.dart';
 
 abstract final class MockHomeDataSource {
   static List<CategoryEntity> getCategories() => _categories;
@@ -34,12 +34,12 @@ abstract final class MockHomeDataSource {
   // ── Listings ───────────────────────────────────────────────────────────────
   static final List<ListingEntity> _listings = [
     // ── ACCRA, GHANA ────────────────────────────────────────────────────────
-    ListingEntity(
+    const ListingEntity(
       id: 'l1',
       title: 'Luxury Penthouse in East Legon with Pool',
       description:
           'Experience Accra\'s finest living in this stunning 3-bedroom penthouse nestled within the prestigious East Legon residential area. Breathtaking city views stretch from every window, complemented by a rooftop infinity pool and a fully equipped gourmet kitchen.\n\nThe apartment is fitted with 24/7 backup power via solar and generator, fibre-optic internet (100Mbps), round-the-clock security, and a dedicated parking space. Perfect for business executives and discerning travellers.',
-      media: const [
+      media: [
         // Video tour comes first
         ListingMediaItem(
           url:
@@ -64,14 +64,14 @@ abstract final class MockHomeDataSource {
           type: ListingMediaType.image,
         ),
       ],
-      host: const ListingHost(
+      host: ListingHost(
         id: 'h1',
         name: 'Kwame Asante',
         avatarUrl:
             'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
         isSuperhost: true,
       ),
-      location: const ListingLocation(
+      location: ListingLocation(
         address: 'East Legon, Accra',
         city: 'Accra',
         country: 'Ghana',
@@ -80,16 +80,15 @@ abstract final class MockHomeDataSource {
         landmarkNote:
             'Located 5 minutes from Accra Mall, turn left at the Woodin fabric shop on the main East Legon road. The compound has a green gate with a "Horizon Residences" sign.',
       ),
-      price: const ListingPrice(
+      price: ListingPrice(
         perNight: 120,
         cleaningFee: 30,
         serviceFee: 18,
-        discountPercent: 0,
         localCurrency: 'GHS',
         localPerNight: 1800,
         tourismLevyPercent: 5,
       ),
-      specs: const ListingSpecs(
+      specs: ListingSpecs(
         maxGuests: 6,
         bedrooms: 3,
         beds: 3,
@@ -121,12 +120,12 @@ abstract final class MockHomeDataSource {
       ],
     ),
 
-    ListingEntity(
+    const ListingEntity(
       id: 'l2',
       title: 'Modern Studio Shortlet in Cantonments',
       description:
           'A chic, fully furnished studio apartment in the heart of Cantonments — Accra\'s diplomatic quarter. The space features contemporary décor, premium finishes, and all the comforts needed for a short or extended stay.\n\nSwim in the communal pool, work from the high-speed fibre internet, and enjoy easy access to Osu Oxford Street restaurants and the Accra city centre.',
-      media: const [
+      media: [
         ListingMediaItem(
           url:
               'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=900&q=80',
@@ -143,14 +142,14 @@ abstract final class MockHomeDataSource {
           type: ListingMediaType.image,
         ),
       ],
-      host: const ListingHost(
+      host: ListingHost(
         id: 'h2',
         name: 'Abena Osei',
         avatarUrl:
             'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
         isSuperhost: true,
       ),
-      location: const ListingLocation(
+      location: ListingLocation(
         address: 'Cantonments, Accra',
         city: 'Accra',
         country: 'Ghana',
@@ -159,7 +158,7 @@ abstract final class MockHomeDataSource {
         landmarkNote:
             'On the Cantonments road opposite the American Embassy. Enter through the blue metal gate — ask the security guard for "Unit 4B". There\'s a yellow Melcom shop 100m before the entrance.',
       ),
-      price: const ListingPrice(
+      price: ListingPrice(
         perNight: 65,
         cleaningFee: 15,
         serviceFee: 10,
@@ -168,7 +167,7 @@ abstract final class MockHomeDataSource {
         localPerNight: 975,
         tourismLevyPercent: 5,
       ),
-      specs: const ListingSpecs(
+      specs: ListingSpecs(
         maxGuests: 2,
         bedrooms: 1,
         beds: 1,
@@ -198,12 +197,12 @@ abstract final class MockHomeDataSource {
       ],
     ),
 
-    ListingEntity(
+    const ListingEntity(
       id: 'l3',
       title: 'Elegant 4-Bed Villa with Garden, Airport Ridge',
       description:
           'Stunning detached villa perfect for families and corporate groups. Set within a secure gated estate in Airport Ridge, this property offers the ideal blend of comfort, space, and privacy.\n\nThe villa comes with a landscaped garden with outdoor BBQ, spacious living and dining areas, fully equipped kitchen, and a dedicated housekeeper service. Airport Ridge is Accra\'s prime location — 10 minutes from Kotoka International Airport.',
-      media: const [
+      media: [
         ListingMediaItem(
           url:
               'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=900&q=80',
@@ -225,14 +224,14 @@ abstract final class MockHomeDataSource {
           type: ListingMediaType.image,
         ),
       ],
-      host: const ListingHost(
+      host: ListingHost(
         id: 'h3',
         name: 'Emmanuel Darko',
         avatarUrl:
             'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
         isSuperhost: false,
       ),
-      location: const ListingLocation(
+      location: ListingLocation(
         address: 'Airport Ridge, Accra',
         city: 'Accra',
         country: 'Ghana',
@@ -241,16 +240,15 @@ abstract final class MockHomeDataSource {
         landmarkNote:
             'Inside Airport Ridge Estate, Gate B. Take the second turning after the Shell petrol station on the Liberation Road. Tell security at the main gate you are visiting "Villa 12 — Green Valley."',
       ),
-      price: const ListingPrice(
+      price: ListingPrice(
         perNight: 195,
         cleaningFee: 55,
         serviceFee: 30,
-        discountPercent: 0,
         localCurrency: 'GHS',
         localPerNight: 2925,
         tourismLevyPercent: 5,
       ),
-      specs: const ListingSpecs(
+      specs: ListingSpecs(
         maxGuests: 8,
         bedrooms: 4,
         beds: 5,
@@ -284,12 +282,12 @@ abstract final class MockHomeDataSource {
     ),
 
     // ── LAGOS, NIGERIA ───────────────────────────────────────────────────────
-    ListingEntity(
+    const ListingEntity(
       id: 'l4',
       title: 'Luxury Shortlet in Victoria Island with Ocean View',
       description:
           'Wake up to panoramic Atlantic Ocean views in this premium 2-bedroom shortlet apartment on Lagos\'s Victoria Island. Designed for executives and luxury travellers, the unit boasts Italian-tiled floors, bespoke furniture, and a floor-to-ceiling glass wall facing the ocean.\n\nLocated minutes from leading restaurants, the Lagos Marina, and key business districts. Your concierge will arrange airport transfers, grocery deliveries, and restaurant reservations.',
-      media: const [
+      media: [
         // Video tour of the property
         ListingMediaItem(
           url:
@@ -309,14 +307,14 @@ abstract final class MockHomeDataSource {
           type: ListingMediaType.image,
         ),
       ],
-      host: const ListingHost(
+      host: ListingHost(
         id: 'h4',
         name: 'Chidi Okonkwo',
         avatarUrl:
             'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
         isSuperhost: true,
       ),
-      location: const ListingLocation(
+      location: ListingLocation(
         address: 'Victoria Island, Lagos',
         city: 'Lagos',
         country: 'Nigeria',
@@ -325,7 +323,7 @@ abstract final class MockHomeDataSource {
         landmarkNote:
             'On Adeola Odeku Street, directly opposite GTBank VI branch. Look for the "Seaview Towers" signage — take the elevator to floor 14. Call the host upon arrival for seamless access.',
       ),
-      price: const ListingPrice(
+      price: ListingPrice(
         perNight: 140,
         cleaningFee: 40,
         serviceFee: 22,
@@ -334,7 +332,7 @@ abstract final class MockHomeDataSource {
         localPerNight: 224000,
         tourismLevyPercent: 7,
       ),
-      specs: const ListingSpecs(
+      specs: ListingSpecs(
         maxGuests: 4,
         bedrooms: 2,
         beds: 2,
@@ -368,12 +366,12 @@ abstract final class MockHomeDataSource {
       ],
     ),
 
-    ListingEntity(
+    const ListingEntity(
       id: 'l5',
       title: 'Cozy 1-Bedroom Flat in Lekki Phase 1',
       description:
           'Clean, secure, and stylishly furnished 1-bedroom apartment in the popular Lekki Phase 1 area. Ideal for solo travellers and couples who want a home-away-from-home experience without breaking the bank.\n\nFully air-conditioned, 24-hour security with CCTV, reliable generator backup, and fast WiFi. Walking distance to Lekki market, popular eateries, and easily accessible via BRT.',
-      media: const [
+      media: [
         ListingMediaItem(
           url:
               'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80',
@@ -390,14 +388,14 @@ abstract final class MockHomeDataSource {
           type: ListingMediaType.image,
         ),
       ],
-      host: const ListingHost(
+      host: ListingHost(
         id: 'h5',
         name: 'Funmi Adeyemi',
         avatarUrl:
             'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80',
         isSuperhost: false,
       ),
-      location: const ListingLocation(
+      location: ListingLocation(
         address: 'Lekki Phase 1, Lagos',
         city: 'Lagos',
         country: 'Nigeria',
@@ -406,7 +404,7 @@ abstract final class MockHomeDataSource {
         landmarkNote:
             'Hakeem Dickson Street, off Admiralty Way. The building is painted cream and brown — look for "Sunrise Court" written above the entrance. It is 2 houses after the Access Bank ATM on that street.',
       ),
-      price: const ListingPrice(
+      price: ListingPrice(
         perNight: 55,
         cleaningFee: 15,
         serviceFee: 8,
@@ -415,7 +413,7 @@ abstract final class MockHomeDataSource {
         localPerNight: 88000,
         tourismLevyPercent: 7,
       ),
-      specs: const ListingSpecs(
+      specs: ListingSpecs(
         maxGuests: 2,
         bedrooms: 1,
         beds: 1,
@@ -441,12 +439,12 @@ abstract final class MockHomeDataSource {
       verificationBadges: ['24/7 Power', 'Physically Vetted', 'CCTV'],
     ),
 
-    ListingEntity(
+    const ListingEntity(
       id: 'l6',
       title: 'Serviced Duplex in Ikoyi — Business Class Stay',
       description:
           'Premium 3-bedroom serviced duplex on the quiet and prestigious Ikoyi crescent. Designed specifically for long-stay business travellers and diplomatic guests, the property features dedicated office space, seamless 200Mbps fibre internet, and full hotel-grade housekeeping.\n\nPrepared breakfast is available on request. The host manages a portfolio of 12 verified properties and is available 24/7 via the app.',
-      media: const [
+      media: [
         ListingMediaItem(
           url:
               'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80',
@@ -468,14 +466,14 @@ abstract final class MockHomeDataSource {
           type: ListingMediaType.image,
         ),
       ],
-      host: const ListingHost(
+      host: ListingHost(
         id: 'h6',
         name: 'Tolu Balogun',
         avatarUrl:
             'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=200&q=80',
         isSuperhost: true,
       ),
-      location: const ListingLocation(
+      location: ListingLocation(
         address: 'Old Ikoyi, Lagos',
         city: 'Lagos',
         country: 'Nigeria',
@@ -484,16 +482,15 @@ abstract final class MockHomeDataSource {
         landmarkNote:
             'Joseph Street, Old Ikoyi. GPS is often inaccurate here — use this instead: from Awolowo Road, turn into Glover Road, take the second left after the Total petrol station. The duplex is the cream-coloured building with black iron gates, number 14.',
       ),
-      price: const ListingPrice(
+      price: ListingPrice(
         perNight: 185,
         cleaningFee: 50,
         serviceFee: 28,
-        discountPercent: 0,
         localCurrency: 'NGN',
         localPerNight: 296000,
         tourismLevyPercent: 7,
       ),
-      specs: const ListingSpecs(
+      specs: ListingSpecs(
         maxGuests: 6,
         bedrooms: 3,
         beds: 3,
@@ -529,12 +526,12 @@ abstract final class MockHomeDataSource {
     ),
 
     // ── DAKAR, SENEGAL ───────────────────────────────────────────────────────
-    ListingEntity(
+    const ListingEntity(
       id: 'l7',
       title: 'Beachfront Retreat in Almadies, Dakar',
       description:
           'Spectacular 2-bedroom beachfront apartment with direct access to the Atlantic on the Almadies peninsula — Dakar\'s most coveted coastal address. Open-plan living flows out to a large private terrace where the ocean breeze is constant.\n\nIdeal for surfers, business travellers, and couples. Fast WiFi, solar power, and a highly-rated local catering service on request. French and Wolof-speaking staff available on-site.',
-      media: const [
+      media: [
         // Video tour of the beachfront property
         ListingMediaItem(
           url:
@@ -559,14 +556,14 @@ abstract final class MockHomeDataSource {
           type: ListingMediaType.image,
         ),
       ],
-      host: const ListingHost(
+      host: ListingHost(
         id: 'h7',
         name: 'Mariama Diallo',
         avatarUrl:
             'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
         isSuperhost: true,
       ),
-      location: const ListingLocation(
+      location: ListingLocation(
         address: 'Les Almadies, Dakar',
         city: 'Dakar',
         country: 'Senegal',
@@ -575,16 +572,15 @@ abstract final class MockHomeDataSource {
         landmarkNote:
             'Route de la Corniche-Ouest, Almadies. Coming from the Radisson Blu direction, pass the Club Med roundabout and continue 800m. Look for the orange building on the right, just before Plage des Almadies sign.',
       ),
-      price: const ListingPrice(
+      price: ListingPrice(
         perNight: 85,
         cleaningFee: 25,
         serviceFee: 15,
-        discountPercent: 0,
         localCurrency: 'XOF',
         localPerNight: 51000,
         tourismLevyPercent: 3,
       ),
-      specs: const ListingSpecs(
+      specs: ListingSpecs(
         maxGuests: 4,
         bedrooms: 2,
         beds: 2,
@@ -617,12 +613,12 @@ abstract final class MockHomeDataSource {
     ),
 
     // ── ABIDJAN, IVORY COAST ─────────────────────────────────────────────────
-    ListingEntity(
+    const ListingEntity(
       id: 'l8',
       title: 'Executive Apartment in Plateau, Abidjan',
       description:
           'Prestigious fully-serviced 2-bedroom apartment in Le Plateau — the commercial and financial heart of Abidjan. Overlooking the Ébrié Lagoon, this high-floor unit offers exceptional views and world-class amenities.\n\nMinutes from the financial district, major embassies, and the Plateau business hub. Air France and corporate guests regularly choose this property for its proximity to the airport and reliability of service.',
-      media: const [
+      media: [
         ListingMediaItem(
           url:
               'https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=900&q=80',
@@ -639,14 +635,14 @@ abstract final class MockHomeDataSource {
           type: ListingMediaType.image,
         ),
       ],
-      host: const ListingHost(
+      host: ListingHost(
         id: 'h8',
         name: 'Kouamé Yao',
         avatarUrl:
             'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=200&q=80',
         isSuperhost: false,
       ),
-      location: const ListingLocation(
+      location: ListingLocation(
         address: 'Le Plateau, Abidjan',
         city: 'Abidjan',
         country: 'Ivory Coast',
@@ -655,7 +651,7 @@ abstract final class MockHomeDataSource {
         landmarkNote:
             'Avenue Botreau-Roussel, Le Plateau. Take the blue bridge from Cocody — the building is on your right after you pass SGBCI bank. It\'s a grey tower with "Résidence Lagune" in gold lettering.',
       ),
-      price: const ListingPrice(
+      price: ListingPrice(
         perNight: 100,
         cleaningFee: 30,
         serviceFee: 18,
@@ -664,7 +660,7 @@ abstract final class MockHomeDataSource {
         localPerNight: 60000,
         tourismLevyPercent: 4,
       ),
-      specs: const ListingSpecs(
+      specs: ListingSpecs(
         maxGuests: 4,
         bedrooms: 2,
         beds: 2,
@@ -687,7 +683,6 @@ abstract final class MockHomeDataSource {
       categoryId: 'serviced',
       isFeatured: true,
       isNew: true,
-      isPhysicallyVetted: false,
       verificationBadges: ['High-Speed WiFi', 'CCTV', 'Gated Estate'],
     ),
   ];

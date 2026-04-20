@@ -1,8 +1,8 @@
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../home/data/datasources/mock_home_datasource.dart';
-import '../../home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/home/data/datasources/mock_home_datasource.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
 
 part 'map_search_notifier.g.dart';
 
@@ -39,12 +39,11 @@ final class MapSearchLoaded extends MapSearchState {
     List<NearestListing>? nearestListings,
     String? selectedId,
     bool clearSelected = false,
-  }) =>
-      MapSearchLoaded(
-        allListings: allListings ?? this.allListings,
-        nearestListings: nearestListings ?? this.nearestListings,
-        selectedId: clearSelected ? null : (selectedId ?? this.selectedId),
-      );
+  }) => MapSearchLoaded(
+    allListings: allListings ?? this.allListings,
+    nearestListings: nearestListings ?? this.nearestListings,
+    selectedId: clearSelected ? null : (selectedId ?? this.selectedId),
+  );
 }
 
 // ── Helper ───────────────────────────────────────────────────────────────────
@@ -88,8 +87,7 @@ class MapSearchNotifier extends _$MapSearchNotifier {
         LatLng(l.latitude, l.longitude),
       );
       return NearestListing(listing: l, distanceKm: km);
-    }).toList()
-      ..sort((a, b) => a.distanceKm.compareTo(b.distanceKm));
+    }).toList()..sort((a, b) => a.distanceKm.compareTo(b.distanceKm));
 
     return result.take(6).toList();
   }

@@ -4,14 +4,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_image.dart';
-import '../../../../shared/widgets/app_rating_bar.dart';
-import '../../domain/entities/listing_entity.dart';
-import '../../../wishlist/application/wishlist_notifier.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_image.dart';
+import 'package:arenda/app/shared/widgets/app_rating_bar.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/wishlist/application/wishlist_notifier.dart';
 
 class ListingCardWidget extends ConsumerWidget {
   const ListingCardWidget({super.key, required this.listing, this.index = 0});

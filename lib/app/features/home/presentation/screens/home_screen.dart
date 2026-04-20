@@ -1,18 +1,19 @@
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_image.dart';
-import '../../../../shared/widgets/app_shimmer.dart';
-import '../../application/home_notifier.dart';
-import '../../application/home_state.dart';
-import '../widgets/listing_card_widget.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_image.dart';
+import 'package:arenda/app/shared/widgets/app_shimmer.dart';
+import 'package:arenda/app/features/home/application/home_notifier.dart';
+import 'package:arenda/app/features/home/application/home_state.dart';
+import 'package:arenda/app/features/home/presentation/widgets/listing_card_widget.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -133,7 +134,7 @@ class _SearchBarButton extends StatelessWidget {
               margin: const EdgeInsets.all(6),
               width: 32,
               height: 32,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.primary,
                 shape: BoxShape.circle,
               ),
@@ -332,20 +333,19 @@ class _CategoryFilterRow extends StatelessWidget {
 class _FeaturedCard extends StatelessWidget {
   const _FeaturedCard({required this.listing});
 
-  final dynamic listing;
+  final ListingEntity listing;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          context.push(AppRoutes.listingDetailPath(listing.id as String)),
+      onTap: () => context.push(AppRoutes.listingDetailPath(listing.id)),
       child: SizedBox(
         width: 240,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppImage(
-              url: listing.thumbnailUrl as String,
+              url: listing.thumbnailUrl,
               height: 180,
               width: 240,
               borderRadius: BorderRadius.circular(
@@ -369,14 +369,14 @@ class _FeaturedCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 3),
                 Text(
-                  (listing.rating as double).toStringAsFixed(2),
+                  (listing.rating).toStringAsFixed(2),
                   style: AppTextStyles.bodyXS.copyWith(
                     color: AppColors.textPrimary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
-                  ' · CFA ${((listing.pricePerNight as double) * 600).toInt()}/nuit',
+                  ' · CFA ${((listing.pricePerNight) * 600).toInt()}/nuit',
                   style: AppTextStyles.bodyXS,
                 ),
               ],

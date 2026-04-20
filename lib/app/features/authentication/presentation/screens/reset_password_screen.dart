@@ -3,11 +3,11 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_button.dart';
-import '../../../../shared/widgets/app_text_field.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
+import 'package:arenda/app/shared/widgets/app_text_field.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -59,12 +59,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           padding: const EdgeInsets.symmetric(
             horizontal: AppDimensions.paddingPage,
           ),
-          child: _sent ? _SuccessView(email: _emailCtrl.text.trim()) : _FormView(
-            formKey: _formKey,
-            emailCtrl: _emailCtrl,
-            loading: _loading,
-            onSubmit: _submit,
-          ),
+          child: _sent
+              ? _SuccessView(email: _emailCtrl.text.trim())
+              : _FormView(
+                  formKey: _formKey,
+                  emailCtrl: _emailCtrl,
+                  loading: _loading,
+                  onSubmit: _submit,
+                ),
         ),
       ),
     );
@@ -127,49 +129,43 @@ class _FormView extends StatelessWidget {
           const SizedBox(height: AppDimensions.spaceSM),
 
           Text(
-                'Entrez l\'adresse e-mail associée à votre compte. Nous vous enverrons un lien de réinitialisation.',
-                style: AppTextStyles.bodyMD.copyWith(
-                  color: AppColors.textSecondary,
-                  height: 1.55,
-                ),
-              )
-              .animate(delay: 120.ms)
-              .fadeIn(duration: 400.ms),
+            'Entrez l\'adresse e-mail associée à votre compte. Nous vous enverrons un lien de réinitialisation.',
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+              height: 1.55,
+            ),
+          ).animate(delay: 120.ms).fadeIn(duration: 400.ms),
 
           const SizedBox(height: AppDimensions.space3XL),
 
           AppTextField(
-                controller: emailCtrl,
-                label: 'Adresse e-mail',
-                hint: 'vous@exemple.com',
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.done,
-                onSubmitted: (_) => onSubmit(),
-                prefixIcon: Icon(
-                  PhosphorIcons.envelope(),
-                  size: 18,
-                  color: AppColors.textSecondary,
-                ),
-                validator: (v) {
-                  if (v == null || v.trim().isEmpty) {
-                    return 'L\'e-mail est requis';
-                  }
-                  if (!v.contains('@')) return 'Entrez un e-mail valide';
-                  return null;
-                },
-              )
-              .animate(delay: 160.ms)
-              .fadeIn(duration: 400.ms),
+            controller: emailCtrl,
+            label: 'Adresse e-mail',
+            hint: 'vous@exemple.com',
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.done,
+            onSubmitted: (_) => onSubmit(),
+            prefixIcon: Icon(
+              PhosphorIcons.envelope(),
+              size: 18,
+              color: AppColors.textSecondary,
+            ),
+            validator: (v) {
+              if (v == null || v.trim().isEmpty) {
+                return 'L\'e-mail est requis';
+              }
+              if (!v.contains('@')) return 'Entrez un e-mail valide';
+              return null;
+            },
+          ).animate(delay: 160.ms).fadeIn(duration: 400.ms),
 
           const Spacer(),
 
           AppButton(
-                label: 'Envoyer le lien',
-                onPressed: onSubmit,
-                isLoading: loading,
-              )
-              .animate(delay: 200.ms)
-              .fadeIn(duration: 400.ms),
+            label: 'Envoyer le lien',
+            onPressed: onSubmit,
+            isLoading: loading,
+          ).animate(delay: 200.ms).fadeIn(duration: 400.ms),
 
           const SizedBox(height: AppDimensions.spaceXXL),
         ],
@@ -223,60 +219,55 @@ class _SuccessView extends StatelessWidget {
         const SizedBox(height: AppDimensions.spaceSM),
 
         RichText(
-              text: TextSpan(
-                style: AppTextStyles.bodyMD.copyWith(
-                  color: AppColors.textSecondary,
-                  height: 1.55,
-                ),
-                children: [
-                  const TextSpan(
-                    text: 'Un lien de réinitialisation a été envoyé à ',
-                  ),
-                  TextSpan(
-                    text: email,
-                    style: AppTextStyles.bodyMD.copyWith(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const TextSpan(
-                    text:
-                        '. Vérifiez également vos spams si vous ne le voyez pas.',
-                  ),
-                ],
+          text: TextSpan(
+            style: AppTextStyles.bodyMD.copyWith(
+              color: AppColors.textSecondary,
+              height: 1.55,
+            ),
+            children: [
+              const TextSpan(
+                text: 'Un lien de réinitialisation a été envoyé à ',
               ),
-            )
-            .animate(delay: 120.ms)
-            .fadeIn(duration: 400.ms),
+              TextSpan(
+                text: email,
+                style: AppTextStyles.bodyMD.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const TextSpan(
+                text: '. Vérifiez également vos spams si vous ne le voyez pas.',
+              ),
+            ],
+          ),
+        ).animate(delay: 120.ms).fadeIn(duration: 400.ms),
 
         const SizedBox(height: AppDimensions.space2XL),
 
         Container(
-              padding: const EdgeInsets.all(AppDimensions.spaceMD),
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-                border: Border.all(color: AppColors.border),
+          padding: const EdgeInsets.all(AppDimensions.spaceMD),
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
+            border: Border.all(color: AppColors.border),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                PhosphorIcons.clockCountdown(PhosphorIconsStyle.fill),
+                size: 18,
+                color: AppColors.textSecondary,
               ),
-              child: Row(
-                children: [
-                  Icon(
-                    PhosphorIcons.clockCountdown(PhosphorIconsStyle.fill),
-                    size: 18,
-                    color: AppColors.textSecondary,
-                  ),
-                  const SizedBox(width: AppDimensions.spaceSM),
-                  Text(
-                    'Redirection automatique dans quelques secondes…',
-                    style: AppTextStyles.bodyXS.copyWith(
-                      color: AppColors.textSecondary,
-                    ),
-                  ),
-                ],
+              const SizedBox(width: AppDimensions.spaceSM),
+              Text(
+                'Redirection automatique dans quelques secondes…',
+                style: AppTextStyles.bodyXS.copyWith(
+                  color: AppColors.textSecondary,
+                ),
               ),
-            )
-            .animate(delay: 200.ms)
-            .fadeIn(duration: 400.ms),
+            ],
+          ),
+        ).animate(delay: 200.ms).fadeIn(duration: 400.ms),
       ],
     );
   }

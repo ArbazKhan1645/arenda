@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_button.dart';
-import '../../../home/data/datasources/mock_home_datasource.dart';
-import '../../../home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
+import 'package:arenda/app/features/home/data/datasources/mock_home_datasource.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class LandmarkNavigationScreen extends StatelessWidget {
@@ -224,7 +224,7 @@ class _MapPlaceholder extends StatelessWidget {
                 Icon(
                   PhosphorIcons.mapTrifold(),
                   size: 48,
-                  color: Color(0xFF00897B),
+                  color: const Color(0xFF00897B),
                 ),
                 const SizedBox(height: 8),
                 Text(

@@ -88,16 +88,10 @@ class SupabaseService implements ISupabaseService {
         url: url,
         anonKey: anonKey,
         debug: kDebugMode, // logs only in debug builds
-        authOptions: const FlutterAuthClientOptions(
-          authFlowType: AuthFlowType.pkce, // PKCE = more secure for mobile
-          autoRefreshToken: true,
-        ),
         realtimeClientOptions: const RealtimeClientOptions(
           logLevel: RealtimeLogLevel.info,
         ),
-        storageOptions: const StorageClientOptions(
-          retryAttempts: 3,
-        ),
+        storageOptions: const StorageClientOptions(retryAttempts: 3),
       );
 
       _initialized = true;
@@ -105,10 +99,7 @@ class SupabaseService implements ISupabaseService {
     } on SupabaseInitException {
       rethrow;
     } catch (e) {
-      throw SupabaseInitException(
-        'Failed to initialize Supabase',
-        cause: e,
-      );
+      throw SupabaseInitException('Failed to initialize Supabase', cause: e);
     }
   }
 }

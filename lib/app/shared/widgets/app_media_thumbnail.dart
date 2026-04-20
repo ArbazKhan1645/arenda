@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
 
 /// Detects whether a URL is a video by extension.
 bool isVideoUrl(String url) {
@@ -54,7 +54,8 @@ class AppMediaThumbnail extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
-        errorBuilder: (_, _, _) => _ErrorPlaceholder(width: width, height: height),
+        errorBuilder: (_, _, _) =>
+            _ErrorPlaceholder(width: width, height: height),
       ),
     );
   }
@@ -135,14 +136,20 @@ class _VideoThumbnail extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(PhosphorIcons.video(PhosphorIconsStyle.fill),
-                        size: 10, color: Colors.white),
+                    Icon(
+                      PhosphorIcons.video(PhosphorIconsStyle.fill),
+                      size: 10,
+                      color: Colors.white,
+                    ),
                     const SizedBox(width: 4),
-                    const Text('Vidéo',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600)),
+                    const Text(
+                      'Vidéo',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -182,14 +189,16 @@ class _FullScreenVideoPlayerState extends State<_FullScreenVideoPlayer> {
   void initState() {
     super.initState();
     _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url))
-      ..initialize().then((_) {
-        if (mounted) {
-          setState(() => _initialized = true);
-          _controller.play();
-        }
-      }).catchError((_) {
-        if (mounted) setState(() => _error = true);
-      });
+      ..initialize()
+          .then((_) {
+            if (mounted) {
+              setState(() => _initialized = true);
+              _controller.play();
+            }
+          })
+          .catchError((_) {
+            if (mounted) setState(() => _error = true);
+          });
   }
 
   @override
@@ -212,24 +221,29 @@ class _FullScreenVideoPlayerState extends State<_FullScreenVideoPlayer> {
                   ? Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(PhosphorIcons.warningCircle(),
-                            size: 48, color: Colors.white54),
+                        Icon(
+                          PhosphorIcons.warningCircle(),
+                          size: 48,
+                          color: Colors.white54,
+                        ),
                         const SizedBox(height: 12),
-                        const Text('Impossible de charger la vidéo',
-                            style: TextStyle(color: Colors.white54)),
+                        const Text(
+                          'Impossible de charger la vidéo',
+                          style: TextStyle(color: Colors.white54),
+                        ),
                       ],
                     )
                   : !_initialized
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : GestureDetector(
-                          onTap: () => _controller.value.isPlaying
-                              ? _controller.pause()
-                              : _controller.play(),
-                          child: AspectRatio(
-                            aspectRatio: _controller.value.aspectRatio,
-                            child: VideoPlayer(_controller),
-                          ),
-                        ),
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : GestureDetector(
+                      onTap: () => _controller.value.isPlaying
+                          ? _controller.pause()
+                          : _controller.play(),
+                      child: AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: VideoPlayer(_controller),
+                      ),
+                    ),
             ),
             // Close button
             Positioned(
@@ -259,7 +273,7 @@ class _FullScreenVideoPlayerState extends State<_FullScreenVideoPlayer> {
                     VideoProgressIndicator(
                       _controller,
                       allowScrubbing: true,
-                      colors: VideoProgressColors(
+                      colors: const VideoProgressColors(
                         playedColor: AppColors.primary,
                         bufferedColor: Colors.white30,
                         backgroundColor: Colors.white12,
@@ -305,7 +319,11 @@ class _ErrorPlaceholder extends StatelessWidget {
       height: height,
       color: AppColors.surface,
       child: Center(
-        child: Icon(PhosphorIcons.image(), size: 32, color: AppColors.textTertiary),
+        child: Icon(
+          PhosphorIcons.image(),
+          size: 32,
+          color: AppColors.textTertiary,
+        ),
       ),
     );
   }

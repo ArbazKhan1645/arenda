@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_text_styles.dart';
-import 'app_image.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_image.dart';
 
 class AppAvatar extends StatelessWidget {
   const AppAvatar({
@@ -34,7 +34,7 @@ class AppAvatar extends StatelessWidget {
         : Container(
             width: size,
             height: size,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.primaryLight,
               shape: BoxShape.circle,
             ),

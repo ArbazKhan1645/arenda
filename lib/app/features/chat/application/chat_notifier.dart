@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../data/datasources/mock_chat_datasource.dart';
-import '../domain/entities/conversation_entity.dart';
+import 'package:arenda/app/features/chat/data/datasources/mock_chat_datasource.dart';
+import 'package:arenda/app/features/chat/domain/entities/conversation_entity.dart';
 
 part 'chat_notifier.g.dart';
 
@@ -58,7 +58,7 @@ final class ConversationLoaded extends ConversationState {
   final List<MessageEntity> messages;
 }
 
-@Riverpod(keepAlive: false)
+@Riverpod()
 class ConversationNotifier extends _$ConversationNotifier {
   @override
   ConversationState build() => const ConversationLoading();
@@ -67,7 +67,9 @@ class ConversationNotifier extends _$ConversationNotifier {
     state = const ConversationLoading();
     await Future.delayed(const Duration(milliseconds: 300));
     final conversations = MockChatDataSource.getConversations();
-    final conversation = conversations.firstWhere((c) => c.id == conversationId);
+    final conversation = conversations.firstWhere(
+      (c) => c.id == conversationId,
+    );
     final messages = MockChatDataSource.getMessages(conversationId);
     state = ConversationLoaded(conversation: conversation, messages: messages);
   }
@@ -81,7 +83,6 @@ class ConversationNotifier extends _$ConversationNotifier {
       senderId: 'u1',
       content: content,
       sentAt: DateTime.now(),
-      isRead: false,
     );
     state = ConversationLoaded(
       conversation: current.conversation,

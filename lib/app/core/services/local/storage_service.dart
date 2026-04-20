@@ -107,27 +107,19 @@ class StorageService implements IStorageService {
   StorageService._({
     required SharedPreferences prefs,
     required FlutterSecureStorage secure,
-  })  : _prefs = prefs,
-        _secure = secure;
+  }) : _prefs = prefs,
+       _secure = secure;
 
   /// Factory async initializer — call once at app startup
   static Future<StorageService> init() async {
     final prefs = await SharedPreferences.getInstance();
 
-    // Android: encrypted with EncryptedSharedPreferences (API 23+)
-    // iOS: stored in Keychain
-    const secureOptions = AndroidOptions(
-      resetOnError: true, // prevents lockout on keystore corruption
-    );
     const iosOptions = IOSOptions(
       accessibility: KeychainAccessibility.first_unlock,
       // first_unlock = accessible after first device unlock (good for background tasks)
     );
 
-    const secure = FlutterSecureStorage(
-      aOptions: secureOptions,
-      iOptions: iosOptions,
-    );
+    const secure = FlutterSecureStorage(iOptions: iosOptions);
 
     return StorageService._(prefs: prefs, secure: secure);
   }
@@ -374,10 +366,7 @@ class StorageService implements IStorageService {
 
   /// Wipes BOTH SharedPreferences AND secure storage — use on logout
   Future<void> clearEverything() async {
-    await Future.wait([
-      clearAll(),
-      clearAllSecure(),
-    ]);
+    await Future.wait([clearAll(), clearAllSecure()]);
     debugPrint('[StorageService] Full wipe complete');
   }
 }

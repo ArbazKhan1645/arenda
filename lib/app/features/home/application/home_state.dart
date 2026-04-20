@@ -1,5 +1,5 @@
-import '../domain/entities/category_entity.dart';
-import '../domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/home/domain/entities/category_entity.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
 
 sealed class HomeState {
   const HomeState();
@@ -28,9 +28,7 @@ final class HomeLoaded extends HomeState {
 
   List<ListingEntity> get filteredListings {
     if (selectedCategoryId == 'all') return listings;
-    return listings
-        .where((l) => l.categoryId == selectedCategoryId)
-        .toList();
+    return listings.where((l) => l.categoryId == selectedCategoryId).toList();
   }
 
   HomeLoaded copyWith({

@@ -1,5 +1,5 @@
-import '../domain/entities/booking_entity.dart';
-import '../../home/domain/entities/listing_entity.dart';
+import 'package:arenda/app/features/booking/domain/entities/booking_entity.dart';
+import 'package:arenda/app/features/home/domain/entities/listing_entity.dart';
 
 sealed class BookingState {
   const BookingState();
@@ -23,8 +23,9 @@ final class BookingSelecting extends BookingState {
   final int guests;
 
   bool get canBook => checkIn != null && checkOut != null;
-  int get nights =>
-      checkIn != null && checkOut != null ? checkOut!.difference(checkIn!).inDays : 0;
+  int get nights => checkIn != null && checkOut != null
+      ? checkOut!.difference(checkIn!).inDays
+      : 0;
   double get subtotal => listing.discountedPrice * nights;
   double get total => subtotal + listing.cleaningFee + listing.serviceFee;
 
@@ -32,13 +33,12 @@ final class BookingSelecting extends BookingState {
     DateTime? checkIn,
     DateTime? checkOut,
     int? guests,
-  }) =>
-      BookingSelecting(
-        listing: listing,
-        checkIn: checkIn ?? this.checkIn,
-        checkOut: checkOut ?? this.checkOut,
-        guests: guests ?? this.guests,
-      );
+  }) => BookingSelecting(
+    listing: listing,
+    checkIn: checkIn ?? this.checkIn,
+    checkOut: checkOut ?? this.checkOut,
+    guests: guests ?? this.guests,
+  );
 }
 
 final class BookingLoading extends BookingState {

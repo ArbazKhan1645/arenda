@@ -6,16 +6,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../shared/widgets/app_button.dart';
-import '../../../../shared/widgets/app_text_field.dart';
-import '../../application/auth_notifier.dart';
-import '../../application/auth_state.dart';
-import '../../domain/enums/auth_provider_type.dart';
-import 'otp_screen.dart';
+import 'package:arenda/app/core/routes/app_routes.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
+import 'package:arenda/app/shared/widgets/app_button.dart';
+import 'package:arenda/app/shared/widgets/app_text_field.dart';
+import 'package:arenda/app/features/authentication/application/auth_notifier.dart';
+import 'package:arenda/app/features/authentication/application/auth_state.dart';
+import 'package:arenda/app/features/authentication/domain/enums/auth_provider_type.dart';
+import 'package:arenda/app/features/authentication/presentation/screens/otp_screen.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
@@ -64,7 +64,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
     if (_usePhone) {
       // Phone → OTP screen
       final identifier = '+225${_phoneCtrl.text.trim().replaceAll(' ', '')}';
-      context.push(
+      await context.push(
         AppRoutes.otp,
         extra: OtpArgs(
           providerType: AuthProviderType.phone,
@@ -119,7 +119,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                 // Brand mark
                 Row(
                   children: [
-                    AppLogo(),
+                    const AppLogo(),
                     const SizedBox(width: 12),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -372,7 +372,7 @@ class _CIPhoneField extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
                   border: Border.all(color: AppColors.border),
                 ),
-                child: Center(child: const _CIFlag()),
+                child: const Center(child: _CIFlag()),
               ),
               const SizedBox(width: AppDimensions.spaceSM),
               Expanded(

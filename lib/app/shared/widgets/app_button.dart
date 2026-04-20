@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_dimensions.dart';
-import '../../core/theme/app_text_styles.dart';
+import 'package:arenda/app/core/theme/app_colors.dart';
+import 'package:arenda/app/core/theme/app_dimensions.dart';
+import 'package:arenda/app/core/theme/app_text_styles.dart';
 
 enum AppButtonVariant { primary, secondary, outline, ghost, danger }
 
@@ -41,45 +41,45 @@ class AppButton extends StatelessWidget {
       width: width ?? double.infinity,
       child: switch (variant) {
         AppButtonVariant.primary => _PrimaryButton(
-            label: label,
-            onPressed: isActive ? onPressed : null,
-            isLoading: isLoading,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            radius: radius,
-          ),
+          label: label,
+          onPressed: isActive ? onPressed : null,
+          isLoading: isLoading,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          radius: radius,
+        ),
         AppButtonVariant.secondary => _SecondaryButton(
-            label: label,
-            onPressed: isActive ? onPressed : null,
-            isLoading: isLoading,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            radius: radius,
-          ),
+          label: label,
+          onPressed: isActive ? onPressed : null,
+          isLoading: isLoading,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          radius: radius,
+        ),
         AppButtonVariant.outline => _OutlineButton(
-            label: label,
-            onPressed: isActive ? onPressed : null,
-            isLoading: isLoading,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            radius: radius,
-          ),
+          label: label,
+          onPressed: isActive ? onPressed : null,
+          isLoading: isLoading,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          radius: radius,
+        ),
         AppButtonVariant.ghost => _GhostButton(
-            label: label,
-            onPressed: isActive ? onPressed : null,
-            isLoading: isLoading,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            radius: radius,
-          ),
+          label: label,
+          onPressed: isActive ? onPressed : null,
+          isLoading: isLoading,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          radius: radius,
+        ),
         AppButtonVariant.danger => _DangerButton(
-            label: label,
-            onPressed: isActive ? onPressed : null,
-            isLoading: isLoading,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            radius: radius,
-          ),
+          label: label,
+          onPressed: isActive ? onPressed : null,
+          isLoading: isLoading,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          radius: radius,
+        ),
       },
     );
   }
@@ -127,10 +127,7 @@ class _ButtonContent extends StatelessWidget {
           prefixIcon!,
           const SizedBox(width: AppDimensions.spaceSM),
         ],
-        Text(
-          label,
-          style: AppTextStyles.buttonLG.copyWith(color: labelColor),
-        ),
+        Text(label, style: AppTextStyles.buttonLG.copyWith(color: labelColor)),
         if (suffixIcon != null) ...[
           const SizedBox(width: AppDimensions.spaceSM),
           suffixIcon!,
